@@ -1,0 +1,204 @@
+@charset "UTF-8";
+/* CSS Document */
+
+h1, h2, h3
+{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1 {
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color:black;
+}
+
+h2 {
+	font-size: 100%;
+	font-weight: normal;
+	color:gray;
+	letter-spacing: 0.02em;
+}
+
+header {
+	position: fixed;
+  z-index: 3;
+  top: 0vh;
+  bottom: auto;
+  text-align: center;
+  width: 100%;
+	background: white;
+	padding-bottom: 15px;
+	box-shadow: 0px 1px 10px grey;
+}
+
+section {
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+}
+
+footer {
+	position: fixed;
+  z-index: 2;
+  bottom: 0vh;
+  text-align:center;
+  width: 100%;
+	background: white;
+	padding-top: 20px;
+	box-shadow: 0px -1px 10px grey;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+nav {
+	line-height:60px;
+	height:60px;
+	padding:5px;
+}
+
+li {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+a:link, a:visited {
+	width: 130px;
+	color: #000000;
+	text-align: center;
+	padding: 7px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+a:hover, a:active {
+	color: #3B5998;
+}
+
+.nav li {
+	display:inline;
+}
+
+.nav a {
+	display:inline-block;
+	padding:10px;
+	vertical-align: middle;
+}
+
+/* Parallax base styles
+--------------------------------------------- */
+
+.parallax {
+  height: 1000px; /* fallback for older browsers */
+	height: 111vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 111px;
+}
+
+.parallax__group {
+  position: relative;
+  height: 1000px; /* fallback for older browsers */
+	height: 111vh;
+  transform-style: preserve-3d;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.parallax__layer--base {
+  transform: translateZ(0);
+  z-index: 4;
+}
+
+.parallax__layer--back {
+  transform: translateZ(-111px) scale(2);
+  z-index: 3;
+}
+
+.parallax__layer--deep {
+  transform: translateZ(-222px) scale(3);
+  z-index: 2;
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Parallax group styles
+--------------------------------------------- */
+
+#group1 {
+  z-index: 5; /* slide over group 2 */
+}
+#group1 .parallax__layer--base {
+  background-image: url("../images/northumberland.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group2 {
+  z-index: 3; /* slide under groups 1 and 3 */
+}
+#group2 .parallax__layer--back {
+	background-image: url("../images/roseberrytopping.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group3 {
+  z-index: 4; /* slide over group 2 and 4 */
+}
+#group3 .parallax__layer--base {
+	background-image: url("../images/bath.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group4 {
+  z-index: 2; /* slide under group 3 and 5 */
+}
+#group4 .parallax__layer--deep {
+	background-image: url("../images/ashnessjetty.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group5 {
+  z-index: 3; /* slide over group 4 and 6 */
+}
+#group5 .parallax__layer--base {
+	background-image: url("../images/durdledoor.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group6 {
+  z-index: 1; /* slide under group 5 and 7 */
+}
+#group6 .parallax__layer--back {
+	background-image: url("../images/kernow.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
+
+#group7 {
+  z-index: 2; /* slide over group 7 */
+}
+#group7 .parallax__layer--base {
+	background-image: url("../images/swaledale.jpg");
+	background-repeat: no-repeat;
+	background-size:contain;
+}
