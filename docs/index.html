@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Millman Photography</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  </head>
+  <body>
+    <!-- The header of the page. -->
+    <header>
+      <p class=".centeredImage"><img src="images/signature.png" width="250" height="125" alt=""/></p>
+      <h1>Millman Photography</h1>
+      <h2>Photography by Freddie John Millman</h2>
+      <nav>
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutme.html">About Me</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="prints.html">Prints</a></li>
+          <li><a href="contactme.html">Contact Me</a></li>
+        </ul>
+      </nav>
+      <hr>
+      <br>
+    </header>
+
+    <!-- The content of the page. -->
+    <section>
+      <p><img id = "slideshow" src = "slideshow/agiosgordios.jpg" width = 100%/></p>
+      <script type="text/javascript">
+        var photos = [
+            'agiosgordios',
+            'bath',
+            'inforthefeed',
+            'inreflection',
+            'kernow',
+            'lowforce',
+            'primrosehill',
+            'romanbaths',
+            'roseberrytopping',
+            'stgeorgeswharf'
+        ];
+        var numberOfImages = photos.length;
+        var image = document.getElementById("slideshow");
+        var slide = 2;
+        function slideit() {
+            image.src = "./slideshow/" + photos[slide] + '.jpg';
+            if(slide < numberOfImages - 1)
+                slide++;
+            else
+                slide = 1;
+            setTimeout("slideit()", 5000);
+        }
+        slideit();
+      </script>
+    </section>
+
+    <!-- The footer of the page. -->
+    <footer>
+      <hr>
+      <p>Photography by Freddie John Millman
+        | <a style="display:inline" href="https://www.facebook.com/millmanphotography" target="_blank">Facebook</a>
+        | <a style="display:inline" href="https://instagram.com/millmanphotography" target="_blank">Instagram</a></p>
+    </footer>
+  </body>
+</html>

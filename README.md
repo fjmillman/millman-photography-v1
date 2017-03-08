@@ -1,2 +1,2 @@
-# millmanphotography
-The next big thing in photography
+# Millman Photography
+The next big thing in photography.
