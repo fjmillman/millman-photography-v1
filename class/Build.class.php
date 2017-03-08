@@ -34,11 +34,9 @@ class Build implements Render
 
     private function renderHead()
     {
-        echo '<head>';
         echo '<title>'.$this->page.'</title>';
         $this->renderMetadata();
         $this->linkCss();
-        echo '</head>';
     }
 
     private function renderMetadata()
@@ -64,10 +62,8 @@ class Build implements Render
 
     private function renderBody()
     {
-        echo '<body>';
         $this->header->render();
         $this->content->render();
         $this->footer->render();
-        echo '</body>';
     }
 }
