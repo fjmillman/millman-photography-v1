@@ -58,7 +58,7 @@ class Build implements Render
     private function linkCss()
     {
         foreach (CssConfig::CSS as $filename) {
-            echo '<link rel="stylesheet" href="../Css/'. $filename .'.css">';
+            echo '<link rel="stylesheet" href="'. Config::ROOT .'css/'. $filename .'.css">';
         }
     }
 

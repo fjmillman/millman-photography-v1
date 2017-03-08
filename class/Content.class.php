@@ -18,27 +18,9 @@ class Content implements Render
 
     private function processContent()
     {
-        switch ($this->page) {
-            case PAGE::HOME:
-                $content = new Home();
-                break;
-            case PAGE::ABOUT_ME:
-                $content = new AboutMe();
-                break;
-            case PAGE::GALLERY:
-                $content = new Gallery();
-                break;
-            case PAGE::BLOG_POSTS:
-                $content = new BlogPosts();
-                break;
-            case PAGE::PRINTS:
-                $content = new Prints();
-                break;
-            case PAGE::CONTACT_ME:
-                $content = new ContactMe();
-                break;
+        if (in_array($this->page, PAGE::PARENT)) {
+            $content = new $this->page();
+            $content->render();
         }
-
-        $content->render();
     }
 }

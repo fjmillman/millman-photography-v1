@@ -18,6 +18,6 @@ class Home implements Render
 
     public function processPage()
     {
-
+        $this->parallax->render();
     }
 }
