@@ -2,8 +2,6 @@
 
 class ImageConfig
 {
-    const BASE_URL = '~/image/';
-
     const NORTHUMBERLAND = 'northumberland';
     const ROSEBERRY_TOPPING = 'roseberrytopping';
     const BATH = 'bath';

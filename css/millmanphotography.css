@@ -233,7 +233,6 @@ html {
 }
 
 #group2 .parallax__layer--back {
-    background-image: url("../images/roseberrytopping.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -243,7 +242,6 @@ html {
 }
 
 #group3 .parallax__layer--base {
-    background-image: url("../images/bath.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -253,7 +251,6 @@ html {
 }
 
 #group4 .parallax__layer--deep {
-    background-image: url("../images/ashnessjetty.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -263,7 +260,6 @@ html {
 }
 
 #group5 .parallax__layer--base {
-    background-image: url("../images/durdledoor.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -273,7 +269,6 @@ html {
 }
 
 #group6 .parallax__layer--back {
-    background-image: url("../images/kernow.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -283,7 +278,6 @@ html {
 }
 
 #group7 .parallax__layer--base {
-    background-image: url("../images/swaledale.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }

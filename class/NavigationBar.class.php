@@ -44,7 +44,7 @@ class NavigationBar implements Render
 
     private function renderHomeElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/index.php"><image src="image/signature.png" width="120" height="50" alt="Millman Photography"/></a>';
+        echo '<a href="' . Config::BASE_URL . '/index.php"><image src="'. Config::ROOT .'image/signature.png" width="120" height="50" alt="Millman Photography"/></a>';
     }
     private function renderAboutMeElement()
     {
