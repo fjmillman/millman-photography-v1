@@ -14,7 +14,8 @@ class Parallax implements Render
         for ($i = 1; $i <= 7; $i++) {
             echo '<div id="group' . $i . '" class="parallax_group">';
             echo '<div class="parallax_layer parallax_layer-' . $this->getParallaxLayer($i) . '" '
-                . 'style="background-image: url("'. Config::ROOT . 'image/' . ImageConfig::PARALLAX[$i] . '.jpg")">';
+                . 'style="background-image: url("'. Config::ROOT . 'image/' . ImageConfig::PARALLAX[$i - 1] . '.jpg")">';
+            echo '</div>';
             echo '</div>';
         }
     }

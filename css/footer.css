@@ -1,10 +1,11 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.footer {
+footer {
     position: fixed;
     z-index: 2;
     bottom: 0vh;
+    left: 0vh;
     text-align: center;
     width: 100%;
     background: white;

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.header {
+header {
     position: fixed;
     z-index: 3;
     top: 0vh;
@@ -20,7 +20,7 @@ ul {
     overflow: hidden;
 }
 
-.nav {
+nav {
     line-height: 60px;
     height: 60px;
     padding: 5px;
@@ -32,17 +32,12 @@ li {
     line-height: 1.5em;
 }
 
-.nav li {
+.navigation li {
     display: inline;
 }
 
-.nav a {
+.navigation a {
     display: inline-block;
     padding: 10px;
     vertical-align: middle;
-}
-
-html {
-    height: 100%;
-    overflow: hidden;
 }

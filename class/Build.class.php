@@ -62,8 +62,16 @@ class Build implements Render
 
     private function renderBody()
     {
+        echo '<header>';
         $this->header->render();
+        echo '</header>';
+
+        echo '<section>';
         $this->content->render();
+        echo '</section>';
+
+        echo '<footer>';
         $this->footer->render();
+        echo '</footer>';
     }
 }

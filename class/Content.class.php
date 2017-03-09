@@ -11,9 +11,7 @@ class Content implements Render
 
     public function render()
     {
-        echo '<div id="content">';
         $this->processContent();
-        echo '</div>';
     }
 
     private function processContent()

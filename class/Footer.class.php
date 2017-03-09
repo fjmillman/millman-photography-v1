@@ -4,9 +4,7 @@ class Footer implements Render
 {
     public function render()
     {
-        echo '<div id="footer">';
         $this->renderFooter();
-        echo '</div>';
     }
 
     private function renderFooter()

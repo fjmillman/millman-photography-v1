@@ -11,8 +11,8 @@ class Header implements Render
 
     public function render()
     {
-        echo '<div id="header">';
+        echo '<nav>';
         $this->navigationBar->render();
-        echo '</div>';
+        echo '</nav>';
     }
 }

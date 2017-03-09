@@ -44,26 +44,26 @@ class NavigationBar implements Render
 
     private function renderHomeElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/index.php"><image src="'. Config::ROOT .'image/signature.png" width="120" height="50" alt="Millman Photography"/></a>';
+        echo '<a href="' . Config::BASE_URL . 'index.php"><image src="'. Config::ROOT .'image/signature.png" width="120" height="50" alt="Millman Photography"/></a>';
     }
     private function renderAboutMeElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/aboutme.php">About Me</a>';
+        echo '<a href="' . Config::BASE_URL . 'aboutme.php">About Me</a>';
     }
     private function renderGalleryElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/gallery.php">Gallery</a>';
+        echo '<a href="' . Config::BASE_URL . 'gallery.php">Gallery</a>';
     }
     private function renderBlogPostsElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/blogposts.php">Blog Posts</a>';
+        echo '<a href="' . Config::BASE_URL . 'blogposts.php">Blog Posts</a>';
     }
     private function renderPrintsElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/prints.php">Prints</a>';
+        echo '<a href="' . Config::BASE_URL . 'prints.php">Prints</a>';
     }
     private function renderContactMeElement()
     {
-        echo '<a href="' . Config::BASE_URL . '/contactme.php">Contact Me</a>';
+        echo '<a href="' . Config::BASE_URL . 'contactme.php">Contact Me</a>';
     }
 }
