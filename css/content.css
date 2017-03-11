@@ -3,7 +3,10 @@
 
 section {
     position: fixed;
+    top: 10vh;
     left: 0vh;
+    right: 0vh;
+    bottom: 10vh;
     z-index: 1;
     width: 100%;
 }

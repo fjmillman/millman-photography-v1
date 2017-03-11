@@ -7,7 +7,6 @@
 /* Larger than mobile */
 @media (min-width: 400px) {
     .parallax {
-        height: 500px; /* fallback for older browsers */
         height: 40vh;
         overflow-x: hidden;
         overflow-y: auto;
@@ -17,7 +16,6 @@
 
     .parallax_group {
         position: relative;
-        height: 500px; /* fallback for older browsers */
         height: 40vh;
         transform-style: preserve-3d;
     }
@@ -36,7 +34,6 @@
 /* Larger than phablet */
 @media (min-width: 550px) {
     .parallax {
-        height: 500px; /* fallback for older browsers */
         height: 55vh;
         overflow-x: hidden;
         overflow-y: auto;
@@ -46,7 +43,6 @@
 
     .parallax_group {
         position: relative;
-        height: 500px; /* fallback for older browsers */
         height: 55vh;
         transform-style: preserve-3d;
     }
@@ -65,7 +61,6 @@
 /* Larger than tablet */
 @media (min-width: 750px) {
     .parallax {
-        height: 500px; /* fallback for older browsers */
         height: 75vh;
         overflow-x: hidden;
         overflow-y: auto;
@@ -75,7 +70,6 @@
 
     .parallax_group {
         position: relative;
-        height: 500px; /* fallback for older browsers */
         height: 75vh;
         transform-style: preserve-3d;
     }
@@ -94,7 +88,6 @@
 /* Larger than desktop */
 @media (min-width: 1000px) {
     .parallax {
-        height: 500px; /* fallback for older browsers */
         height: 100vh;
         overflow-x: hidden;
         overflow-y: auto;
@@ -104,7 +97,6 @@
 
     .parallax_group {
         position: relative;
-        height: 500px; /* fallback for older browsers */
         height: 100vh;
         transform-style: preserve-3d;
     }
@@ -123,7 +115,6 @@
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
     .parallax {
-        height: 500px; /* fallback for older browsers */
         height: 125vh;
         overflow-x: hidden;
         overflow-y: auto;
@@ -133,7 +124,6 @@
 
     .parallax_group {
         position: relative;
-        height: 500px; /* fallback for older browsers */
         height: 125vh;
         transform-style: preserve-3d;
     }
@@ -151,10 +141,10 @@
 
 .parallax_layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0vh;
+    left: 0vh;
+    right: 0vh;
+    bottom: 0vh;
     transform-origin-x: 100%;
 }
 
