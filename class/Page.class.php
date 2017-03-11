@@ -8,7 +8,6 @@ class Page
     const BLOG_POSTS = 'Blog Posts';
     const PRINTS = 'Prints';
     const CONTACT_ME = 'Contact Me';
-    const STATUS_404 = 'Status 404';
 
     const PARENT = [
         self::HOME,
@@ -17,6 +16,5 @@ class Page
         self::BLOG_POSTS,
         self::PRINTS,
         self::CONTACT_ME,
-        self::STATUS_404,
     ];
 }

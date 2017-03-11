@@ -6,26 +6,25 @@ $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 
 switch ($request_uri[0]) {
     case '/':
-        $page = 'index';
+        $page = 'Home';
         break;
     case '/aboutme':
-        $page = 'aboutme';
+        $page = 'About Me';
         break;
     case '/gallery':
-        $page = 'gallery';
+        $page = 'Gallery';
         break;
     case '/blogposts':
-        $page = 'blogposts';
+        $page = 'Blog Posts';
         break;
     case '/prints':
-        $page = 'prints';
+        $page = 'Prints';
         break;
     case '/contactme':
-        $page = 'contactme';
+        $page = 'Contact Me';
         break;
     default:
         header('HTTP/1.0 404 Not Found');
-        $page = 'status404';
         break;
 }
 

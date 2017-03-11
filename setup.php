@@ -2,5 +2,12 @@
 
 require_once($root . 'bootstrap.php');
 
-$$page = new Build($page);
-$$page->render();
+if (isset($page)) {
+    $$page = new Build($page);
+    $$page->render();
+}
+
+if (isset($name) && isset($extension)) {
+    $serve = new Serve($name, $extension);
+    $serve->processImage();
+}
