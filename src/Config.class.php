@@ -6,5 +6,5 @@ class Config
 
     const ROOT = '/home/fjmillman/millmanphotography/';
 
-    const IMAGE_ROOT = '/home/fjmillman/millmanphotography/image/';
+    const IMAGE_ROOT = '/home/fjmillman/public_html/image/';
 }

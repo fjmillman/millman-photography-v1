@@ -15,7 +15,7 @@ class AboutMe implements Render
         echo 'Fred Millman is a Yorkshire-born student of Computer Science based in the UNESCO world heritage city of Bath in the United Kingdom.';
         echo '</p>';
         echo '<p>';
-        echo '<img src="' . Config::BASE_URL . 'serve.php?image=fred.jpg" alt="Fred" width="300" height="400" align:"middle"/>';
+        echo '<img src="' . Config::IMAGE_ROOT . 'fred.jpg" alt="Fred" width="300" height="400" align:"middle"/>';
         echo '</p>';
         echo '<p>';
         echo 'He began his path into photography by picking up a DSLR and joining up with the University of Bath\'s Photography Society in his first year.';
