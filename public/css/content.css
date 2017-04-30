@@ -10,3 +10,7 @@ section {
     z-index: 1;
     width: 100%;
 }
+
+p {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}

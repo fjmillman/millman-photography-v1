@@ -1,10 +1,10 @@
 <?php
 
+namespace MillmanPhotography;
+
 class Config
 {
-    const BASE_URL = 'http://millmanphotography.co.uk/';
-
-    const ROOT = '/home/fjmillman/millmanphotography/';
-
-    const IMAGE_ROOT = '/home/fjmillman/public_html/image/';
+    const BASE_URL = 'http://millmanphotography.dev/';
+    const IMAGE_ROOT = self::BASE_URL . 'image' . DS;
+    const CSS_ROOT = self::BASE_URL . 'css' . DS;
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Millman Photography">
+        <meta name="author" content="Freddie John Millman">
+        <meta name="keywords" content="freddie fred john millman photography gallery">
+        <link rel="stylesheet" type="text/css" href="/css/millmanphotography.css">
+        <link rel="stylesheet" type="text/css" href="/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/css/content.css">
+        <link rel="stylesheet" type="text/css" href="/css/footer.css">
+        <link rel="stylesheet" type="text/css" href="/css/parallax.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="navigation">
+                    <li><a href="{{ baseUrl }}"><img src="{{ baseUrl }}image/signature.png" width="120" height="50" alt="Millman Photography"></a></li>
+                    <li><a href="{{ baseUrl }}about">About Me</a></li>
+                    <li><a href="{{ baseUrl }}gallery">Gallery</a></li>
+                    <li><a href="{{ baseUrl }}blog">Blog Posts</a></li>
+                    <li><a href="{{ baseUrl }}prints">Prints</a></li>
+                    <li><a href="{{ baseUrl }}contact">Contact Me</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            {% block section %}
+            {% endblock %}
+        </section>
+        <footer><h2>Photography by Freddie John Millman
+            | <a style="display:inline" href="https://facebook.com/millmanphotography" target="_blank">Facebook</a>
+            | <a style="display:inline" href="https://instagram.com/millmanphotography" target="_blank">Instagram</a></h2>
+        </footer>
+    </body>
+</html>

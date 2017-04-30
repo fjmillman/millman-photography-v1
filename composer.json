@@ -1,0 +1,15 @@
+{
+    "require": {
+        "slim/slim": "^3.8",
+        "slim/twig-view": "^2.2",
+        "twig/twig": "^2.3"
+    },
+    "autoload": {
+        "config": {
+          "optimize-autoloader": true
+        },
+        "psr-4": {
+            "MillmanPhotography\\" : "src/"
+        }
+    }
+}

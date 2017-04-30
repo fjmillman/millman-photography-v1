@@ -1,7 +1,12 @@
 <?php
 
+namespace MillmanPhotography;
+
 class ImageConfig
 {
+    const EXT_JPEG = '.jpg';
+    const EXT_PNG = '.png';
+
     const NORTHUMBERLAND = 'northumberland';
     const ROSEBERRY_TOPPING = 'roseberrytopping';
     const BATH = 'bath';
@@ -9,15 +14,4 @@ class ImageConfig
     const DURDLE_DOOR = 'durdledoor';
     const KERNOW = 'kernow';
     const SWALEDALE = 'swaledale';
-
-
-    const PARALLAX = [
-        self::NORTHUMBERLAND,
-        self::ROSEBERRY_TOPPING,
-        self::BATH,
-        self::ASHNESS_JETTY,
-        self::DURDLE_DOOR,
-        self::KERNOW,
-        self::SWALEDALE,
-    ];
 }

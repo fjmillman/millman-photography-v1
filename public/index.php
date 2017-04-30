@@ -1,31 +1,24 @@
 <?php
 
-$root = '/home/fjmillman/millmanphotography/';
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', realpath(dirname(__DIR__)));
+define('PUBLIC_HTML', ROOT . DS . 'public' . DS);
+define('CONFIG', ROOT . DS . 'config' . DS);
+define('SRC', ROOT . DS . 'src' . DS);
+define('VENDOR', ROOT . DS . 'vendor' . DS);
 
-$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+require VENDOR . '/autoload.php';
 
-switch ($request_uri[0]) {
-    case '/':
-        $page = 'Home';
-        break;
-    case '/aboutme':
-        $page = 'About Me';
-        break;
-    case '/gallery':
-        $page = 'Gallery';
-        break;
-    case '/blogposts':
-        $page = 'Blog Posts';
-        break;
-    case '/prints':
-        $page = 'Prints';
-        break;
-    case '/contactme':
-        $page = 'Contact Me';
-        break;
-    default:
-        header('HTTP/1.0 404 Not Found');
-        break;
-}
+$settings = require CONFIG . '/settings.php';
 
-require_once($root . 'setup.php');
+$millmanphotography = new Slim\App($settings);
+
+require CONFIG . '/dependencies.php';
+require CONFIG . '/middleware.php';
+require CONFIG . '/routes.php';
+
+set_error_handler(function ($severity, $message, $file, $line) {
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}, E_ALL);
+
+$millmanphotography->run();
