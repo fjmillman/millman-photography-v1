@@ -7,7 +7,7 @@ define('CONFIG', ROOT . DS . 'config' . DS);
 define('SRC', ROOT . DS . 'src' . DS);
 define('VENDOR', ROOT . DS . 'vendor' . DS);
 
-require VENDOR . '/autoload.php';
+require VENDOR . 'autoload.php';
 
 $settings = require CONFIG . '/settings.php';
 
