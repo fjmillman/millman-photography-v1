@@ -1,0 +1,23 @@
+{
+  "name": "millmanphotography",
+  "version": "1.0.0",
+  "description": "Photography by Freddie John Millman",
+  "main": "public/index.php",
+  "repository": "git@github.com:fjmillman/millmanphotography.git",
+  "author": "fjmillman <freddie.millman@icloud.com>",
+  "license": "Copyright 2017 Freddie John Millman",
+  "dependencies": {
+    "cssnano": "^3.10.0",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^6.4.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "lost": "^8.0.0",
+    "postcss": "^5.2.17",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cli": "^3.2.0",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-import": "^9.1.0",
+    "postcss-reporter": "^3.0.0",
+    "postcss-url": "^6.0.4"
+  }
+}

@@ -4,6 +4,9 @@
         "slim/twig-view": "^2.2",
         "twig/twig": "^2.3"
     },
+    "require-dev": {
+        "phing/phing": "^2.0"
+    },
     "autoload": {
         "config": {
           "optimize-autoloader": true
