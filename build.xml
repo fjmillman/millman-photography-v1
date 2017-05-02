@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Millman Photography" default="build" basedir=".">
+    <!-- Run build -->
+    <target name="build" description="Build Millman Photography" depends="composer-install, gulp-css">
+        <property file="build.properties"/>
+        <echo msg="Copying to build directory..."/>
+        <copy todir="build">
+            <fileset refid="publicfiles"/>
+        </copy>
+    </target>
+
+    <!-- Run composer install -->
+    <target name="composer-install">
+        <echo>Composer install...</echo>
+        <exec command="composer install -o" dir="${project.basedir}" passthru="true" checkreturn="true"/>
+    </target>
+
+    <!-- Run composer dump-autoload -->
+    <target name="composer-dump-autoload" depends="composer-install">
+        <echo>Composer install...</echo>
+        <exec command="composer dump-autoload -o" dir="${project.basedir}" passthru="true" checkreturn="true"/>
+    </target>
+
+    <!-- Gulp CSS -->
+    <target name="gulp-css">
+        <echo>Gulping css...</echo>
+        <exec command="gulp css" dir="${project.basedir}" passthru="true" checkreturn="true"/>
+    </target>
+
+    <fileset id="publicfiles">
+        <include name="*"/>
+        <exclude name="*.tmp"/>
+    </fileset>
+
+    <ftpdeploy
+            host="${ftp.username}"
+            port="${ftp.port}"
+            username="${ftp.username}"
+            password="${ftp.password}"
+            dir="${ftp.dir}"
+            mode="${ftp.mode}">
+        <fileset refid="publicfiles"/>
+    </ftpdeploy>
+</project>
