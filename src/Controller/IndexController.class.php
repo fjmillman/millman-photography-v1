@@ -2,35 +2,42 @@
 
 namespace MillmanPhotography;
 
+use Projek\Slim\Plates;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Container;
 
 class IndexController
 {
+    /** @var Plates $view */
     private $view;
 
-    public function __construct(Container $container)
+    /**
+     * @param Plates $view
+     * @param GalleryController $galleryController
+     * @param BlogController $blogController
+     */
+    public function __construct(Plates $view, GalleryController $galleryController, BlogController $blogController)
     {
-        $this->view = $container->get('View');
+        $this->view = $view;
+        $this->galleryController = $galleryController;
+        $this->blogController = $blogController;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @return ResponseInterface
+     */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
-        $image = [
-            Config::IMAGE_ROOT . ImageConfig::NORTHUMBERLAND . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::ROSEBERRY_TOPPING . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::BATH . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::ASHNESS_JETTY . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::DURDLE_DOOR . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::KERNOW . ImageConfig::EXT_JPEG,
-            Config::IMAGE_ROOT . ImageConfig::SWALEDALE . ImageConfig::EXT_JPEG,
-        ];
-
+        $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
-            $response->withStatus(200),
-            'index.html',
-            ['title' => Page::MILLMAN_PHOTOGRAPHY, 'image' => $image]
+            'index',
+            [
+                'pages' => Page::getPages(),
+                'blogItems' => $this->blogController->retrieveLatestPosts(),
+                'galleryItems' => $this->galleryController->retrieveFrontPageGalleries(),
+            ]
         );
     }
 }

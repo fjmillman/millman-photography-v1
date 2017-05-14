@@ -1,23 +1,11 @@
 <?php
 
-use \MillmanPhotography\IndexController;
-use \MillmanPhotography\AboutMeController;
-use \MillmanPhotography\ContactMeController;
+use MillmanPhotography\IndexController;
+use MillmanPhotography\GalleryController;
+use MillmanPhotography\BlogController;
 
 $millmanphotography->get('/[index]', IndexController::class);
 
-$millmanphotography->get('/aboutme', AboutMeController::class);
+$millmanphotography->get('/gallery', GalleryController::class);
 
-$millmanphotography->get('/gallery', function ($request, $response) {
-
-});
-
-$millmanphotography->get('/blogposts', function ($request, $response) {
-
-});
-
-$millmanphotography->get('/prints', function ($request, $response) {
-
-});
-
-$millmanphotography->get('/contactme', ContactMeController::class);
+$millmanphotography->get('/blog', BlogController::class);

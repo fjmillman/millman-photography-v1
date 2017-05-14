@@ -1,1 +1,376 @@
-html{height:100%;overflow:hidden}h1{text-transform:uppercase;letter-spacing:.1em;color:#000}h1,h2{font-family:HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:400}h2{font-size:100%;color:gray;letter-spacing:.02em}h3,p{font-family:HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif}a:link,a:visited{width:130px;color:#000;text-align:center;padding:7px;text-decoration:none;text-transform:uppercase}a:active,a:hover{color:#3b5998}header{position:fixed;z-index:3;top:0;left:0;text-align:center;width:100%;background:#fff;padding-bottom:15px;box-shadow:0 1px 10px gray}ul{list-style-type:none;margin:0;padding:0;overflow:hidden}nav{line-height:60px;height:60px;padding:5px}li{font:16px/1.5em HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif}.navigation li{display:inline}.navigation a{display:inline-block;padding:10px;vertical-align:middle}section{top:10vh;right:0;bottom:10vh;z-index:1}footer,section{position:fixed;left:0;width:100%}footer{z-index:2;bottom:0;text-align:center;background:#fff;padding-top:10px;padding-bottom:10px;box-shadow:0 -1px 10px gray}@media (min-width:400px){.parallax{height:40vh;overflow-x:hidden;overflow-y:auto;-webkit-perspective:40vh;perspective:40vh;-webkit-perspective-origin:100%;perspective-origin:100%}.parallax_group{position:relative;height:40vh;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.parallax_layer-back{-webkit-transform:translateZ(-40px) scale(2);transform:translateZ(-40px) scale(2);z-index:3}.parallax_layer-deep{-webkit-transform:translateZ(-80px) scale(3);transform:translateZ(-80px) scale(3);z-index:2}}@media (min-width:550px){.parallax{height:55vh;overflow-x:hidden;overflow-y:auto;-webkit-perspective:55vh;perspective:55vh;-webkit-perspective-origin:100%;perspective-origin:100%}.parallax_group{position:relative;height:55vh;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.parallax_layer-back{-webkit-transform:translateZ(-55px) scale(2);transform:translateZ(-55px) scale(2);z-index:3}.parallax_layer-deep{-webkit-transform:translateZ(-110px) scale(3);transform:translateZ(-110px) scale(3);z-index:2}}@media (min-width:750px){.parallax{height:75vh;overflow-x:hidden;overflow-y:auto;-webkit-perspective:75px;perspective:75px;-webkit-perspective-origin:100%;perspective-origin:100%}.parallax_group{position:relative;height:75vh;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.parallax_layer-back{-webkit-transform:translateZ(-75px) scale(2);transform:translateZ(-75px) scale(2);z-index:3}.parallax_layer-deep{-webkit-transform:translateZ(-150px) scale(3);transform:translateZ(-150px) scale(3);z-index:2}}@media (min-width:1000px){.parallax{height:100vh;overflow-x:hidden;overflow-y:auto;-webkit-perspective:100px;perspective:100px;-webkit-perspective-origin:100%;perspective-origin:100%}.parallax_group{position:relative;height:100vh;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.parallax_layer-back{-webkit-transform:translateZ(-100px) scale(2);transform:translateZ(-100px) scale(2);z-index:3}.parallax_layer-deep{-webkit-transform:translateZ(-200px) scale(3);transform:translateZ(-200px) scale(3);z-index:2}}@media (min-width:1200px){.parallax{height:125vh;overflow-x:hidden;overflow-y:auto;-webkit-perspective:125px;perspective:125px;-webkit-perspective-origin:100%;perspective-origin:100%}.parallax_group{position:relative;height:125vh;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.parallax_layer-back{-webkit-transform:translateZ(-125px) scale(2);transform:translateZ(-125px) scale(2);z-index:3}.parallax_layer-deep{-webkit-transform:translateZ(-250px) scale(3);transform:translateZ(-250px) scale(3);z-index:2}}.parallax_layer{position:absolute;top:0;left:0;right:0;bottom:0;-webkit-transform-origin:100%;transform-origin:100%}.parallax_layer-base{-webkit-transform:translateZ(0);transform:translateZ(0);z-index:4}#group1{z-index:5}#group1 .parallax_layer-base{background-repeat:no-repeat;background-size:100%}#group2{z-index:3}#group2 .parallax_layer-back{background-repeat:no-repeat;background-size:100%}#group3{z-index:4}#group3 .parallax_layer-base{background-repeat:no-repeat;background-size:100%}#group4{z-index:2}#group4 .parallax_layer-deep{background-repeat:no-repeat;background-size:100%}#group5{z-index:3}#group5 .parallax_layer-base{background-repeat:no-repeat;background-size:100%}#group6{z-index:1}#group6 .parallax_layer-back{background-repeat:no-repeat;background-size:100%}#group7{z-index:2}#group7 .parallax_layer-base{background-repeat:no-repeat;background-size:100%}
+@charset "UTF-8";
+/* CSS Document */
+
+head,
+body {
+    height: auto;
+    min-height: 100%;
+}
+
+/**************************/
+/*    General Styles      */
+/**************************/
+body {
+    padding-top: 75px;
+    overflow-x: hidden;
+    font-family: "Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+}
+
+/**************************/
+/*   Navigation Styles    */
+/**************************/
+nav {
+    position:fixed;
+    top:0;
+    color: #000;
+    height:auto;
+    width:100%;
+    background: #ffffff;
+    box-shadow:0 1px 15px #232323;
+    z-index:10;
+}
+
+nav .signature {
+    height: 50px;
+    width: 130px;
+}
+
+ul#navigation {
+    padding:0 25px 0 25px;
+}
+
+ul#navigation a.navigation-button {
+    color: black;
+    padding:5px 20px 15px 20px;
+    text-transform:uppercase;
+    vertical-align:middle;
+    letter-spacing:.05em;
+}
+
+ul#navigation a.navigation-button li.navigation {
+    padding-top:10px;
+    display: inline-block;
+}
+
+.underline {
+    display: inline-block;
+    position: relative;
+}
+
+.underline:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+    background: transparent;
+    -webkit-transition: all ease 0.1s;
+    -moz-transition: all ease 0.1s;
+    transition: all ease 0.1s;
+}
+
+.underline:hover:after {
+    height: 2px;
+    background: #000000;
+}
+
+/**************************/
+/*  Social Button Styles  */
+/**************************/
+ul.social-button-group {
+    padding-top: 15px;
+}
+
+ul.social-button-group li {
+    display: inline-block;
+}
+
+ul.social-button-group li a {
+    display: inline-block;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    font-size: 25px;
+    text-align: center;
+    color: #000000;
+    background-color: #ffffff;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    -o-transition: all .3s;
+}
+
+ul.social-button-group li.facebook-button:hover a,
+ul.social-button-group li.facebook-button:focus a,
+ul.social-button-group li.facebook-button:active a {
+    color: #3b5998;
+}
+
+ul.social-button-group li.instagram-button:hover a,
+ul.social-button-group li.instagram-button:focus a,
+ul.social-button-group li.instagram-button:active a {
+    color: #fb3958;
+}
+
+ul.social-button-group li.five-hundred-px-button:hover a,
+ul.social-button-group li.five-hundred-px-button:focus a,
+ul.social-button-group li.five-hundred-px-button:active a {
+    color: #696969;
+}
+
+/**************************/
+/*     Header Styles      */
+/**************************/
+header {
+    height: 95vh;
+    padding: 50px;
+    background-color: #ffffff;
+    z-index: 9;
+}
+
+header:before {
+    content: "";
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background: url(../image/ashnessjetty.jpg) center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+header .header-set {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 20px;
+}
+
+header .signature {
+    height: 100px;
+    width: 260px;
+}
+
+header .header-heading {
+    color: rgba(0, 0, 0, 0.75);
+    font-size: xx-large;
+    font-weight: 100;
+}
+
+header .header-subheading {
+    color: rgb(80, 80, 80);
+    font-size: medium;
+    letter-spacing: 0.01em;
+}
+
+/**************************/
+/*     Section Styles     */
+/**************************/
+section {
+    padding: 50px;
+}
+
+section .section-heading {
+    color: rgb(255, 255, 255);
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+section .section-subheading {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: large;
+    padding-bottom: 15px;
+}
+
+.fix-panel-background {
+    overflow: auto;
+    position: relative;
+    z-index: -1;
+}
+
+/**************************/
+/*      Blog Styles       */
+/**************************/
+section#blog {
+    background-color: white;
+    z-index: 1;
+}
+
+section#blog .section-heading {
+    color: rgb(0, 0, 0);
+}
+
+/**************************/
+/*      About Styles      */
+/**************************/
+section#about {
+    color: white;
+}
+
+section#about:before {
+    content: "";
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background: url(../image/northumberland.jpg) center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+
+section#about .portrait {
+    padding-top: 25px;
+    width: 450px;
+}
+
+section#about .text-block {
+    padding-top: 25px;
+    max-width: 475px;
+}
+
+/**************************/
+/*     Gallery Styles     *
+/**************************/
+section#gallery {
+    background-color: white;
+    z-index: 1;
+}
+
+section#gallery .section-heading {
+    color: rgb(0, 0, 0);
+}
+
+/**************************/
+/*    Services Styles     */
+/**************************/
+section#services:before {
+    content: "";
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background: url(../image/swaledale.jpg) center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+
+section#services .service-group {
+    padding-top: 20px;
+}
+
+section#services .service-heading {
+    padding-top: 15px;
+}
+
+/**************************/
+/*     Contact Styles     */
+/**************************/
+section#contact .section-heading {
+    color: rgb(0, 0, 0);
+}
+
+section#contact form#contactForm {
+    padding: 15px;
+}
+
+section#contact .form-group {
+    margin-bottom: 25px;
+}
+
+section#contact .form-group input,
+section#contact .form-group textarea {
+    padding: 20px;
+}
+
+section#contact .form-group textarea.form-control {
+    height: 150px;
+}
+
+section#contact .form-control:focus {
+    border-color: #373737;
+    box-shadow: none;
+}
+
+/**************************/
+/*     Project Styles     */
+/**************************/
+section .project-item {
+    width: 400px
+}
+
+section .project-item .project-link {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+section .project-item .project-caption {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: #fff;
+}
+
+section .project-item .project-caption h4 {
+    text-transform: none;
+}
+
+section .project-item .project-caption p {
+    font-size: 16px;
+    font-style: italic;
+}
+
+/**************************/
+/*     Footer Styles      */
+/**************************/
+footer {
+    padding:15px;
+    width:100%;
+    background: #ffffff;
+}
+
+footer .copyright {
+    font-size: small;
+    text-transform: uppercase;
+}
+
+footer .tag-line {
+    font-size: small;
+    text-transform: uppercase;
+}

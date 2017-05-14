@@ -4,10 +4,32 @@ namespace MillmanPhotography;
 
 class Page
 {
-    const MILLMAN_PHOTOGRAPHY = 'Millman Photography';
-    const ABOUT_ME = 'About Me';
-    const GALLERY = 'Gallery';
-    const BLOG_POSTS = 'Blog Posts';
-    const PRINTS = 'Prints';
-    const CONTACT_ME = 'Contact Me';
+    /** @var string ABOUT */
+    const ABOUT = 'about';
+
+    /** @var string GALLERY */
+    const GALLERY = 'gallery';
+
+    /** @var string SERVICES */
+    const SERVICES = 'services';
+
+    /** @var string BLOG */
+    const BLOG = 'blog';
+
+    /** @var string CONTACT */
+    const CONTACT = 'contact';
+
+    /**
+     * @return array
+     */
+    public static function getPages()
+    {
+        return [
+            self::BLOG,
+            self::ABOUT,
+            self::GALLERY,
+            self::SERVICES,
+            self::CONTACT,
+        ];
+    }
 }
