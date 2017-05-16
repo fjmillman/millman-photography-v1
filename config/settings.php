@@ -5,11 +5,11 @@ return [
         'displayErrorDetails' => true,
         'addContentLengthHeader' => true,
         'db' => [
-            'host' => 'HOST',
-            'name' => 'NAME',
-            'char' => 'utf8',
-            'user' => 'USER',
-            'pass' => 'PASS',
+            'host' => getenv('DB_HOST'),
+            'name' => getenv('DB_NAME'),
+            'char' => getenv('DB_CHAR'),
+            'user' => getenv('DB_USER'),
+            'pass' => getenv('DB_PASS'),
         ]
     ],
 ];
