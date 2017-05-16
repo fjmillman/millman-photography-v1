@@ -5,7 +5,8 @@
         "projek-xyz/slim-plates": "^0.2.2",
         "monolog/monolog": "^1.22",
         "slim/pdo": "^1.10",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "projek-xyz/slim-monolog": "^0.1.6"
     },
     "autoload": {
         "config": {

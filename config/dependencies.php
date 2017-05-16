@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\PDO\Database;
 use Projek\Slim\PlatesProvider;
+use Projek\Slim\MonologProvider;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\BlogController;
@@ -14,9 +15,11 @@ use MillmanPhotography\Repository\GalleryRepository;
 
 $container = $millmanphotography->getContainer();
 
+$container->register(new MonologProvider);
+
 $container->register(new PlatesProvider);
 
-$container['db'] = function (Container $container) {
+$container[Database::class] = function (Container $container) {
     $settings = $container->get('settings');
     $dsn = 'mysql:host=' . $settings['db']['host']
         . ';dbname=' . $settings['db']['name']
@@ -27,12 +30,12 @@ $container['db'] = function (Container $container) {
 };
 
 $container[GalleryRepository::class] = function (Container $container) {
-    $db = $container->get('db');
-    return new BlogRepository($db);
+    $db = $container->get(Database::class);
+    return new GalleryRepository($db);
 };
 
 $container[BlogRepository::class] = function (Container $container) {
-    $db = $container->get('db');
+    $db = $container->get(Database::class);
     return new BlogRepository($db);
 };
 
@@ -62,15 +65,12 @@ $container[IndexController::class] = function (Container $container) {
 
 $container['errorHandler'] = function (Container $container) {
     return function (ServerRequestInterface $request, ResponseInterface $response, Exception $exception) use ($container) {
+        $logger = $container->get('logger');
         $message = $exception->getMessage();
+        $logger->log(400, $message);
         $view = $container->get('view');
         $view->setResponse($response->withStatus(400));
-        return $view->render(
-            '400',
-            [
-                'message' => $message,
-            ]
-        );
+        return $view->render('400');
     };
 };
 
