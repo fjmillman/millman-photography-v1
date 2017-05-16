@@ -1,21 +1,28 @@
 <?php
 
-namespace MillmanPhotography;
+namespace MillmanPhotography\Controller;
 
+use MillmanPhotography\Page;
+use MillmanPhotography\Repository\GalleryRepository;
 use Projek\Slim\Plates;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class GalleryController
 {
+    /** @var GalleryRepository $repository */
+    private $repository;
+
     /** @var Plates $view */
     private $view;
 
     /**
+     * @param GalleryRepository $repository
      * @param Plates $view
      */
-    public function __construct(Plates $view)
+    public function __construct(GalleryRepository $repository, Plates $view)
     {
+        $this->repository = $repository;
         $this->view = $view;
     }
 
@@ -42,25 +49,6 @@ class GalleryController
      */
     public function retrieveFrontPageGalleries()
     {
-        return [
-            [
-                'image' => 'swaledale.jpg',
-                'title' => 'Landscape',
-                'description' => 'The world of natural sights',
-                'link' => '#',
-            ],
-            [
-                'image' => 'bath.jpg',
-                'title' => 'Bath',
-                'description' => 'The beauty of Bath',
-                'link' => '#',
-            ],
-            [
-                'image' => 'ashnessjetty.jpg',
-                'title' => 'Black and White',
-                'description' => 'A new way of seeing',
-                'link' => '#',
-            ],
-        ];
+        return $this->repository->getGalleries();
     }
 }

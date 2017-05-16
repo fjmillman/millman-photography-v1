@@ -1,21 +1,28 @@
 <?php
 
-namespace MillmanPhotography;
+namespace MillmanPhotography\Controller;
 
+use MillmanPhotography\Page;
+use MillmanPhotography\Repository\BlogRepository;
 use Projek\Slim\Plates;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class BlogController
 {
+    /** @var BlogRepository $repository */
+    private $repository;
+
     /** @var Plates $view */
     private $view;
 
     /**
+     * @param BlogRepository $repository
      * @param Plates $view
      */
-    public function __construct(Plates $view)
+    public function __construct(BlogRepository $repository, Plates $view)
     {
+        $this->repository = $repository;
         $this->view = $view;
     }
 
@@ -42,25 +49,6 @@ class BlogController
      */
     public function retrieveLatestPosts()
     {
-        return [
-            [
-                'image' => 'ashnessjetty.jpg',
-                'title' => 'Post One',
-                'description' => 'Post One Description',
-                'link' => '#',
-            ],
-            [
-                'image' => 'kerkira.jpg',
-                'title' => 'Post Two',
-                'description' => 'Post Two Description',
-                'link' => '#',
-            ],
-            [
-                'image' => 'bath.jpg',
-                'title' => 'Post Three',
-                'description' => 'Post Three Description',
-                'link' => '#',
-            ],
-        ];
+        return $this->repository->getBlogPosts();
     }
 }

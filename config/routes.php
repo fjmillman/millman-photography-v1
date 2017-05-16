@@ -1,8 +1,8 @@
 <?php
 
-use MillmanPhotography\IndexController;
-use MillmanPhotography\GalleryController;
-use MillmanPhotography\BlogController;
+use MillmanPhotography\Controller\IndexController;
+use MillmanPhotography\Controller\GalleryController;
+use MillmanPhotography\Controller\BlogController;
 
 $millmanphotography->get('/[index]', IndexController::class);
 
