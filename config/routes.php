@@ -1,9 +1,9 @@
 <?php
 
-use MillmanPhotography\IndexController;
-use MillmanPhotography\BlogController;
-use MillmanPhotography\GalleryController;
-use MillmanPhotography\ContactController;
+use MillmanPhotography\Controller\IndexController;
+use MillmanPhotography\Controller\GalleryController;
+use MillmanPhotography\Controller\BlogController;
+use MillmanPhotography\Controller\ContactController;
 
 $millmanphotography->get('/[index]', IndexController::class);
 

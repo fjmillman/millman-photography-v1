@@ -1,6 +1,6 @@
 <?php
 
-namespace MillmanPhotography;
+namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
 use Psr\Http\Message\ServerRequestInterface;
