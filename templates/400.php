@@ -6,8 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>404: Page Not Found</h1>
-                <p>What are you doing?! Click on my logo above to go to my home page.</p>
+                <p><?= $this->e($message) ?></p>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 namespace MillmanPhotography;
 
 use Projek\Slim\Plates;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class BlogController
@@ -20,18 +20,15 @@ class BlogController
     }
 
     /**
-     * @param RequestInterface $request
+     * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * @return ResponseInterface
      */
-    public function __invoke(RequestInterface $request, ResponseInterface $response)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
-            'blog',
-            [
-                'pages' => Page::getPages(),
-            ]
+            'blog'
         );
     }
 

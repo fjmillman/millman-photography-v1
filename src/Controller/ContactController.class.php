@@ -6,21 +6,17 @@ use Projek\Slim\Plates;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class IndexController
+class ContactController
 {
     /** @var Plates $view */
     private $view;
 
     /**
      * @param Plates $view
-     * @param GalleryController $galleryController
-     * @param BlogController $blogController
      */
-    public function __construct(Plates $view, GalleryController $galleryController, BlogController $blogController)
+    public function __construct(Plates $view)
     {
         $this->view = $view;
-        $this->galleryController = $galleryController;
-        $this->blogController = $blogController;
     }
 
     /**
@@ -30,12 +26,11 @@ class IndexController
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $this->view->setResponse($response->withStatus(200));
+        $response->withStatus(200);
         return $this->view->render(
-            'index',
+            'contact',
             [
-                'blogItems' => $this->blogController->retrieveLatestPosts(),
-                'galleryItems' => $this->galleryController->retrieveFrontPageGalleries(),
+                'message' => $request->getParsedBody()['name'],
             ]
         );
     }

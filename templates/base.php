@@ -1,3 +1,5 @@
+<?php use MillmanPhotography\Page; ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +22,7 @@
         <script src="https://use.fontawesome.com/b114e5fdf4.js"></script>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="/public/css/millmanphotography.css">
+        <link rel="stylesheet" href="<?= $this->basePath() . 'asset/css/millmanphotography.css' ?>">
     </head>
     <body>
         <!-- Navigation -->
@@ -58,15 +60,15 @@
 
                 <!-- Logo -->
                 <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
-                    <img class="signature" src="/public/image/signature.png">
+                    <img class="signature" src="<?= $this->basePath() . 'asset/img/signature.png' ?>">
                 </a>
 
                 <!-- Navigation Bar -->
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav mr-auto" id="navigation">
-                        <?php foreach ($pages as $page): ?>
+                        <?php foreach (Page::getPages() as $page): ?>
                             <a class="navigation-button underline page-scroll"
-                               href="<?= isset($title) ? $this->baseUrl('#'.$page) : '#'.$this->e($page) ?>">
+                               href="<?= isset($title) ? $this->baseUrl('#' . $page) : '#'.$this->e($page) ?>">
                                 <li class="navigation"><?= $this->e($page) ?></li>
                             </a>
                         <?php endforeach; ?>
@@ -75,25 +77,12 @@
             </div>
         </nav>
 
-        <!-- Header -->
-        <header id="top" class="fix-panel-background" data-ride="carousel">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center header-set">
-                        <img class="signature img-fluid" src="/public/image/signature.png">
-                        <h2 class="header-heading">Millman Photography</h2>
-                        <h3 class="header-subheading text-muted">Photography by Freddie John Millman</h3>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <?= $this->section('page') ?>
 
         <!-- Footer -->
-        <footer>
+        <footer class="text-center">
             <div class="container">
-                <div class="row text-center">
+                <div class="row">
                     <div class="col-lg-6">
                         <span class="tag-line">Photography by Freddie John Millman</span>
                     </div>
@@ -123,6 +112,6 @@
                 crossorigin="anonymous"></script>
 
         <!-- Javascript -->
-        <script src="/public/js/millmanphotography.js"></script>
+        <script src="<?= $this->basePath() . 'asset/js/millmanphotography.js' ?>"></script>
     </body>
 </html>

@@ -1,39 +1,16 @@
 <?php
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
-use Projek\Slim\Plates;
-use Projek\Slim\PlatesExtension;
+use Projek\Slim\PlatesProvider;
 use MillmanPhotography\IndexController;
 use MillmanPhotography\GalleryController;
 use MillmanPhotography\BlogController;
-use MillmanPhotography\Page;
 
 $container = $millmanphotography->getContainer();
 
-$container['view'] = function (Container $container) {
-    $settings = [
-        'directory' => ROOT . DS . 'templates/',
-        'assetPath' => PUBLIC_HTML,
-    ];
-    $view = new Plates($settings);
-    $view->loadExtension(new PlatesExtension($container['router'], $container['request']->getUri()));
-    return $view;
-};
-
-$container['notFoundHandler'] = function (Container $container) {
-    return function (RequestInterface $request, ResponseInterface $response) use ($container) {
-        $view = $container->get('view');
-        $view->setResponse($response->withStatus(404));
-        return $view->render(
-            '404',
-            [
-                'pages' => Page::getPages(),
-            ]
-        );
-    };
-};
+$container->register(new PlatesProvider);
 
 $container[IndexController::class] = function (Container $container) {
     $view = $container->get('view');
@@ -50,4 +27,38 @@ $container[GalleryController::class] = function (Container $container) {
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get('view');
     return new BlogController($view);
+};
+
+$container['errorHandler'] = function (Container $container) {
+    return function (ServerRequestInterface $request, ResponseInterface $response, Exception $exception) use ($container) {
+        $message = $exception->getMessage();
+        $view = $container->get('view');
+        $view->setResponse($response->withStatus(400));
+        return $view->render(
+            '400',
+            [
+                'message' => $message,
+            ]
+        );
+    };
+};
+
+$container['notFoundHandler'] = function (Container $container) {
+    return function (ServerRequestInterface $request, ResponseInterface $response) use ($container) {
+        $view = $container->get('view');
+        $view->setResponse($response->withStatus(404));
+        return $view->render(
+            '404'
+        );
+    };
+};
+
+$container['notAllowedHandler'] = function (Container $container) {
+    return function (ServerRequestInterface $request, ResponseInterface $response) use ($container) {
+        $view = $container->get('view');
+        $view->setResponse($response->withStatus(405));
+        return $view->render(
+            '405'
+        );
+    };
 };
