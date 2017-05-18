@@ -2,7 +2,6 @@
 
 namespace MillmanPhotography\Controller;
 
-use MillmanPhotography\Page;
 use MillmanPhotography\Repository\GalleryRepository;
 use Projek\Slim\Plates;
 use Psr\Http\Message\ServerRequestInterface;
