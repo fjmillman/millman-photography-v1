@@ -6,7 +6,9 @@
         "monolog/monolog": "^1.22",
         "slim/pdo": "^1.10",
         "vlucas/phpdotenv": "^2.4",
-        "projek-xyz/slim-monolog": "^0.1.6"
+        "projek-xyz/slim-monolog": "^0.1.6",
+        "illuminate/database": "5.*",
+        "robmorgan/phinx": "^0.8.0"
     },
     "autoload": {
         "config": {

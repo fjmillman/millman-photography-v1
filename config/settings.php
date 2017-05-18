@@ -12,10 +12,11 @@ return [
         ],
         'db' => [
             'host' => getenv('DB_HOST'),
+            'port' => getenv('DB_PORT'),
             'name' => getenv('DB_NAME'),
-            'char' => getenv('DB_CHAR'),
-            'user' => getenv('DB_USER'),
-            'pass' => getenv('DB_PASS'),
+            'charset' => getenv('DB_CHARSET'),
+            'username' => getenv('DB_USERNAME'),
+            'password' => getenv('DB_PASSWORD'),
         ],
         'logger' => [
             'basename' => 'millman-photography',
