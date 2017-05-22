@@ -3,8 +3,10 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use MillmanPhotography\Section;
 
 class IndexController
 {
@@ -24,16 +26,17 @@ class IndexController
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @return ResponseInterface
+     * @param Request $request
+     * @param Response $response
+     * @return Response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    public function __invoke(Request $request, Response $response)
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
             'index',
             [
+                'sections' => Section::getSections(),
                 'blogItems' => $this->blogController->retrieveLatestPosts(),
                 'galleryItems' => $this->galleryController->retrieveFrontPageGalleries(),
             ]

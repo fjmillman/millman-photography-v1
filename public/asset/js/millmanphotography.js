@@ -5,25 +5,52 @@ $(function() {
     $(document).on('click', 'a[href*=\\#]:not([href=\\#])', function(e) {
         e.preventDefault();
         var target = $(this).attr('href');
-        var scrollToPosition = $(target).offset().top - 75;
+        var scrollToPosition = $(target).offset().top;
         $('html, body').animate({ 'scrollTop': scrollToPosition }, 600);
     });
 });
 
-$(document).ready(function(){
-    $("#submit").on('click', function(){
+$(function () {
+    var form = $('form');
+    form.on('submit', function () {
         $.ajax({
-            cache: false,
-            url: 'contact',
-            type : "POST",
-            dataType : 'json',
-            data : $('#contact-form').serialize(),
-            success : function(result) {
-                alert('Success');
+            url: form.attr('action'),
+            method: form.attr('method'),
+            data: {
+                csrfName: $('csrfName'),
+                csrfValue: $('csrfValue'),
+                name: $('name'),
+                email: $('email'),
+                message: $('message')
             },
-            error: function(header, response, message) {
-                console.log(header, response, message);
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log('OK');
+            },
+            error: function () {
+                console.log('Error')
+            },
+            complete: function (jqXHR) {
+                var csrfToken = jqXHR.getResponseHeader('X-CSRF-Token');
+                if (csrfToken) {
+                    try {
+                        csrfToken = $.parseJSON(csrfToken);
+                        var csrfTokenKeys = Object.keys(csrfToken);
+                        var hiddenFields = form.find('input.csrf[type="hidden"]');
+
+                        if (csrfTokenKeys.length === hiddenFields.length) {
+                            hiddenFields.each(function(i) {
+                                $(this).attr('name', csrfTokenKeys[i]);
+                                $(this).val(csrfToken[csrfTokenKeys[i]]);
+                            });
+                        }
+                    } catch (e) {
+
+                    }
+                }
             }
-        })
+        });
+        return false;
     });
 });

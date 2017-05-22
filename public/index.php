@@ -1,26 +1,35 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
+
 use Slim\App;
 use Dotenv\Dotenv;
 
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', realpath(dirname(__DIR__)));
-define('PUBLIC_HTML', ROOT . DS . 'public' . DS);
-define('CONFIG', ROOT . DS . 'config' . DS);
-define('SRC', ROOT . DS . 'src' . DS);
-define('VENDOR', ROOT . DS . 'vendor' . DS);
-
-require VENDOR . 'autoload.php';
-
-$dotenv = new Dotenv(ROOT);
+$dotenv = new Dotenv(realpath(dirname(__DIR__)));
 $dotenv->load();
 
-$settings = require CONFIG . '/settings.php';
+session_start([
+    'name' => 'Millman Photography',
+    'use_strict_mode' => true,
+    'use_only_cookies' => true,
+    'gc_maxlifetime' => 60 * 15,
+    'cookie_lifetime' => 0,
+    'cookie_httponly' => true,
+    'sid_length' => 64,
+    'sid_bits_per_character' => 6,
+]);
+
+$settings = require __DIR__ . '/../config/settings.php';
 
 $millmanphotography = new App($settings);
+$millmanphotography = new App($settings);
 
-require CONFIG . '/dependencies.php';
-require CONFIG . '/middleware.php';
-require CONFIG . '/routes.php';
+require __DIR__ . '/../config/dependencies.php';
+require __DIR__ . '/../config/middleware.php';
+require __DIR__ . '/../config/routes.php';
+
+set_error_handler(function ($severity, $message, $file, $line) {
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}, E_ALL);
 
 $millmanphotography->run();

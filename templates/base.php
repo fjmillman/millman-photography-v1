@@ -1,5 +1,3 @@
-<?php use MillmanPhotography\Page; ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +20,7 @@
         <script src="https://use.fontawesome.com/b114e5fdf4.js"></script>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="<?= $this->basePath() . 'asset/css/millmanphotography.css' ?>">
+        <link rel="stylesheet" href="<?= $this->asset('asset/css/millmanphotography.css') ?>">
     </head>
     <body>
         <!-- Navigation -->
@@ -47,33 +45,37 @@
                     </li>
                 </ul>
 
-                <!-- Navigation Toggle -->
-                <button class="navbar-toggler collapsed"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbar"
-                        aria-controls="navbar"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <i class="fa fa-bars fa-lg"></i>
-                </button>
+                <?php if (isset($sections)): ?>
+                    <!-- Navigation Toggle -->
+                    <button class="navbar-toggler collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbar"
+                            aria-controls="navbar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fa fa-bars fa-lg"></i>
+                    </button>
+                <?php endif; ?>
 
                 <!-- Logo -->
                 <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
-                    <img class="signature" src="<?= $this->basePath() . 'asset/img/signature.png' ?>">
+                    <img class="signature" src="<?= $this->asset('asset/img/signature.png') ?>">
                 </a>
 
-                <!-- Navigation Bar -->
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav mr-auto" id="navigation">
-                        <?php foreach (Page::getPages() as $page): ?>
-                            <a class="navigation-button underline page-scroll"
-                               href="<?= isset($title) ? $this->baseUrl('#' . $page) : '#'.$this->e($page) ?>">
-                                <li class="navigation"><?= $this->e($page) ?></li>
-                            </a>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                <?php if (isset($sections)): ?>
+                    <!-- Navigation Bar -->
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav mr-auto" id="navigation">
+                            <?php foreach ($sections as $section): ?>
+                                <a class="navigation-button underline page-scroll"
+                                   href="<?= isset($title) ? $this->baseUrl('#' . $section) : '#'.$this->e($section) ?>">
+                                    <li class="navigation"><?= $this->e($section) ?></li>
+                                </a>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
             </div>
         </nav>
 
@@ -112,6 +114,6 @@
                 crossorigin="anonymous"></script>
 
         <!-- Javascript -->
-        <script src="<?= $this->basePath() . 'asset/js/millmanphotography.js' ?>"></script>
+        <script src="<?= $this->asset('asset/js/millmanphotography.js') ?>"></script>
     </body>
 </html>

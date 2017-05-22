@@ -2,20 +2,20 @@
 
 namespace MillmanPhotography\Repository;
 
-use Slim\PDO\Database;
+use Slim\PDO\Database as PDO;
 
 class BlogRepository
 {
     /** @var string TABLE_NAME */
     const TABLE_NAME = 'blog_posts';
 
-    /** @var Database $db */
+    /** @var PDO $db */
     private $db;
 
     /**
-     * @param Database $db
+     * @param PDO $db
      */
-    public function __construct(Database $db)
+    public function __construct(PDO $db)
     {
         $this->db = $db;
     }

@@ -8,7 +8,9 @@
         "vlucas/phpdotenv": "^2.4",
         "projek-xyz/slim-monolog": "^0.1.6",
         "illuminate/database": "5.*",
-        "robmorgan/phinx": "^0.8.0"
+        "robmorgan/phinx": "^0.8.0",
+        "slim/csrf": "^0.8.1",
+        "akrabat/rka-slim-session-middleware": "^2.0"
     },
     "autoload": {
         "config": {

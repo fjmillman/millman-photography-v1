@@ -1,12 +1,13 @@
-<?php $this->layout('base') ?>
+<?php $this->layout('base', ['sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
 <!-- Header -->
-<header id="top" class="fix-panel-background text-center">
+<span class="anchor" id="top"></span>
+<header class="fix-panel-background text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 banner">
-                <img class="signature img-fluid" src="<?= $this->basePath() .'/asset/img/signature.png' ?>">
+                <img class="signature img-fluid" src="<?= $this->asset('asset/img/signature.png') ?>">
                 <h2 class="header-heading">Millman Photography</h2>
                 <h3 class="header-subheading text-muted">Photography by Freddie John Millman</h3>
             </div>
@@ -15,7 +16,8 @@
 </header>
 
 <!-- Blog -->
-<section id="blog" class="text-center">
+<span class="anchor" id="blog"></span>
+<section class="blog text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -27,7 +29,7 @@
             <?php foreach ($blogItems as $blogItem): ?>
                 <div class="col-md-4 col-sm-6 project-item">
                     <a href="<?= $this->e($blogItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->basePath() . '/asset/img/' . $blogItem['image'] ?>" class="img-fluid" alt="">
+                        <img src="<?= $this->asset('asset/img/' . $blogItem['image']) ?>" class="img-fluid" alt="">
                     </a>
                     <div class="project-caption">
                         <h4><?= $this->e($blogItem['title']) ?></h4>
@@ -45,7 +47,8 @@
 </section>
 
 <!-- About -->
-<section id="about" class="fix-panel-background text-center">
+<span class="anchor" id="about"></span>
+<section class="about fix-panel-background text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -55,7 +58,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <img src="<?= $this->basePath() . '/asset/img/portrait.jpg' ?>" aria-label="Portrait" class="img-fluid portrait">
+                <img src="<?= $this->asset('asset//img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
             </div>
             <div class="col-lg-6">
                 <div class="text-block">
@@ -71,7 +74,8 @@
 </section>
 
 <!-- Gallery -->
-<section id="gallery" class="text-center">
+<span class="anchor" id="gallery"></span>
+<section class="gallery text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -83,7 +87,7 @@
             <?php foreach ($galleryItems as $galleryItem): ?>
                 <div class="col-md-4 col-sm-6 project-item">
                     <a href="<?= $this->e($galleryItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->basePath() . '/asset/img/' . $galleryItem['image'] ?>" class="img-fluid" alt="">
+                        <img src="<?= $this->asset('asset/img/' . $galleryItem['image']) ?>" class="img-fluid" alt="">
                     </a>
                     <div class="project-caption">
                         <h4><?= $this->e($galleryItem['title']) ?></h4>
@@ -101,7 +105,8 @@
 </section>
 
 <!-- Services -->
-<section id="services" class="fix-panel-background text-center">
+<span class="anchor" id="services"></span>
+<section class="services fix-panel-background text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -130,7 +135,8 @@
 </section>
 
 <!-- Contact -->
-<section id="contact" class="text-center">
+<span class="anchor" id="contact"></span>
+<section class="contact text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -140,27 +146,25 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form name="sent-message" id="contact-form" novalidate="" action="" role="form" method="post">
+                <form id="contact-form" role="form">
+                    <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input name="name" type="text" class="form-control" placeholder="Name *" id="name" required="" data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
+                                <input name="name" type="text" class="form-control" placeholder="Name *" id="name" required data-validation-required-message="Please enter your name.">
                             </div>
                             <div class="form-group">
-                                <input name="email" type="email" class="form-control" placeholder="Email *" id="email" required="" data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
+                                <input name="email" type="email" class="form-control" placeholder="Email *" id="email" required data-validation-required-message="Please enter your email address.">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea name="message" class="form-control" placeholder="Message *" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
+                                <textarea name="message" class="form-control" placeholder="Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div id="success"></div>
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Send Message</button>
+                            <div id="success">Your message has been sent!</div>
                         </div>
                     </div>
                 </form>

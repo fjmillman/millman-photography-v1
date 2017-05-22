@@ -2,22 +2,31 @@
 
 namespace MillmanPhotography\Repository;
 
-use Slim\PDO\Database;
+use Slim\PDO\Database as PDO;
 
 class GalleryRepository
 {
     /** @var string TABLE_NAME */
     const TABLE_NAME = 'gallery';
 
-    /** @var Database $db */
+    /** @var PDO $db */
     private $db;
 
     /**
-     * @param Database $db
+     * @param PDO $db
      */
-    public function __construct(Database $db)
+    public function __construct(PDO $db)
     {
         $this->db = $db;
+    }
+
+    public function getGalleryTitles()
+    {
+        return [
+            'landscape',
+            'bath',
+            'black-and-white'
+        ];
     }
 
     public function getGalleries()

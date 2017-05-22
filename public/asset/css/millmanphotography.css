@@ -1,10 +1,23 @@
 @charset "UTF-8";
 /* CSS Document */
 
-head,
+html {
+    height:100%;
+    box-sizing: border-box;
+}
+
 body {
     height: auto;
     min-height: 100%;
+    position: relative;
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 /**************************/
@@ -38,7 +51,7 @@ a.button {
     border-radius: 5px;
 }
 
-a.button:hover,
+a.button:hover {}
 a.button:focus,
 a.button:active {
     background: rgb(0, 0, 0);
@@ -217,6 +230,13 @@ section .section-subheading {
     padding-bottom: 15px;
 }
 
+.anchor {
+    display: block;
+    height: 75px;
+    margin-top: -75px;
+    visibility: hidden;
+}
+
 .fix-panel-background {
     overflow: auto;
     position: relative;
@@ -226,23 +246,23 @@ section .section-subheading {
 /**************************/
 /*      Blog Styles       */
 /**************************/
-section#blog {
+section.blog {
     background-color: white;
     z-index: 1;
 }
 
-section#blog .section-heading {
+section.blog .section-heading {
     color: rgb(0, 0, 0);
 }
 
 /**************************/
 /*      About Styles      */
 /**************************/
-section#about {
+section.about {
     color: white;
 }
 
-section#about:before {
+section.about:before {
     content: "";
     position: fixed;
     height: 100vh;
@@ -264,12 +284,12 @@ section#about:before {
     filter: blur(10px);
 }
 
-section#about .portrait {
+section.about .portrait {
     padding-top: 25px;
     width: 450px;
 }
 
-section#about .text-block {
+section.about .text-block {
     padding-top: 25px;
     max-width: 475px;
 }
@@ -277,19 +297,19 @@ section#about .text-block {
 /**************************/
 /*     Gallery Styles     *
 /**************************/
-section#gallery {
+section.gallery {
     background-color: white;
     z-index: 1;
 }
 
-section#gallery .section-heading {
+section.gallery .section-heading {
     color: rgb(0, 0, 0);
 }
 
 /**************************/
 /*    Services Styles     */
 /**************************/
-section#services:before {
+section.services:before {
     content: "";
     position: fixed;
     height: 100%;
@@ -311,41 +331,45 @@ section#services:before {
     filter: blur(10px);
 }
 
-section#services .service-group {
+section.services .service-group {
     padding-top: 20px;
 }
 
-section#services .service-heading {
+section.services .service-heading {
     padding-top: 15px;
 }
 
 /**************************/
 /*     Contact Styles     */
 /**************************/
-section#contact .section-heading {
+section.contact .section-heading {
     color: rgb(0, 0, 0);
 }
 
-section#contact form#contactForm {
+section.contact form#contactForm {
     padding: 15px;
 }
 
-section#contact .form-group {
+section.contact .form-group {
     margin-bottom: 25px;
 }
 
-section#contact .form-group input,
-section#contact .form-group textarea {
+section.contact .form-group input,
+section.contact .form-group textarea {
     padding: 20px;
 }
 
-section#contact .form-group textarea.form-control {
+section.contact .form-group textarea.form-control {
     height: 150px;
 }
 
-section#contact .form-control:focus {
+section.contact .form-control:focus {
     border-color: #373737;
     box-shadow: none;
+}
+
+section.contact #success {
+    display: none;
 }
 
 /**************************/
@@ -384,6 +408,10 @@ footer {
     padding:15px;
     width:100%;
     background: #ffffff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 footer .copyright {

@@ -1,4 +1,4 @@
-<?php $this->layout('base', ['title' => 'Blog']) ?>
+<?php $this->layout('base', ['title' => 'Blog', 'sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
 <!-- Blog -->

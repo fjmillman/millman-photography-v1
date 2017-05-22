@@ -2,7 +2,7 @@
 
 namespace MillmanPhotography;
 
-class Page
+class Section
 {
     /** @var string ABOUT */
     const ABOUT = 'about';
@@ -22,7 +22,7 @@ class Page
     /**
      * @return array
      */
-    public static function getPages()
+    public static function getSections()
     {
         return [
             self::BLOG,

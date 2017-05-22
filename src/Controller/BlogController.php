@@ -2,10 +2,11 @@
 
 namespace MillmanPhotography\Controller;
 
-use MillmanPhotography\Repository\BlogRepository;
 use Projek\Slim\Plates;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use MillmanPhotography\Repository\BlogRepository;
 
 class BlogController
 {
@@ -26,15 +27,24 @@ class BlogController
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @return ResponseInterface
+     * @param Request $request
+     * @param Response $response
+     * @return Response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    public function __invoke(Request $request, Response $response)
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
-            'blog'
+            'blog',
+            [
+                'sections' => [
+                    'blog',
+                    'about',
+                    'gallery',
+                    'services',
+                    'contact',
+                ]
+            ]
         );
     }
 
