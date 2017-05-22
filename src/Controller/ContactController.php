@@ -32,9 +32,11 @@ class ContactController
     public function __invoke(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
+        $csrfName = $data['csrf_name'];
+        $csrfValue = $data['csrf_value'];
         $name = $data['name'];
         $email = $data['email'];
         $message = $data['message'];
-        $this->logger->log(100, $name);
+        $this->logger->log(100, $csrfName . ':' . $csrfValue);
     }
 }

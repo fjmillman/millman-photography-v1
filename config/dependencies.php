@@ -7,7 +7,6 @@ use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
 use Slim\PDO\Database as PDO;
 use Projek\Slim\PlatesExtension;
-use Slim\Handlers\Strategies\RequestResponseArgs;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -27,8 +26,9 @@ $container[Session::class] = function (Container $container) {
 };
 
 $container[Csrf::class] = function (Container $container) {
-    $csrf = new Csrf();
+    $csrf = new Csrf($container->get(Monolog::class));
     $csrf->setFailureCallable(function (Request $request, Response $response, callable $next) use ($container, $csrf) {
+        return $next($request, $response);
         $view = $container->get(Plates::class);
         $view->setResponse($response->withStatus(418));
         return $view->render(
@@ -108,10 +108,6 @@ $container[BlogRepository::class] = function (Container $container) {
 $container[Monolog::class] = function (Container $container) {
     $settings = $container->get('settings')['logger'];
     return new Monolog($settings['name'], $settings['settings']);
-};
-
-$container['foundHandler'] = function (Container $container) {
-    return new RequestResponseArgs();
 };
 
 $container['errorHandler'] = function (Container $container) {

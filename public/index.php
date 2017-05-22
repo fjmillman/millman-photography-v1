@@ -13,10 +13,7 @@ session_start([
     'use_strict_mode' => true,
     'use_only_cookies' => true,
     'gc_maxlifetime' => 60 * 15,
-    'cookie_lifetime' => 0,
     'cookie_httponly' => true,
-    'sid_length' => 64,
-    'sid_bits_per_character' => 6,
 ]);
 
 $settings = require __DIR__ . '/../config/settings.php';

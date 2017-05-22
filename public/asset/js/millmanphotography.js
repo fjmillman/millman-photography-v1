@@ -1,4 +1,4 @@
-/*
+/**
  * Page Scroll
  */
 $(function() {
@@ -10,26 +10,23 @@ $(function() {
     });
 });
 
+/**
+ * Post Form Data using Csrf Token
+ */
 $(function () {
     var form = $('form');
     form.on('submit', function () {
         $.ajax({
             url: form.attr('action'),
             method: form.attr('method'),
-            data: {
-                csrfName: $('csrfName'),
-                csrfValue: $('csrfValue'),
-                name: $('name'),
-                email: $('email'),
-                message: $('message')
-            },
+            data: form.serialize(),
             cache: false,
             dataType: 'json',
-            success: function (data) {
-                console.log('OK');
+            success: function (data, status, request) {
+                console.log(data);
             },
-            error: function () {
-                console.log('Error')
+            error: function (request, status, error) {
+                console.log(error)
             },
             complete: function (jqXHR) {
                 var csrfToken = jqXHR.getResponseHeader('X-CSRF-Token');
@@ -38,7 +35,6 @@ $(function () {
                         csrfToken = $.parseJSON(csrfToken);
                         var csrfTokenKeys = Object.keys(csrfToken);
                         var hiddenFields = form.find('input.csrf[type="hidden"]');
-
                         if (csrfTokenKeys.length === hiddenFields.length) {
                             hiddenFields.each(function(i) {
                                 $(this).attr('name', csrfTokenKeys[i]);
@@ -46,7 +42,7 @@ $(function () {
                             });
                         }
                     } catch (e) {
-
+                        console.log(e);
                     }
                 }
             }

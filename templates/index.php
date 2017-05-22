@@ -146,7 +146,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form id="contact-form" role="form">
+                <form id="contact-form" method="post" action="/contact" role="form">
                     <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-6">
