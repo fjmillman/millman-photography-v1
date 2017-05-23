@@ -2,26 +2,27 @@
 
 namespace MillmanPhotography\Controller;
 
-use Projek\Slim\Plates;
 use Projek\Slim\Monolog;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use MillmanPhotography\Validator\ContactValidator;
+
 class ContactController
 {
-    /** @var Plates $view */
-    private $view;
+    /** @var ContactValidator validator */
+    private $validator;
 
     /** @var Monolog $logger */
     private $logger;
 
     /**
-     * @param Plates $view
+     * @param ContactValidator $validator
      * @param Monolog $logger
      */
-    public function __construct(Plates $view, Monolog $logger)
+    public function __construct(ContactValidator $validator, Monolog $logger)
     {
-        $this->view = $view;
+        $this->validator = $validator;
         $this->logger = $logger;
     }
 
@@ -32,11 +33,15 @@ class ContactController
     public function __invoke(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
-        $csrfName = $data['csrf_name'];
-        $csrfValue = $data['csrf_value'];
-        $name = $data['name'];
-        $email = $data['email'];
-        $message = $data['message'];
-        $this->logger->log(100, $csrfName . ':' . $csrfValue);
+
+        if (!$this->validator->isValid($data)) {
+            return $response->withStatus(400)
+                ->withHeader('Content-type', 'application/json;charset=utf-8')
+                ->write(json_encode($this->validator->getErrors()));
+        };
+
+        return $response->withStatus(200)
+            ->withHeader('Content-type', 'application/json;charset=utf-8')
+            ->write(json_encode($data));
     }
 }

@@ -14,38 +14,43 @@ $(function() {
  * Post Form Data using Csrf Token
  */
 $(function () {
-    var form = $('form');
-    form.on('submit', function () {
+    var $form = $('form');
+    var $submit = $('#submit');
+    $form.on('submit', function () {
         $.ajax({
-            url: form.attr('action'),
-            method: form.attr('method'),
-            data: form.serialize(),
+            url: $form.attr('action'),
+            method: $form.attr('method'),
+            data: $form.serialize(),
             cache: false,
             dataType: 'json',
             success: function (data, status, request) {
-                console.log(data);
+                $form.trigger('reset');
+                var $message = $('<p>').text(data.csrf_key).css('color', 'green').prependTo($submit.parent());
+                setTimeout(function() { $message.remove() }, 2500);
             },
             error: function (request, status, error) {
-                console.log(error)
-            },
-            complete: function (jqXHR) {
-                var csrfToken = jqXHR.getResponseHeader('X-CSRF-Token');
-                if (csrfToken) {
-                    try {
-                        csrfToken = $.parseJSON(csrfToken);
-                        var csrfTokenKeys = Object.keys(csrfToken);
-                        var hiddenFields = form.find('input.csrf[type="hidden"]');
-                        if (csrfTokenKeys.length === hiddenFields.length) {
-                            hiddenFields.each(function(i) {
-                                $(this).attr('name', csrfTokenKeys[i]);
-                                $(this).val(csrfToken[csrfTokenKeys[i]]);
-                            });
-                        }
-                    } catch (e) {
-                        console.log(e);
-                    }
-                }
+                console.log(error);
+                var $message = $('<p>').text('Error').css('color', 'red').prependTo($submit.parent());
+                setTimeout(function() { $message.remove() }, 2500);
             }
+            // complete: function (jqXHR) {
+            //     var csrfToken = jqXHR.getResponseHeader('X-CSRFToken');
+            //     if (csrfToken) {
+            //         try {
+            //             csrfToken = $.parseJSON(csrfToken);
+            //             var csrfTokenKeys = Object.keys(csrfToken);
+            //             var hiddenFields = $form.find('input.csrf[type="hidden"]');
+            //             if (csrfTokenKeys.length === hiddenFields.length) {
+            //                 hiddenFields.each(function(i) {
+            //                     $(this).attr('name', csrfTokenKeys[i]);
+            //                     $(this).val(csrfToken[csrfTokenKeys[i]]);
+            //                 });
+            //             }
+            //         } catch (e) {
+            //             console.log(e);
+            //         }
+            //     }
+            // }
         });
         return false;
     });

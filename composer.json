@@ -10,7 +10,11 @@
         "illuminate/database": "5.*",
         "robmorgan/phinx": "^0.8.0",
         "slim/csrf": "^0.8.1",
-        "akrabat/rka-slim-session-middleware": "^2.0"
+        "akrabat/rka-slim-session-middleware": "^2.0",
+        "i-am-tom/schemer": "^2.1",
+        "doctrine/orm": "^2.5",
+        "doctrine/migrations": "^1.5",
+        "jdorn/sql-formatter": "^1.2"
     },
     "autoload": {
         "config": {

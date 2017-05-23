@@ -37,7 +37,7 @@ class CsrfTokenHeader
             $valueKey => $request->getAttribute($valueKey),
         ];
 
-        $response = $response->withAddedHeader('X-CSRF-Token', json_encode($csrfToken));
+        $response = $response->withAddedHeader('X-CSRFToken', json_encode($csrfToken));
 
         return $next($request, $response);
     }

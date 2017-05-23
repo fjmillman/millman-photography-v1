@@ -58,7 +58,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <img src="<?= $this->asset('asset//img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
+                <img src="<?= $this->asset('asset/img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
             </div>
             <div class="col-lg-6">
                 <div class="text-block">
@@ -164,7 +164,6 @@
                         </div>
                         <div class="col-lg-12">
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Send Message</button>
-                            <div id="success">Your message has been sent!</div>
                         </div>
                     </div>
                 </form>

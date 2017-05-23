@@ -14,10 +14,12 @@ use MillmanPhotography\Middleware\CsrfTokenView;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Repository\BlogRepository;
 use MillmanPhotography\Controller\IndexController;
+use MillmanPhotography\Validator\ContactValidator;
+use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Repository\GalleryRepository;
+use MillmanPhotography\Repository\ContactRepository;
 use MillmanPhotography\Controller\ContactController;
-use MillmanPhotography\Middleware\CsrfTokenHeader;
 
 $container = $millmanphotography->getContainer();
 
@@ -26,7 +28,7 @@ $container[Session::class] = function (Container $container) {
 };
 
 $container[Csrf::class] = function (Container $container) {
-    $csrf = new Csrf($container->get(Monolog::class));
+    $csrf = new Csrf();
     $csrf->setFailureCallable(function (Request $request, Response $response, callable $next) use ($container, $csrf) {
         return $next($request, $response);
         $view = $container->get(Plates::class);
@@ -80,9 +82,9 @@ $container[BlogController::class] = function (Container $container) {
 };
 
 $container[ContactController::class] = function (Container $container) {
-    $view = $container->get(Plates::class);
+    $validator = $container->get(ContactValidator::class);
     $logger = $container->get(Monolog::class);
-    return new ContactController($view, $logger);
+    return new ContactController($validator, $logger);
 };
 
 $container[PDO::class] = function (Container $container) {
@@ -105,6 +107,15 @@ $container[BlogRepository::class] = function (Container $container) {
     return new BlogRepository($db);
 };
 
+$container[ContactRepository::class] = function (Container $container) {
+    $db = $container->get(PDO::class);
+    return new ContactRepository($db);
+};
+
+$container[ContactValidator::class] = function (Container $container) {
+    return new ContactValidator();
+};
+
 $container[Monolog::class] = function (Container $container) {
     $settings = $container->get('settings')['logger'];
     return new Monolog($settings['name'], $settings['settings']);
@@ -113,11 +124,7 @@ $container[Monolog::class] = function (Container $container) {
 $container['errorHandler'] = function (Container $container) {
     return function (Request $request, Response $response, Exception $exception) use ($container) {
         $logger = $container->get(Monolog::class);
-        $message = $exception->getMessage()
-            . ' on line ' . $exception->getLine()
-            . ' of ' . $exception->getFile()
-            . '. See the following: ' . $exception->getTraceAsString();
-        $logger->log(100, $message);
+        $logger->log(100, $exception->getMessage());
         $view = $container->get(Plates::class);
         $view->setResponse($response->withStatus(400));
         return $view->render(
