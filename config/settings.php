@@ -7,15 +7,22 @@ return [
             'directory' =>  '../templates/',
             'assetPath' => __DIR__ . '/../public/',
         ],
-        'db' => [
-            'driver' => getenv('DB_DRIVER'),
-            'host' => getenv('DB_HOST'),
-            'port' => getenv('DB_PORT'),
-            'name' => getenv('DB_NAME'),
-            'username' => getenv('DB_USERNAME'),
-            'password' => getenv('DB_PASSWORD'),
-            'charset' => getenv('DB_CHARSET'),
-            'collation' => getenv('DB_COLLATION'),
+        'doctrine' => [
+            'meta' => [
+                'entity_path' => [
+                    __DIR__ . '/../src/Entity'
+                ],
+                'auto_generate_proxies' => true,
+                'proxy_dir' =>  __DIR__.'/../cache/proxies',
+                'cache' => null,
+            ],
+            'connection' => [
+                'driver' => getenv('DB_DRIVER'),
+                'host' => getenv('DB_HOST'),
+                'dbname' => getenv('DB_NAME'),
+                'user' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+            ]
         ],
         'logger' => [
             'name' => 'millman-photography',

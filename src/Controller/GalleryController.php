@@ -3,26 +3,25 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
+use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Repository\GalleryRepository;
-
 class GalleryController
 {
-    /** @var GalleryRepository $repository */
-    private $repository;
+    /** @var EntityManager $entityManager */
+    private $entityManager;
 
     /** @var Plates $view */
     private $view;
 
     /**
-     * @param GalleryRepository $repository
+     * @param EntityManager $entityManager
      * @param Plates $view
      */
-    public function __construct(GalleryRepository $repository, Plates $view)
+    public function __construct(EntityManager $entityManager, Plates $view)
     {
-        $this->repository = $repository;
+        $this->entityManager = $entityManager;
         $this->view = $view;
     }
 
@@ -42,9 +41,16 @@ class GalleryController
         );
     }
 
+    /**
+     * @return array $titles
+     */
     private function retrieveGalleryTitles()
     {
-        return $this->repository->getGalleryTitles();
+        return [
+            'landscape',
+            'bath',
+            'black-and-white'
+        ];
     }
 
     /**
@@ -54,6 +60,25 @@ class GalleryController
      */
     public function retrieveFrontPageGalleries()
     {
-        return $this->repository->getGalleries();
+        return [
+            [
+                'image' => 'swaledale.jpg',
+                'title' => 'Landscape',
+                'description' => 'The world of natural sights',
+                'link' => '#',
+            ],
+            [
+                'image' => 'bath.jpg',
+                'title' => 'Bath',
+                'description' => 'The beauty of Bath',
+                'link' => '#',
+            ],
+            [
+                'image' => 'ashnessjetty.jpg',
+                'title' => 'Black and White',
+                'description' => 'A new way of seeing',
+                'link' => '#',
+            ],
+        ];
     }
 }

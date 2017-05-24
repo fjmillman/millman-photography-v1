@@ -3,26 +3,25 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
+use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Repository\BlogRepository;
-
 class BlogController
 {
-    /** @var BlogRepository $repository */
-    private $repository;
+    /** @var EntityManager $entityManager */
+    private $entityManager;
 
     /** @var Plates $view */
     private $view;
 
     /**
-     * @param BlogRepository $repository
+     * @param EntityManager $entityManager
      * @param Plates $view
      */
-    public function __construct(BlogRepository $repository, Plates $view)
+    public function __construct(EntityManager $entityManager, Plates $view)
     {
-        $this->repository = $repository;
+        $this->entityManager = $entityManager;
         $this->view = $view;
     }
 
@@ -38,11 +37,9 @@ class BlogController
             'blog',
             [
                 'sections' => [
-                    'blog',
-                    'about',
-                    'gallery',
-                    'services',
-                    'contact',
+                    'recent',
+                    'popular',
+                    'tags',
                 ]
             ]
         );
@@ -55,6 +52,25 @@ class BlogController
      */
     public function retrieveLatestPosts()
     {
-        return $this->repository->getBlogPosts();
+        return [
+            [
+                'image' => 'ashnessjetty.jpg',
+                'title' => 'Post One',
+                'description' => 'Post One Description',
+                'link' => '#',
+            ],
+            [
+                'image' => 'kerkira.jpg',
+                'title' => 'Post Two',
+                'description' => 'Post Two Description',
+                'link' => '#',
+            ],
+            [
+                'image' => 'bath.jpg',
+                'title' => 'Post Three',
+                'description' => 'Post Three Description',
+                'link' => '#',
+            ],
+        ];
     }
 }

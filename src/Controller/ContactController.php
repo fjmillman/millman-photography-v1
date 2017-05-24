@@ -2,11 +2,11 @@
 
 namespace MillmanPhotography\Controller;
 
-use MillmanPhotography\Repository\ContactRepository;
 use Projek\Slim\Monolog;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use MillmanPhotography\Resource\ContactResource;
 use MillmanPhotography\Validator\ContactValidator;
 
 class ContactController
@@ -14,21 +14,21 @@ class ContactController
     /** @var ContactValidator $validator */
     private $validator;
 
-    /** @var ContactRepository $repository */
-    private $repository;
+    /** @var ContactResource $resource */
+    private $resource;
 
     /** @var Monolog $logger */
     private $logger;
 
     /**
      * @param ContactValidator $validator
-     * @param ContactRepository $repository
+     * @param ContactResource $resource
      * @param Monolog $logger
      */
-    public function __construct(ContactValidator $validator, ContactRepository $repository, Monolog $logger)
+    public function __construct(ContactValidator $validator, ContactResource $resource, Monolog $logger)
     {
         $this->validator = $validator;
-        $this->repository = $repository;
+        $this->resource = $resource;
         $this->logger = $logger;
     }
 
@@ -46,7 +46,7 @@ class ContactController
                 ->write(json_encode($this->validator->getErrors()));
         };
 
-        if (!$this->repository->store($data)) {
+        if (!$this->resource->create($data)) {
             return $response->withStatus(400)
                             ->withHeader('Content-type', 'application/json;charset=utf-8')
                             ->write(json_encode(['error']));

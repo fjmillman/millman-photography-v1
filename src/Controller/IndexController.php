@@ -34,7 +34,7 @@ class IndexController
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
-            'index',
+            'overview',
             [
                 'sections' => Section::getSections(),
                 'blogItems' => $this->blogController->retrieveLatestPosts(),

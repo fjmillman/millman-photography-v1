@@ -5,22 +5,26 @@ use Slim\Container;
 use Projek\Slim\Plates;
 use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
-use Slim\PDO\Database as PDO;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 use Projek\Slim\PlatesExtension;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Middleware\CsrfTokenProvider;
+use MillmanPhotography\Resource\ContactResource;
 use MillmanPhotography\Controller\BlogController;
-use MillmanPhotography\Repository\BlogRepository;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Validator\ContactValidator;
 use MillmanPhotography\Controller\GalleryController;
-use MillmanPhotography\Repository\GalleryRepository;
-use MillmanPhotography\Repository\ContactRepository;
 use MillmanPhotography\Controller\ContactController;
+use MillmanPhotography\Middleware\CsrfTokenProvider;
 
 $container = $millmanphotography->getContainer();
+
+$container[Monolog::class] = function (Container $container) {
+    $settings = $container->get('settings')['logger'];
+    return new Monolog($settings['name'], $settings['settings']);
+};
 
 $container[Session::class] = function (Container $container) {
     return new Session();
@@ -56,6 +60,18 @@ $container[Plates::class] = function (Container $container) {
     return $view;
 };
 
+$container[EntityManager::class] = function (Container $container) {
+    $settings = $container->get('settings');
+    $config = Setup::createAnnotationMetadataConfiguration(
+        $settings['doctrine']['meta']['entity_path'],
+        $settings['doctrine']['meta']['auto_generate_proxies'],
+        $settings['doctrine']['meta']['proxy_dir'],
+        $settings['doctrine']['meta']['cache'],
+        false
+    );
+    return EntityManager::create($settings['doctrine']['connection'], $config);
+};
+
 $container[IndexController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryController = $container->get(GalleryController::class);
@@ -64,56 +80,31 @@ $container[IndexController::class] = function (Container $container) {
 };
 
 $container[GalleryController::class] = function (Container $container) {
-    $repository = $container->get(GalleryRepository::class);
+    $entityManager = $container->get(EntityManager::class);
     $view = $container->get(Plates::class);
-    return new GalleryController($repository, $view);
+    return new GalleryController($entityManager, $view);
 };
 
 $container[BlogController::class] = function (Container $container) {
-    $repository = $container->get(BlogRepository::class);
+    $entityManager = $container->get(EntityManager::class);
     $view = $container->get(Plates::class);
-    return new BlogController($repository, $view);
+    return new BlogController($entityManager, $view);
 };
 
 $container[ContactController::class] = function (Container $container) {
     $validator = $container->get(ContactValidator::class);
-    $repository = $container->get(ContactRepository::class);
+    $resource = $container->get(ContactResource::class);
     $logger = $container->get(Monolog::class);
-    return new ContactController($validator, $repository, $logger);
-};
-
-$container[PDO::class] = function (Container $container) {
-    $settings = $container->get('settings');
-    $dsn = 'mysql:host=' . $settings['db']['host']
-        . ';dbname=' . $settings['db']['name']
-        . ';charset=' . $settings['db']['charset'];
-    $user = $settings['db']['username'];
-    $pass = $settings['db']['password'];
-    return new PDO($dsn, $user, $pass);
-};
-
-$container[GalleryRepository::class] = function (Container $container) {
-    $db = $container->get(PDO::class);
-    return new GalleryRepository($db);
-};
-
-$container[BlogRepository::class] = function (Container $container) {
-    $db = $container->get(PDO::class);
-    return new BlogRepository($db);
-};
-
-$container[ContactRepository::class] = function (Container $container) {
-    $db = $container->get(PDO::class);
-    return new ContactRepository($db);
+    return new ContactController($validator, $resource, $logger);
 };
 
 $container[ContactValidator::class] = function (Container $container) {
     return new ContactValidator();
 };
 
-$container[Monolog::class] = function (Container $container) {
-    $settings = $container->get('settings')['logger'];
-    return new Monolog($settings['name'], $settings['settings']);
+$container[ContactResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new ContactResource($entityManager);
 };
 
 $container['errorHandler'] = function (Container $container) {
