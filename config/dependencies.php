@@ -10,12 +10,11 @@ use Projek\Slim\PlatesExtension;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Middleware\CsrfTokenView;
+use MillmanPhotography\Middleware\CsrfTokenProvider;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Repository\BlogRepository;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Validator\ContactValidator;
-use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Repository\GalleryRepository;
 use MillmanPhotography\Repository\ContactRepository;
@@ -28,9 +27,8 @@ $container[Session::class] = function (Container $container) {
 };
 
 $container[Csrf::class] = function (Container $container) {
-    $csrf = new Csrf();
+    $csrf = new Csrf($container->get(Monolog::class));
     $csrf->setFailureCallable(function (Request $request, Response $response, callable $next) use ($container, $csrf) {
-        return $next($request, $response);
         $view = $container->get(Plates::class);
         $view->setResponse($response->withStatus(418));
         return $view->render(
@@ -45,15 +43,11 @@ $container[Csrf::class] = function (Container $container) {
     return $csrf;
 };
 
-$container[CsrfTokenView::class] = function (Container $container) {
-    return new CsrfTokenView(
+$container[CsrfTokenProvider::class] = function (Container $container) {
+    return new CsrfTokenProvider(
         $container->get(Plates::class),
         $container->get(Csrf::class)
     );
-};
-
-$container[CsrfTokenHeader::class] = function (Container $container) {
-    return new CsrfTokenHeader($container->get(Csrf::class));
 };
 
 $container[Plates::class] = function (Container $container) {
@@ -83,8 +77,9 @@ $container[BlogController::class] = function (Container $container) {
 
 $container[ContactController::class] = function (Container $container) {
     $validator = $container->get(ContactValidator::class);
+    $repository = $container->get(ContactRepository::class);
     $logger = $container->get(Monolog::class);
-    return new ContactController($validator, $logger);
+    return new ContactController($validator, $repository, $logger);
 };
 
 $container[PDO::class] = function (Container $container) {

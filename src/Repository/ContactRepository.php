@@ -7,7 +7,7 @@ use Slim\PDO\Database as PDO;
 class ContactRepository
 {
     /** @var string TABLE_NAME */
-    const TABLE_NAME = 'blog_posts';
+    const TABLE_NAME = 'contact';
 
     /** @var PDO $db */
     private $db;
@@ -18,5 +18,10 @@ class ContactRepository
     public function __construct(PDO $db)
     {
         $this->db = $db;
+    }
+
+    public function store($data)
+    {
+        return true;
     }
 }

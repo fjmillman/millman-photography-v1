@@ -31,7 +31,7 @@ class ContactValidator implements Validator
         ]);
 
         $this->validator = V::assoc([
-            'name' => V::text()->alphanum(),
+            'name' => V::text(),
             'email' => V::text()->email(),
             'message' => V::text(),
         ]);
