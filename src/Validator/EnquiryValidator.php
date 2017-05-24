@@ -7,7 +7,7 @@ use Schemer\Formatter as F;
 use Schemer\Validator\ValidatorInterface;
 use Schemer\Formatter\FormatterInterface;
 
-class ContactValidator implements Validator
+class EnquiryValidator implements Validator
 {
     /** @var FormatterInterface $formatter */
     private $formatter;

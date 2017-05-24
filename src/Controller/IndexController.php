@@ -36,7 +36,7 @@ class IndexController
         return $this->view->render(
             'overview',
             [
-                'sections' => Section::getSections(),
+                'sections' => Section::SECTIONS,
                 'blogItems' => $this->blogController->retrieveLatestPosts(),
                 'galleryItems' => $this->galleryController->retrieveFrontPageGalleries(),
             ]

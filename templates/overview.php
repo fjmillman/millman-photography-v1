@@ -134,19 +134,19 @@
     </div>
 </section>
 
-<!-- Contact -->
-<span class="anchor" id="contact"></span>
-<section class="contact text-center">
+<!-- Enquiry -->
+<span class="anchor" id="enquiry"></span>
+<section class="enquiry text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="section-heading">Contact.</h2>
+                <h2 class="section-heading">Enquiry.</h2>
                 <h3 class="section-subheading text-muted">Get in touch.</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form id="contact-form" method="post" action="/contact" role="form">
+                <form id="enquiry-form" method="post" action="/enquiry" role="form">
                     <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-6">

@@ -340,30 +340,30 @@ section.services .service-heading {
 }
 
 /**************************/
-/*     Contact Styles     */
+/*     Enquiry Styles     */
 /**************************/
-section.contact .section-heading {
+section.enquiry .section-heading {
     color: rgb(0, 0, 0);
 }
 
-section.contact form#contactForm {
+section.enquiry form#contactForm {
     padding: 15px;
 }
 
-section.contact .form-group {
+section.enquiry .form-group {
     margin-bottom: 25px;
 }
 
-section.contact .form-group input,
-section.contact .form-group textarea {
+section.enquiry .form-group input,
+section.enquiry .form-group textarea {
     padding: 20px;
 }
 
-section.contact .form-group textarea.form-control {
+section.enquiry .form-group textarea.form-control {
     height: 150px;
 }
 
-section.contact .form-control:focus {
+section.enquiry .form-control:focus {
     border-color: #373737;
     box-shadow: none;
 }

@@ -4,7 +4,7 @@ return [
     'settings' => [
         'displayErrorDetails' => getenv('ENVIRONMENT') == 'development' ? true : false,
         'plates' => [
-            'directory' =>  '../templates/',
+            'directory' =>  __DIR__ . '/../templates/',
             'assetPath' => __DIR__ . '/../public/',
         ],
         'doctrine' => [

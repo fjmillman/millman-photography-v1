@@ -4,35 +4,43 @@ namespace MillmanPhotography\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use MillmanPhotography\Entity\Traits\Timestamps;
+
 /**
- * @Entity
- * @Table(name='contact')
+ * @ORM\Entity
+ * @ORM\Table(name="enquiry")
  */
-class ContactEntity
+class Enquiry
 {
+    use Timestamps;
+
     /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
      * @var integer $id
-     * @Id
-     * @Column(name="id", type="integer")
-     * @GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
+     * @ORM\Column(type="string", length=64)
+     *
      * @var string $name
-     * @Column(type="string", length=64)
      */
     protected $name;
 
     /**
+     * @ORM\Column(type="string", length=64)
+     *
      * @var string $email
-     * @Column(type="string", length=64)
      */
     protected $email;
 
     /**
+     * @ORM\Column(type="string")
+     *
      * @var string $message
-     * @Column(type="string", length=512)
      */
     protected $message;
 
@@ -69,15 +77,8 @@ class ContactEntity
     }
 
     /**
-     * @param integer $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @param string $name
+     * @return void
      */
     public function setName($name)
     {
@@ -86,6 +87,7 @@ class ContactEntity
 
     /**
      * @param string $email
+     * @return void
      */
     public function setEmail($email)
     {
@@ -94,6 +96,7 @@ class ContactEntity
 
     /**
      * @param string $message
+     * @return void
      */
     public function setMessage($message)
     {

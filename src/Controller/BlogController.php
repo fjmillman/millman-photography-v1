@@ -3,26 +3,27 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
+use Projek\Slim\Monolog;
 use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class BlogController
 {
-    /** @var EntityManager $entityManager */
-    private $entityManager;
-
     /** @var Plates $view */
     private $view;
 
+    /** @var Monolog $logger */
+    private $logger;
+
     /**
-     * @param EntityManager $entityManager
      * @param Plates $view
+     * @param Monolog $logger
      */
-    public function __construct(EntityManager $entityManager, Plates $view)
+    public function __construct(Plates $view, Monolog $logger)
     {
-        $this->entityManager = $entityManager;
         $this->view = $view;
+        $this->logger = $logger;
     }
 
     /**

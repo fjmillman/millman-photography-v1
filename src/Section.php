@@ -4,6 +4,9 @@ namespace MillmanPhotography;
 
 class Section
 {
+    /** @var string BLOG */
+    const BLOG = 'blog';
+
     /** @var string ABOUT */
     const ABOUT = 'about';
 
@@ -13,23 +16,15 @@ class Section
     /** @var string SERVICES */
     const SERVICES = 'services';
 
-    /** @var string BLOG */
-    const BLOG = 'blog';
+    /** @var string ENQUIRY */
+    const ENQUIRY = 'enquiry';
 
-    /** @var string CONTACT */
-    const CONTACT = 'contact';
-
-    /**
-     * @return array
-     */
-    public static function getSections()
-    {
-        return [
-            self::BLOG,
-            self::ABOUT,
-            self::GALLERY,
-            self::SERVICES,
-            self::CONTACT,
-        ];
-    }
+    /** @var array SECTIONS */
+    const SECTIONS = [
+        self::BLOG,
+        self::ABOUT,
+        self::GALLERY,
+        self::SERVICES,
+        self::ENQUIRY,
+    ];
 }
