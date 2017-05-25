@@ -34,7 +34,6 @@
     }
   },
   "scripts": {
-    "test": "composer test:unit",
     "test:unit": "phpunit tests/Unit/"
   }
 }
