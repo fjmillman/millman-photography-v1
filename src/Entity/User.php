@@ -11,6 +11,7 @@ use MillmanPhotography\Entity\Traits\Timestamps;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks
  */
 class User
 {

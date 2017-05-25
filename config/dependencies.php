@@ -15,8 +15,9 @@ use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
-use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Validator\EnquiryValidator;
+use MillmanPhotography\Middleware\CsrfTokenHeader;
+use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
@@ -65,8 +66,9 @@ $container[GalleryController::class] = function (Container $container) {
 
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
     $logger = $container->get(Monolog::class);
-    return new BlogController($view, $logger);
+    return new BlogController($view, $session, $logger);
 };
 
 $container[UserResource::class] = function (Container $container) {
@@ -117,6 +119,10 @@ $container[CsrfTokenProvider::class] = function (Container $container) {
         $container->get(Plates::class),
         $container->get(Csrf::class)
     );
+};
+
+$container[CsrfTokenHeader::class] = function (Container $container) {
+    return new CsrfTokenHeader($container->get(Csrf::class));
 };
 
 if (!$container->get('settings')['displayErrorDetails']) {

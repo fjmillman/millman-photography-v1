@@ -7,22 +7,28 @@ use Projek\Slim\Monolog;
 use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use RKA\Session;
 
 class BlogController
 {
     /** @var Plates $view */
     private $view;
 
+    /** @var Session $session */
+    private $session;
+
     /** @var Monolog $logger */
     private $logger;
 
     /**
      * @param Plates $view
+     * @param Session $session
      * @param Monolog $logger
      */
-    public function __construct(Plates $view, Monolog $logger)
+    public function __construct(Plates $view, Session $session, Monolog $logger)
     {
         $this->view = $view;
+        $this->session = $session;
         $this->logger = $logger;
     }
 

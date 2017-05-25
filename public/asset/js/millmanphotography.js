@@ -33,6 +33,24 @@ $(function () {
                 console.log(status + ' : ' + error);
                 var $message = $('<p>').text(request.responseJSON).css('color', 'red').prependTo($submit.parent());
                 setTimeout(function() { $message.remove() }, 2500);
+            },
+            complete: function (jqXHR) {
+                var csrfToken = jqXHR.getResponseHeader('X-CSRFToken');
+                if (csrfToken) {
+                    try {
+                        csrfToken = $.parseJSON(csrfToken);
+                        var csrfTokenKeys = Object.keys(csrfToken);
+                        var hiddenFields = $form.find('input.csrf[type="hidden"]');
+                        if (csrfTokenKeys.length === hiddenFields.length) {
+                            hiddenFields.each(function(i) {
+                                $(this).attr('name', csrfTokenKeys[i]);
+                                $(this).val(csrfToken[csrfTokenKeys[i]]);
+                            });
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
             }
         });
         return false;

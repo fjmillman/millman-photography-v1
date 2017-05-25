@@ -43,7 +43,7 @@ class EnquiryController
 
         if (!$this->validator->isValid($data)) {
             return $response->withJson($this->validator->getErrors(), 400);
-        };
+        }
 
         try {
             $this->resource->post($data);

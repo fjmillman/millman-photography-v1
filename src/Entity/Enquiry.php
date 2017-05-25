@@ -9,6 +9,7 @@ use MillmanPhotography\Entity\Traits\Timestamps;
 /**
  * @ORM\Entity
  * @ORM\Table(name="enquiry")
+ * @ORM\HasLifecycleCallbacks
  */
 class Enquiry
 {
