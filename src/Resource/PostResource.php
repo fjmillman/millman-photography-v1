@@ -7,16 +7,28 @@ use MillmanPhotography\Entity\Post;
 class PostResource extends Resource
 {
     /**
-     * Get an existing post by their username
+     * Get a collection of posts by given parameters
      *
-     * @param string $id
-     * @return object|array
+     * @param array $parameters
+     * @return array
      */
-    public function get($id = null) {
-        if (!isset($id)) {
+    public function get(array $parameters = null)
+    {
+        if (!isset($parameters)) {
             return $this->entityManager->getRepository(Post::class)->findAll();
         }
 
+        return $this->entityManager->getRepository(Post::class)->findBy($parameters);
+    }
+
+    /**
+     * Get a post by id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function getById($id)
+    {
         return $this->entityManager->getRepository(Post::class)->find($id);
     }
 
@@ -25,7 +37,7 @@ class PostResource extends Resource
      *
      * @param array $data
      */
-    public function post(array $data)
+    public function create(array $data)
     {
         $post = new Post();
 
@@ -43,7 +55,7 @@ class PostResource extends Resource
      * @param int $id
      * @param array $data
      */
-    public function put($id, array $data)
+    public function update($id, array $data)
     {
         $post = $this->entityManager->getRepository(Post::class)->find($id);
 

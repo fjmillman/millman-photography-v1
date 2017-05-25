@@ -7,17 +7,29 @@ use MillmanPhotography\Entity\User;
 class UserResource extends Resource
 {
     /**
-     * Get an existing user by their username
+     * Get a collection of users by given parameters
      *
-     * @param string $username
-     * @return object|array
+     * @param array $parameters
+     * @return array
      */
-    public function get($username = null) {
-        if (!isset($username)) {
+    public function get(array $parameters = null)
+    {
+        if (!isset($parameters)) {
             return $this->entityManager->getRepository(User::class)->findAll();
         }
 
-        return $this->entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+        return $this->entityManager->getRepository(User::class)->findBy($parameters);
+    }
+
+    /**
+     * Get a user by id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function getById($id)
+    {
+        return $this->entityManager->getRepository(User::class)->find($id);
     }
 
     /**
@@ -25,7 +37,7 @@ class UserResource extends Resource
      *
      * @param array $data
      */
-    public function post(array $data)
+    public function create(array $data)
     {
         $user = new User();
 
@@ -44,7 +56,7 @@ class UserResource extends Resource
      * @param int $id
      * @param array $data
      */
-    public function put($id, array $data)
+    public function update($id, array $data)
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 

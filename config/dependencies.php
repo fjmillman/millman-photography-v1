@@ -13,6 +13,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
+use MillmanPhotography\Resource\ImageResource;
+use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Validator\EnquiryValidator;
@@ -60,15 +62,30 @@ $container[IndexController::class] = function (Container $container) {
 
 $container[GalleryController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
+    $galleryResource = $container->get(GalleryResource::class);
+    $imageResource = $container->get(ImageResource::class);
     $logger = $container->get(Monolog::class);
-    return new GalleryController($view, $logger);
+    return new GalleryController($view, $galleryResource, $imageResource, $logger);
+};
+
+$container[GalleryResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new GalleryResource($entityManager);
+};
+
+$container[ImageResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new ImageResource($entityManager);
 };
 
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $session = $container->get(Session::class);
+    $userResource = $container->get(UserResource::class);
+    $postResource = $container->get(PostResource::class);
+    $imageResource = $container->get(ImageResource::class);
     $logger = $container->get(Monolog::class);
-    return new BlogController($view, $session, $logger);
+    return new BlogController($view, $session, $userResource, $postResource, $imageResource, $logger);
 };
 
 $container[UserResource::class] = function (Container $container) {

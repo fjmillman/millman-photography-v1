@@ -7,18 +7,29 @@ use MillmanPhotography\Entity\Enquiry;
 class EnquiryResource extends Resource
 {
     /**
-     * Get an enquiry by email
+     * Get a collection of enquiries by given parameters
      *
-     * @param string $email
-     * @return object|array
+     * @param array $parameters
+     * @return array
      */
-    public function get($email = null)
+    public function get(array $parameters = null)
     {
-        if (!isset($email)) {
+        if (!isset($parameters)) {
             return $this->entityManager->getRepository(Enquiry::class)->findAll();
         }
 
-        return $this->entityManager->getRepository(Enquiry::class)->findOneBy(['username' => $email]);
+        return $this->entityManager->getRepository(Enquiry::class)->findBy($parameters);
+    }
+
+    /**
+     * Get an enquiry by id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function getById($id)
+    {
+        return $this->entityManager->getRepository(Enquiry::class)->find($id);
     }
 
     /**
@@ -26,7 +37,7 @@ class EnquiryResource extends Resource
      *
      * @param array $data
      */
-    public function post(array $data)
+    public function create(array $data)
     {
         $enquiry = new Enquiry();
 
@@ -44,7 +55,7 @@ class EnquiryResource extends Resource
      * @param integer $id
      * @param array $data
      */
-    public function put($id, array $data)
+    public function update($id, array $data)
     {
         $enquiry = $this->entityManager->getRepository(Enquiry::class)->find($id);
 

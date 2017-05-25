@@ -29,7 +29,7 @@
             <?php foreach ($blogItems as $blogItem): ?>
                 <div class="col-md-4 col-sm-6 project-item">
                     <a href="<?= $this->e($blogItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->asset('asset/img/' . $blogItem['image']) ?>" class="img-fluid" alt="">
+                        <img src="<?= $this->asset('asset/img/' . $blogItem['image'] . '.jpg') ?>" class="img-fluid" alt="">
                     </a>
                     <div class="project-caption">
                         <h4><?= $this->e($blogItem['title']) ?></h4>
@@ -87,7 +87,7 @@
             <?php foreach ($galleryItems as $galleryItem): ?>
                 <div class="col-md-4 col-sm-6 project-item">
                     <a href="<?= $this->e($galleryItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->asset('asset/img/' . $galleryItem['image']) ?>" class="img-fluid" alt="">
+                        <img src="<?= $this->asset('asset/img/' . $galleryItem['image'] . '.jpg') ?>" class="img-fluid" alt="">
                     </a>
                     <div class="project-caption">
                         <h4><?= $this->e($galleryItem['title']) ?></h4>

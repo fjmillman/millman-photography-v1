@@ -8,10 +8,10 @@ use MillmanPhotography\Entity\Traits\Timestamps;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="post")
+ * @ORM\Table(name="gallery")
  * @ORM\HasLifecycleCallbacks
  */
-class Post
+class Gallery
 {
     use Timestamps;
 
@@ -27,23 +27,16 @@ class Post
     /**
      * @ORM\Column(type="string", length=64)
      *
-     * @var string $title
+     * @var string $name
      */
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=64)
      *
-     * @var string $description
+     * @var string $email
      */
     protected $description;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @var string $body
-     */
-    protected $body;
 
     /**
      * @ORM\Column(type="integer")
@@ -51,14 +44,6 @@ class Post
      * @var integer $image_id
      */
     protected $image_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     *
-     * @var User
-     */
-    protected $user;
 
     /**
      * @return integer $id
@@ -85,27 +70,11 @@ class Post
     }
 
     /**
-     * @return string $body
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
      * @return integer $image_id
      */
     public function getImageId()
     {
         return $this->image_id;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 
     /**
@@ -127,29 +96,11 @@ class Post
     }
 
     /**
-     * @param string $body
-     * @return void
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * @param string $imageId
+     * @param integer $imageId
      * @return void
      */
     public function setImageId($imageId)
     {
         $this->image_id = $imageId;
-    }
-
-    /**
-     * @param User $user
-     * @return void
-     */
-    public function setUser(User $user)
-    {
-        $this->user = $user;
     }
 }

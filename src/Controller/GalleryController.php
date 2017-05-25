@@ -8,18 +8,39 @@ use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use MillmanPhotography\Entity\Gallery;
+use MillmanPhotography\Resource\ImageResource;
+use MillmanPhotography\Resource\GalleryResource;
+
 class GalleryController
 {
+    /** @var Plates $view */
+    private $view;
+
+    /** @var GalleryResource $galleryResource */
+    private $galleryResource;
+
+    /** @var ImageResource $imageResource */
+    private $imageResource;
+
     /** @var Monolog $logger */
     private $logger;
 
     /**
      * @param Plates $view
+     * @param GalleryResource $galleryResource
+     * @param ImageResource $imageResource
      * @param Monolog $logger
      */
-    public function __construct(Plates $view, Monolog $logger)
-    {
+    public function __construct(
+        Plates $view,
+        GalleryResource $galleryResource,
+        ImageResource $imageResource,
+        Monolog $logger
+    ) {
         $this->view = $view;
+        $this->galleryResource = $galleryResource;
+        $this->imageResource = $imageResource;
         $this->logger = $logger;
     }
 
@@ -44,11 +65,9 @@ class GalleryController
      */
     private function retrieveGalleryTitles()
     {
-        return [
-            'landscape',
-            'bath',
-            'black-and-white'
-        ];
+        return array_map(function (Gallery $gallery) {
+            return $gallery->getTitle();
+        }, $this->galleryResource->get());
     }
 
     /**
@@ -58,25 +77,13 @@ class GalleryController
      */
     public function retrieveFrontPageGalleries()
     {
-        return [
-            [
-                'image' => 'swaledale.jpg',
-                'title' => 'Landscape',
-                'description' => 'The world of natural sights',
-                'link' => '#',
-            ],
-            [
-                'image' => 'bath.jpg',
-                'title' => 'Bath',
-                'description' => 'The beauty of Bath',
-                'link' => '#',
-            ],
-            [
-                'image' => 'ashnessjetty.jpg',
-                'title' => 'Black and White',
-                'description' => 'A new way of seeing',
-                'link' => '#',
-            ],
-        ];
+        return array_map(function (Gallery $gallery) {
+            return [
+                'image' => $this->imageResource->getById($gallery->getImageId())->getFilename(),
+                'title' => $gallery->getTitle(),
+                'description' => $gallery->getDescription(),
+                'link' => '#'
+            ];
+        }, $this->galleryResource->get());
     }
 }
