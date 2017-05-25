@@ -44,7 +44,9 @@ class Version20170524205206 extends AbstractMigration
         $post->addColumn('id', 'integer', ['autoincrement' => true]);
         $post->addColumn('user_id', 'integer');
         $post->addColumn('title', 'string', ['length' => 64]);
+        $post->addColumn('description', 'string', ['length' => 128]);
         $post->addColumn('body', 'string', ['length' => 512]);
+        $post->addColumn('image_id', 'integer');
         $post->addColumn('date_created', 'datetime');
         $post->addColumn('date_modified', 'datetime');
         $post->setPrimaryKey(['id']);

@@ -46,7 +46,7 @@ class EnquiryController
         }
 
         try {
-            $this->resource->post($data);
+            $this->resource->create($data);
             return $response->withJson(['Sent'], 200);
         } catch (\Exception $exception) {
             $this->logger->log(100, $exception->getMessage());
