@@ -51,7 +51,7 @@ a.button {
     border-radius: 5px;
 }
 
-a.button:hover {}
+a.button:hover,
 a.button:focus,
 a.button:active {
     background: rgb(0, 0, 0);
