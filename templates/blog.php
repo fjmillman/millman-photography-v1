@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
 <!-- Blog -->
-<section id="blog">
+<section class="blog text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">

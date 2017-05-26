@@ -84,6 +84,6 @@ class GalleryController
                 'description' => $gallery->getDescription(),
                 'link' => '#'
             ];
-        }, $this->galleryResource->get());
+        }, array_slice($this->galleryResource->get(), 0, 3));
     }
 }

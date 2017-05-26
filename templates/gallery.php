@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
 <!-- Gallery -->
-<section id="gallery">
+<section class="gallery text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">

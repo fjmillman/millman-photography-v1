@@ -92,6 +92,6 @@ class BlogController
                 'description' => $post->getDescription(),
                 'link' => '#'
             ];
-        }, $this->postResource->get());
+        }, array_slice($this->postResource->get(), 0, 3));
     }
 }

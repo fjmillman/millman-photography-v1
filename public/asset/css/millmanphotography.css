@@ -59,6 +59,10 @@ a.button:active {
     border-color: #ffffff;
 }
 
+button:hover {
+    background: rgb(130, 130, 130);
+}
+
 /**************************/
 /*   Navigation Styles    */
 /**************************/
