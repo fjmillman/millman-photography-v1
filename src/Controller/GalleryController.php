@@ -69,21 +69,4 @@ class GalleryController
             return $gallery->getTitle();
         }, $this->galleryResource->get());
     }
-
-    /**
-     * Retrieve the title, image, and link to the three chosen galleries to be displayed on the front page.
-     *
-     * @return array
-     */
-    public function retrieveFrontPageGalleries()
-    {
-        return array_map(function (Gallery $gallery) {
-            return [
-                'image' => $this->imageResource->getById($gallery->getImageId())->getFilename(),
-                'title' => $gallery->getTitle(),
-                'description' => $gallery->getDescription(),
-                'link' => '#'
-            ];
-        }, array_slice($this->galleryResource->get(), 0, 3));
-    }
 }

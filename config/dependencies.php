@@ -17,12 +17,16 @@ use MillmanPhotography\Resource\ImageResource;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
+use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Validator\EnquiryValidator;
+use MillmanPhotography\Controller\AdminController;
 use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
+use MillmanPhotography\Validator\RegistrationValidator;
+use MillmanPhotography\Controller\RegistrationController;
 
 $container = $millmanphotography->getContainer();
 
@@ -55,9 +59,10 @@ $container[Monolog::class] = function (Container $container) {
 
 $container[IndexController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
-    $galleryController = $container->get(GalleryController::class);
-    $blogController = $container->get(BlogController::class);
-    return new IndexController($view, $galleryController, $blogController);
+    $galleryResource = $container->get(GalleryResource::class);
+    $imageResource = $container->get(ImageResource::class);
+    $postResource = $container->get(PostResource::class);
+    return new IndexController($view, $galleryResource, $imageResource, $postResource);
 };
 
 $container[GalleryController::class] = function (Container $container) {
@@ -88,11 +93,6 @@ $container[BlogController::class] = function (Container $container) {
     return new BlogController($view, $session, $userResource, $postResource, $imageResource, $logger);
 };
 
-$container[UserResource::class] = function (Container $container) {
-    $entityManager = $container->get(EntityManager::class);
-    return new UserResource($entityManager);
-};
-
 $container[PostResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new PostResource($entityManager);
@@ -112,6 +112,38 @@ $container[EnquiryValidator::class] = function (Container $container) {
 $container[EnquiryResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new EnquiryResource($entityManager);
+};
+
+$container[AdminController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    return new AdminController($view);
+};
+
+$container[RegistrationController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
+    $validator = $container->get(RegistrationValidator::class);
+    $resource = $container->get(UserResource::class);
+    $logger = $container->get(Monolog::class);
+    return new RegistrationController($view, $session, $validator, $resource, $logger);
+};
+
+$container[RegistrationValidator::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    return new RegistrationValidator($view);
+};
+
+$container[LoginController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
+    $resource = $container->get(UserResource::class);
+    $logger = $container->get(Monolog::class);
+    return new LoginController($view, $session, $resource, $logger);
+};
+
+$container[UserResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new UserResource($entityManager);
 };
 
 $container[Csrf::class] = function (Container $container) {

@@ -77,21 +77,4 @@ class BlogController
             ]
         );
     }
-
-    /**
-     * Retrieve the title, image and link of the three latest blog posts to be displayed on the front page.
-     *
-     * @return array
-     */
-    public function retrieveLatestPosts()
-    {
-        return array_map(function (Post $post) {
-            return [
-                'image' => $this->imageResource->getById($post->getImageId())->getFilename(),
-                'title' => $post->getTitle(),
-                'description' => $post->getDescription(),
-                'link' => '#'
-            ];
-        }, array_slice($this->postResource->get(), 0, 3));
-    }
 }

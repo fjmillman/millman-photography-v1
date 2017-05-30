@@ -19,7 +19,6 @@ session_start([
 $settings = require __DIR__ . '/../config/settings.php';
 
 $millmanphotography = new App($settings);
-$millmanphotography = new App($settings);
 
 require __DIR__ . '/../config/dependencies.php';
 require __DIR__ . '/../config/middleware.php';

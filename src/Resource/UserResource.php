@@ -33,6 +33,17 @@ class UserResource extends Resource
     }
 
     /**
+     * Get a user by token
+     *
+     * @param string $token
+     * @return object
+     */
+    public function getByToken($token)
+    {
+        return $this->entityManager->getRepository(User::class)->find($token);
+    }
+
+    /**
      * Create a new user
      *
      * @param array $data
