@@ -260,6 +260,31 @@ section.blog .section-heading {
 }
 
 /**************************/
+/*     Form Styles     */
+/**************************/
+form {
+    padding: 15px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 20px;
+}
+
+.form-group textarea.form-control {
+    height: 150px;
+}
+
+.form-control:focus {
+    border-color: #373737;
+    box-shadow: none;
+}
+
+/**************************/
 /*      About Styles      */
 /**************************/
 section.about {
@@ -348,28 +373,6 @@ section.services .service-heading {
 /**************************/
 section.enquiry .section-heading {
     color: rgb(0, 0, 0);
-}
-
-section.enquiry form#contactForm {
-    padding: 15px;
-}
-
-section.enquiry .form-group {
-    margin-bottom: 25px;
-}
-
-section.enquiry .form-group input,
-section.enquiry .form-group textarea {
-    padding: 20px;
-}
-
-section.enquiry .form-group textarea.form-control {
-    height: 150px;
-}
-
-section.enquiry .form-control:focus {
-    border-color: #373737;
-    box-shadow: none;
 }
 
 /**************************/
