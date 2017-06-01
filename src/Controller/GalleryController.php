@@ -3,8 +3,6 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
-use Projek\Slim\Monolog;
-use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -23,25 +21,19 @@ class GalleryController
     /** @var ImageResource $imageResource */
     private $imageResource;
 
-    /** @var Monolog $logger */
-    private $logger;
-
     /**
      * @param Plates $view
      * @param GalleryResource $galleryResource
      * @param ImageResource $imageResource
-     * @param Monolog $logger
      */
     public function __construct(
         Plates $view,
         GalleryResource $galleryResource,
-        ImageResource $imageResource,
-        Monolog $logger
+        ImageResource $imageResource
     ) {
         $this->view = $view;
         $this->galleryResource = $galleryResource;
         $this->imageResource = $imageResource;
-        $this->logger = $logger;
     }
 
     /**

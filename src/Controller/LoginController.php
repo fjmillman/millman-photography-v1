@@ -21,25 +21,19 @@ class LoginController
     /** @var Plates $resource */
     private $resource;
 
-    /** @var Monolog $logger */
-    private $logger;
-
     /**
      * @param Plates $view
      * @param Session $session
      * @param UserResource $resource
-     * @param Monolog $logger
      */
     public function __construct(
         Plates $view,
         Session $session,
-        UserResource $resource,
-        Monolog $logger
+        UserResource $resource
     ) {
         $this->view = $view;
         $this->session = $session;
         $this->resource = $resource;
-        $this->logger = $logger;
     }
 
     /**

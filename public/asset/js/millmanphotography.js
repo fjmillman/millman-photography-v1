@@ -26,14 +26,12 @@ $(function () {
         }).done(success).fail(error).always(complete);
         return false;
     });
-    function success(data, status, request) {
-        console.log(status);
+    function success(data) {
         $form.trigger('reset');
-        let $message = $('<p>').text('Success').css('color', 'green').prependTo($submit.parent());
+        let $message = $('<p>').text(data).css('color', 'green').prependTo($submit.parent());
         setTimeout(function() { $message.remove() }, 2500);
     }
-    function error(request, status, error) {
-        console.log(status + ' : ' + error);
+    function error(request) {
         let $message = $('<p>').text(request.responseJSON).css('color', 'red').prependTo($submit.parent());
         setTimeout(function() { $message.remove() }, 2500);
     }

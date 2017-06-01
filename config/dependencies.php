@@ -69,8 +69,7 @@ $container[GalleryController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryResource = $container->get(GalleryResource::class);
     $imageResource = $container->get(ImageResource::class);
-    $logger = $container->get(Monolog::class);
-    return new GalleryController($view, $galleryResource, $imageResource, $logger);
+    return new GalleryController($view, $galleryResource, $imageResource);
 };
 
 $container[GalleryResource::class] = function (Container $container) {
@@ -89,8 +88,7 @@ $container[BlogController::class] = function (Container $container) {
     $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
     $imageResource = $container->get(ImageResource::class);
-    $logger = $container->get(Monolog::class);
-    return new BlogController($view, $session, $userResource, $postResource, $imageResource, $logger);
+    return new BlogController($view, $session, $userResource, $postResource, $imageResource);
 };
 
 $container[PostResource::class] = function (Container $container) {
@@ -101,8 +99,7 @@ $container[PostResource::class] = function (Container $container) {
 $container[EnquiryController::class] = function (Container $container) {
     $validator = $container->get(EnquiryValidator::class);
     $resource = $container->get(EnquiryResource::class);
-    $logger = $container->get(Monolog::class);
-    return new EnquiryController($validator, $resource, $logger);
+    return new EnquiryController($validator, $resource);
 };
 
 $container[EnquiryValidator::class] = function (Container $container) {
@@ -124,8 +121,7 @@ $container[RegistrationController::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $validator = $container->get(RegistrationValidator::class);
     $resource = $container->get(UserResource::class);
-    $logger = $container->get(Monolog::class);
-    return new RegistrationController($view, $session, $validator, $resource, $logger);
+    return new RegistrationController($view, $session, $validator, $resource);
 };
 
 $container[RegistrationValidator::class] = function (Container $container) {
@@ -137,8 +133,7 @@ $container[LoginController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $session = $container->get(Session::class);
     $resource = $container->get(UserResource::class);
-    $logger = $container->get(Monolog::class);
-    return new LoginController($view, $session, $resource, $logger);
+    return new LoginController($view, $session, $resource);
 };
 
 $container[UserResource::class] = function (Container $container) {

@@ -33,6 +33,17 @@ class UserResource extends Resource
     }
 
     /**
+     * Get a user by username
+     *
+     * @param string $username
+     * @return object
+     */
+    public function getByUsername($username)
+    {
+        return $this->entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+    }
+
+    /**
      * Get a user by token
      *
      * @param string $token
@@ -40,7 +51,7 @@ class UserResource extends Resource
      */
     public function getByToken($token)
     {
-        return $this->entityManager->getRepository(User::class)->find($token);
+        return $this->entityManager->getRepository(User::class)->findOneBy(['token' => $token]);
     }
 
     /**
@@ -54,7 +65,7 @@ class UserResource extends Resource
 
         $user->setUsername($data['username']);
         $user->setPassword($data['password']);
-        $user->setToken($data['token']);
+        $user->setToken(bin2hex(random_bytes(128)));
         $user->setIsAdmin($data['is_admin']);
 
         $this->entityManager->persist($user);

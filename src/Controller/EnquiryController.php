@@ -2,9 +2,9 @@
 
 namespace MillmanPhotography\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Projek\Slim\Monolog;
 
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Validator\EnquiryValidator;
@@ -17,25 +17,20 @@ class EnquiryController
     /** @var EnquiryResource $resource */
     private $resource;
 
-    /** @var Monolog $logger */
-    private $logger;
-
     /**
      * @param EnquiryValidator $validator
      * @param EnquiryResource $resource
-     * @param Monolog $logger
      */
-    public function __construct(EnquiryValidator $validator, EnquiryResource $resource, Monolog $logger)
+    public function __construct(EnquiryValidator $validator, EnquiryResource $resource)
     {
         $this->validator = $validator;
         $this->resource = $resource;
-        $this->logger = $logger;
     }
 
     /**
      * @param Request $request
      * @param Response $response
-     * @return Response
+     * @return ResponseInterface
      */
     public function __invoke(Request $request, Response $response)
     {
@@ -47,10 +42,9 @@ class EnquiryController
 
         try {
             $this->resource->create($data);
-            return $response->withJson(['Sent'], 200);
+            return $response->withJson(['Success'], 200);
         } catch (\Exception $exception) {
-            $this->logger->log(100, $exception->getMessage());
-            return $response->withJson(['Error'], 400);
+            return $response->withJson(['Error: Try Again'], 404);
         }
     }
 }
