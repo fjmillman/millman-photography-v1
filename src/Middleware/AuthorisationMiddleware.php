@@ -39,6 +39,6 @@ class AuthorisationMiddleware
                 return $next($request->withAttribute('user', $user), $response);
             }
         }
-        return $response->withStatus(404);
+        return $response->withStatus(404)->withHeader('Location', '/login');
     }
 }

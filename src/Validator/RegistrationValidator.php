@@ -27,7 +27,7 @@ class RegistrationValidator implements Validator
         ])->only([
             'username',
             'password',
-            'password_confirmation'
+            'password_confirmation',
         ]);
 
         $this->validator = V::assoc([

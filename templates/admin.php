@@ -8,6 +8,7 @@
             <div class="col-lg-12 text-center">
                 <h1>Admin.</h1>
                 <p>Mwuhaha! Looks like you have control!</p>
+                <p><a href="/logout">You could lose your control!</a></p>
             </div>
         </div>
     </div>

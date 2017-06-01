@@ -84,7 +84,7 @@ class UserResource extends Resource
 
         $user->setUsername($data['username']);
         $user->setPassword($data['password']);
-        $user->setToken($data['token']);
+        $user->setToken(bin2hex(random_bytes(128)));
         $user->setIsAdmin($data['is_admin']);
 
         $this->entityManager->persist($user);

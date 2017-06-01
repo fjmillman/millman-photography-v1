@@ -27,6 +27,7 @@ use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
 use MillmanPhotography\Validator\RegistrationValidator;
 use MillmanPhotography\Controller\RegistrationController;
+use MillmanPhotography\Middleware\AuthorisationMiddleware;
 
 $container = $millmanphotography->getContainer();
 
@@ -116,6 +117,13 @@ $container[AdminController::class] = function (Container $container) {
     return new AdminController($view);
 };
 
+$container[AuthorisationMiddleware::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
+    $resource = $container->get(UserResource::class);
+    return new AuthorisationMiddleware($view, $session, $resource);
+};
+
 $container[RegistrationController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $session = $container->get(Session::class);
@@ -125,8 +133,7 @@ $container[RegistrationController::class] = function (Container $container) {
 };
 
 $container[RegistrationValidator::class] = function (Container $container) {
-    $view = $container->get(Plates::class);
-    return new RegistrationValidator($view);
+    return new RegistrationValidator();
 };
 
 $container[LoginController::class] = function (Container $container) {

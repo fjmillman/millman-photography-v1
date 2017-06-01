@@ -59,6 +59,10 @@ a.button:active {
     border-color: #ffffff;
 }
 
+button {
+    margin-bottom: 20px;
+}
+
 button:hover {
     background: rgb(130, 130, 130);
 }
@@ -198,7 +202,7 @@ header .banner {
     padding: 20px;
 }
 
-header .signature {
+.signature {
     height: 100px;
     width: 260px;
 }

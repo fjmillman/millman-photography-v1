@@ -24,7 +24,6 @@ $(function () {
             cache: false,
             dataType: 'json'
         }).done(success).fail(error).always(complete);
-        return false;
     });
     function success(data) {
         $form.trigger('reset');

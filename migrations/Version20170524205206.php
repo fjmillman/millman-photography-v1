@@ -23,7 +23,6 @@ class Version20170524205206 extends AbstractMigration
 
         $image = $schema->createTable('image');
         $image->addColumn('id', 'integer', ['autoincrement' => true]);
-        $image->addColumn('gallery_id', 'integer');
         $image->addColumn('filename', 'string', ['length' => 32]);
         $image->addColumn('caption', 'string', ['length' => 64]);
         $image->addColumn('date_created', 'datetime');
@@ -32,8 +31,8 @@ class Version20170524205206 extends AbstractMigration
 
         $user = $schema->createTable('user');
         $user->addColumn('id', 'integer', ['autoincrement' => true]);
-        $user->addColumn('username', 'integer');
-        $user->addColumn('password', 'string', ['length' => 50]);
+        $user->addColumn('username', 'string', ['length' => 32]);
+        $user->addColumn('password', 'string');
         $user->addColumn('token', 'string');
         $user->addColumn('is_admin', 'boolean');
         $user->addColumn('date_created', 'datetime');
@@ -46,7 +45,6 @@ class Version20170524205206 extends AbstractMigration
         $post->addColumn('title', 'string', ['length' => 64]);
         $post->addColumn('description', 'string', ['length' => 128]);
         $post->addColumn('body', 'string', ['length' => 512]);
-        $post->addColumn('image_id', 'integer');
         $post->addColumn('date_created', 'datetime');
         $post->addColumn('date_modified', 'datetime');
         $post->setPrimaryKey(['id']);
@@ -60,7 +58,6 @@ class Version20170524205206 extends AbstractMigration
         $enquiry->addColumn('date_modified', 'datetime');
         $enquiry->setPrimaryKey(['id']);
 
-        $image->addForeignKeyConstraint($gallery, ['gallery_id'], ['id']);
         $post->addForeignKeyConstraint($user, ['user_id'], ['id']);
     }
 
