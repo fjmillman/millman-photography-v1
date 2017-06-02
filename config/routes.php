@@ -7,6 +7,7 @@ use MillmanPhotography\Controller\AdminController;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\LoginController;
+use MillmanPhotography\Controller\UploadController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
@@ -21,7 +22,7 @@ $millmanphotography->get('/gallery', GalleryController::class)->setName('gallery
 
 $millmanphotography->post('/enquiry', EnquiryController::class)->setName('enquiry')->add(CsrfTokenHeader::class);
 
-$millmanphotography->get('/admin', AdminController::class)->setName('admin')->add(AuthorisationMiddleware::class);
+$millmanphotography->get('/admin', AdminController::class)->setName('admin')->add(AuthorisationMiddleware::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
 
 $millmanphotography->get('/login', LoginController::class)->setName('login')->add(CsrfTokenProvider::class)->add(Csrf::class);
 $millmanphotography->post('/login', LoginController::class . ':login');
@@ -31,3 +32,5 @@ if (getenv('ENABLE_REGISTRATION') === 'true') {
     $millmanphotography->get('/register', RegistrationController::class)->setName('register')->add(CsrfTokenProvider::class)->add(Csrf::class);
     $millmanphotography->post('/register', RegistrationController::class . ':register');
 }
+
+$millmanphotography->post('/upload', UploadController::class)->setName('upload');

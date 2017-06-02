@@ -408,6 +408,10 @@ section .project-item .project-caption p {
     font-style: italic;
 }
 
+section.image .section-heading {
+    color: black;
+}
+
 /**************************/
 /*     Footer Styles      */
 /**************************/

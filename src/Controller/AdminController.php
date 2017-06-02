@@ -27,6 +27,6 @@ class AdminController
     public function __invoke(Request $request, Response $response)
     {
         $this->view->setResponse($response->withStatus(200));
-        return $this->view->render('admin');
+        return $this->view->render('admin', ['sections' => ['image']]);
     }
 }
