@@ -23,11 +23,11 @@ $millmanphotography->post('/enquiry', EnquiryController::class)->setName('enquir
 
 $millmanphotography->get('/admin', AdminController::class)->setName('admin')->add(AuthorisationMiddleware::class);
 
-$millmanphotography->get('/login', LoginController::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
-$millmanphotography->post('/login', LoginController::class . ':login')->add(CsrfTokenHeader::class);;
-$millmanphotography->get('/logout', LoginController::class . ':logout')->add(AuthorisationMiddleware::class);
+$millmanphotography->get('/login', LoginController::class)->setName('login')->add(CsrfTokenProvider::class)->add(Csrf::class);
+$millmanphotography->post('/login', LoginController::class . ':login');
+$millmanphotography->get('/logout', LoginController::class . ':logout')->setName('logout')->add(AuthorisationMiddleware::class);
 
 if (getenv('ENABLE_REGISTRATION') === 'true') {
-    $millmanphotography->get('/register', RegistrationController::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
-    $millmanphotography->post('/register', RegistrationController::class . ':register')->add(CsrfTokenHeader::class);;
+    $millmanphotography->get('/register', RegistrationController::class)->setName('register')->add(CsrfTokenProvider::class)->add(Csrf::class);
+    $millmanphotography->post('/register', RegistrationController::class . ':register');
 }
