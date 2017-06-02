@@ -73,6 +73,40 @@ class UserResource extends Resource
     }
 
     /**
+     * Update a user's password
+     *
+     * @param int $id
+     * @param string $password
+     */
+    public function updatePassword($id, $password)
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+
+        $user->setPassword($password);
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Update a user's token
+     *
+     * @param int $id
+     * @return string $token
+     */
+    public function updateToken($id)
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+
+        $user->setToken(bin2hex(random_bytes(128)));
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $user->getToken();
+    }
+
+    /**
      * Update an existing user
      *
      * @param int $id

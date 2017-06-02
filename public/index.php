@@ -9,7 +9,6 @@ $dotenv = new Dotenv(realpath(dirname(__DIR__)));
 $dotenv->load();
 
 session_start([
-    'name' => 'Millman Photography',
     'use_strict_mode' => true,
     'use_only_cookies' => true,
     'gc_maxlifetime' => 60 * 15,

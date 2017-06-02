@@ -11,10 +11,10 @@ $(function() {
 });
 
 /**
- * Post Form Data using Csrf Token
+ * Enquiry Form
  */
 $(function () {
-    const $form = $('form');
+    const $form = $('#enquiry-form');
     const $submit = $('#submit');
     $form.on('submit', function () {
         $.ajax({
@@ -24,6 +24,7 @@ $(function () {
             cache: false,
             dataType: 'json'
         }).done(success).fail(error).always(complete);
+        return false;
     });
     function success(data) {
         $form.trigger('reset');

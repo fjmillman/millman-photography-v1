@@ -4,7 +4,6 @@ namespace MillmanPhotography\Controller;
 
 use RKA\Session;
 use Projek\Slim\Plates;
-use Projek\Slim\Monolog;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -44,6 +43,7 @@ class LoginController
     public function __invoke(Request $request, Response $response)
     {
         $this->view->setResponse($response->withStatus(200));
+
         return $this->view->render('login');
     }
 
@@ -59,17 +59,15 @@ class LoginController
         $user = $this->resource->getByUsername($data['username']);
 
         if (!$user || !password_verify($data['password'], $user->getPassword())) {
-            return $this->view->render($response->withStatus(200), 'login');
+            return $response->withStatus(302)->withHeader('Location', '/login');
         }
 
         if (password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT)) {
-            $user->setPassword($data['password']);
+            $this->resource->updatePassword($user->getId(), $data['password']);
         }
 
-        $this->resource->update($user->getId(), $data);
+        $this->session->set('token', $this->resource->updateToken($user->getId()));
 
-        $this->session->set('token', $user->getToken());
-        
         return $response->withStatus(302)->withHeader('Location', '/admin');
     }
 
@@ -82,6 +80,6 @@ class LoginController
     {
         Session::destroy();
 
-        return $response->withStatus(302)->withHeader('Location', '/');
+        return $response->withStatus(302)->withHeader('Location', '/login');
     }
 }

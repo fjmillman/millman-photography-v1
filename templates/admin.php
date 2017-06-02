@@ -1,4 +1,4 @@
-<?php $this->layout('base') ?>
+<?php $this->layout('base', ['title' => 'Admin']) ?>
 
 <?php $this->start('page') ?>
 <!-- Admin -->

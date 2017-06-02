@@ -14,16 +14,16 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input id="username" type="text" class="form-control" placeholder="Username *" required data-validation-required-message="Please enter a username.">
+                                <input name="username" id="username" type="text" class="form-control" placeholder="Username *" required data-validation-required-message="Please enter a username.">
                             </div>
                             <div class="form-group">
-                                <input id="password" type="password" class="form-control" placeholder="Password *" required data-validation-required-message="Please enter a password.">
+                                <input name="password" id="password" type="password" class="form-control" placeholder="Password *" required data-validation-required-message="Please enter a password.">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
                         <div class="col-lg-12">
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Login</button>
-                            <button id="forgot" type="submit" name="forgot" value="forgot" class="btn btn-xl">Forgot Password?</button>
+                            <button id="forgot" type="button" name="forgot" value="forgot" class="btn btn-xl">Forgot Password?</button>
                             <p><a href="/register">Don't have an account?</a></p>
                         </div>
                     </div>

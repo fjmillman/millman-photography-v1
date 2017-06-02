@@ -118,10 +118,10 @@ $container[AdminController::class] = function (Container $container) {
 };
 
 $container[AuthorisationMiddleware::class] = function (Container $container) {
-    $view = $container->get(Plates::class);
     $session = $container->get(Session::class);
     $resource = $container->get(UserResource::class);
-    return new AuthorisationMiddleware($view, $session, $resource);
+    $logger = $container->get(Monolog::class);
+    return new AuthorisationMiddleware($session, $resource, $logger);
 };
 
 $container[RegistrationController::class] = function (Container $container) {

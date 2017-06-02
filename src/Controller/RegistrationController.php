@@ -2,7 +2,6 @@
 
 namespace MillmanPhotography\Controller;
 
-use Projek\Slim\Monolog;
 use RKA\Session;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -78,6 +77,6 @@ class RegistrationController
         $this->resource->create($data);
         $this->session->set('token', $this->resource->getByUsername($data['username'])->getToken());
 
-        $this->view->render($response->withStatus(200), 'admin');
+        return $response->withStatus(302)->withHeader('Location', '/admin');
     }
 }

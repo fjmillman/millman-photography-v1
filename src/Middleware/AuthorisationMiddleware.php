@@ -25,6 +25,7 @@ class AuthorisationMiddleware
         $this->session = $session;
         $this->userResource = $userResource;
     }
+
     /**
      * @param Request $request
      * @param Response $response
