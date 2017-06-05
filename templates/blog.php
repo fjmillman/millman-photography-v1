@@ -1,14 +1,25 @@
-<?php $this->layout('base', ['title' => 'Blog', 'sections' => $sections]) ?>
+<?php $this->layout('base', ['title' => 'Blog']) ?>
 
 <?php $this->start('page') ?>
 <!-- Blog -->
 <section class="blog text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-12">
                 <h2 class="section-heading">Blog.</h2>
                 <h3 class="section-subheading text-muted">Check out what I have been up to.</h3>
             </div>
+        </div>
+        <div class="row">
+            <?php if (count($posts) === 0) : ?>
+                <li>
+                    <h2>There aren't any posts!</h2>
+                </li>
+            <?php else : ?>
+                <?php foreach ($posts as $post): ?>
+                    <?php $this->insert('project', ['post' => $post]) ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>

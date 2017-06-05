@@ -20,7 +20,7 @@ class UploadController
         $files = $request->getUploadedFiles();
 
         if (empty($files['file'])) {
-            return $response->withStatus(404);
+            return $response->withStatus(404)->withHeader('Location', '/admin');
         }
 
         return $this->processFile($files['file'], $response);

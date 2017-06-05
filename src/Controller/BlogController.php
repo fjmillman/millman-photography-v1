@@ -60,11 +60,7 @@ class BlogController
         return $this->view->render(
             'blog',
             [
-                'sections' => [
-                    'recent',
-                    'popular',
-                    'tags',
-                ]
+                'posts' => $this->postResource->get(),
             ]
         );
     }

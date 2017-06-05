@@ -16,7 +16,7 @@ use MillmanPhotography\Middleware\AuthorisationMiddleware;
 
 $millmanphotography->get('/[index]', IndexController::class)->setName('index')->add(CsrfTokenProvider::class)->add(Csrf::class);
 
-$millmanphotography->get('/blog/[page/{page:[1-9][0-9]*}]', BlogController::class)->setName('blog');
+$millmanphotography->get('/blog', BlogController::class)->setName('blog');
 
 $millmanphotography->get('/gallery', GalleryController::class)->setName('gallery');
 
