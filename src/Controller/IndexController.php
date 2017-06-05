@@ -89,7 +89,7 @@ class IndexController
     {
         return array_map(function (Gallery $gallery) {
             return [
-                'image' => $this->imageResource->getById($gallery->getImageId())->getFilename(),
+                'image' => $gallery->getImages(),
                 'title' => $gallery->getTitle(),
                 'description' => $gallery->getDescription(),
                 'link' => '#'

@@ -80,6 +80,14 @@ class Gallery
     }
 
     /**
+     * @return array $gallery_image
+     */
+    public function getImages()
+    {
+        return $this->gallery_image->toArray();
+    }
+
+    /**
      * @param string $title
      * @return void
      */
@@ -95,5 +103,27 @@ class Gallery
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @param GalleryImage $galleryImage
+     * @return void
+     */
+    public function addImage(GalleryImage $galleryImage)
+    {
+        if (!$this->gallery_image->contains($galleryImage)) {
+            $this->gallery_image->add($galleryImage);
+        }
+    }
+
+    /**
+     * @param GalleryImage $galleryImage
+     * @return void
+     */
+    public function removeImage(GalleryImage $galleryImage)
+    {
+        if ($this->gallery_image->contains($galleryImage)) {
+            $this->gallery_image->removeElement($galleryImage);
+        }
     }
 }

@@ -80,6 +80,14 @@ class Image
     }
 
     /**
+     * @return array $gallery_image
+     */
+    public function getGalleries()
+    {
+        return $this->gallery_image->toArray();
+    }
+
+    /**
      * @param string $filename
      * @return void
      */
@@ -95,5 +103,27 @@ class Image
     public function setCaption($caption)
     {
         $this->caption = $caption;
+    }
+
+    /**
+     * @param GalleryImage $galleryImage
+     * @return void
+     */
+    public function addGallery(GalleryImage $galleryImage)
+    {
+        if (!$this->gallery_image->contains($galleryImage)) {
+            $this->gallery_image->add($galleryImage);
+        }
+    }
+
+    /**
+     * @param GalleryImage $galleryImage
+     * @return void
+     */
+    public function removeGallery(GalleryImage $galleryImage)
+    {
+        if ($this->gallery_image->contains($galleryImage)) {
+            $this->gallery_image->removeElement($galleryImage);
+        }
     }
 }
