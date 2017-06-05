@@ -27,13 +27,17 @@ class EnquiryValidator implements Validator
         ])->only([
             'name',
             'email',
-            'message'
+            'message',
+        ])->renameMany([
+            'name' => 'Name',
+            'email' => 'Email',
+            'message' => 'Message',
         ]);
 
         $this->validator = V::assoc([
-            'name' => V::text(),
-            'email' => V::text()->email(),
-            'message' => V::text(),
+            'Name' => V::text(),
+            'Email' => V::text()->email(),
+            'Message' => V::text(),
         ]);
     }
 

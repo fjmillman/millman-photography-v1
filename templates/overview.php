@@ -147,7 +147,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <form id="enquiry-form" method="post" action="/enquiry" role="form">
-                    <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
+                    <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

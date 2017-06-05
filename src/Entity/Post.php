@@ -53,7 +53,7 @@ class Post
     protected $image_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="post")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
      * @var User

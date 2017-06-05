@@ -17,7 +17,7 @@
                 </li>
             <?php else : ?>
                 <?php foreach ($posts as $post): ?>
-                    <?php $this->insert('project', ['post' => $post]) ?>
+                    <?php $this->insert('partials/post', ['post' => $post]) ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

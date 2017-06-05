@@ -3,6 +3,8 @@
 namespace MillmanPhotography\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use MillmanPhotography\Entity\Traits\Timestamps;
 
@@ -39,12 +41,19 @@ class Image
     protected $caption;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="photo")
-     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", nullable=false)
+     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="image")
      *
-     * @var Gallery
+     * @var Collection
      */
-    protected $gallery;
+    protected $gallery_image;
+
+    /**
+     * Initialise gallery_image as an empty ArrayCollection
+     */
+    public function __construct()
+    {
+        $this->gallery_image = new ArrayCollection();
+    }
 
     /**
      * @return integer $id

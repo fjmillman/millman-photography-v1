@@ -9,7 +9,7 @@
                 <h1>Registration.</h1>
                 <p>Be the admin that you want to be.</p>
                 <form id="registration-form" method="post" action="/register" role="form">
-                    <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
+                    <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">

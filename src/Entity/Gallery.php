@@ -3,6 +3,8 @@
 namespace MillmanPhotography\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use MillmanPhotography\Entity\Traits\Timestamps;
 
@@ -39,11 +41,19 @@ class Gallery
     protected $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="gallery")
      *
-     * @var integer $image_id
+     * @var Collection
      */
-    protected $image_id;
+    protected $gallery_image;
+
+    /**
+     * Initialise gallery_image as an empty ArrayCollection
+     */
+    public function __construct()
+    {
+        $this->gallery_image = new ArrayCollection();
+    }
 
     /**
      * @return integer $id
@@ -70,14 +80,6 @@ class Gallery
     }
 
     /**
-     * @return integer $image_id
-     */
-    public function getImageId()
-    {
-        return $this->image_id;
-    }
-
-    /**
      * @param string $title
      * @return void
      */
@@ -93,14 +95,5 @@ class Gallery
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @param integer $imageId
-     * @return void
-     */
-    public function setImageId($imageId)
-    {
-        $this->image_id = $imageId;
     }
 }

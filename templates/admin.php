@@ -1,4 +1,4 @@
-<?php $this->layout('base', ['title' => 'Admin', 'sections' => $sections]) ?>
+<?php $this->layout('base', ['title' => 'Admin']) ?>
 
 <?php $this->start('page') ?>
 <!-- Admin -->
@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <form id="upload-form" method="post" action="/upload" enctype="multipart/form-data" role="form">
-                    <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
+                    <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">

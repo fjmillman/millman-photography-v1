@@ -9,7 +9,7 @@
                 <h1>Login.</h1>
                 <p>Do you remember who you were?</p>
                 <form id="login-form" method="post" action="/login" role="form">
-                    <?php $this->insert('csrf', ['csrf' => $csrfToken]) ?>
+                    <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -23,7 +23,6 @@
                         <div class="col-md-3"></div>
                         <div class="col-lg-12">
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Login</button>
-                            <button id="forgot" type="button" name="forgot" value="forgot" class="btn btn-xl">Forgot Password?</button>
                             <p><a href="/register">Don't have an account?</a></p>
                         </div>
                     </div>

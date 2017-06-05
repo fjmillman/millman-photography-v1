@@ -28,14 +28,18 @@ class RegistrationValidator implements Validator
             'username',
             'password',
             'password_confirmation',
+        ])->renameMany([
+            'username' => 'Username',
+            'password' => 'Password',
+            'password_confirmation' => 'Password Confirmation'
         ]);
 
         $this->validator = V::assoc([
-            'username' => V::text()->min(3)->max(32),
-            'password' => V::text()->min(7),
-            'password_confirmation' => V::text()->min(7),
+            'Username' => V::text()->min(3)->max(32),
+            'Password' => V::text()->min(7),
+            'Password Confirmation' => V::text()->min(7),
         ])->should(function ($data) {
-                return $data['password'] === $data['password_confirmation'];
+                return $data['Password'] === $data['Password Confirmation'];
             },
             'Passwords did not match!'
         );

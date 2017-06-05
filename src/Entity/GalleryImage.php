@@ -25,15 +25,15 @@ class GalleryImage
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MillmanPhotography\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="gallery_image")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", nullable=false)
      *
      * @var Gallery $gallery
      */
     protected $gallery;
 
     /**
-     * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="MillmanPhotography\Entity\Image", inversedBy="stockProducts")
+     * @ORM\ManyToOne(targetEntity="Image", inversedBy="gallery_image")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=false)
      *
      * @var Image $image

@@ -72,8 +72,6 @@ class RegistrationController
             return $response->withJson($this->validator->getErrors(), 400);
         }
 
-        $data['is_admin'] = true;
-
         $this->resource->create($data);
         $this->session->set('token', $this->resource->getByUsername($data['username'])->getToken());
 
