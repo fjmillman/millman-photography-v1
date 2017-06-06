@@ -49,7 +49,7 @@ class Post
     protected $description;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      *
      * @var string $body
      */

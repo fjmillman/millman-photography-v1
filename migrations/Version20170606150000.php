@@ -5,7 +5,7 @@ namespace MillmanPhotography\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 
-class Version20170606103000 extends AbstractMigration
+class Version20170606150000 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -16,7 +16,7 @@ class Version20170606103000 extends AbstractMigration
         $user->addColumn('id', 'integer', ['autoincrement' => true]);
         $user->addColumn('username', 'string', ['length' => 64]);
         $user->addColumn('password', 'string');
-        $user->addColumn('token', 'string');
+        $user->addColumn('token', 'text');
         $user->addColumn('is_admin', 'boolean');
         $user->addColumn('date_created', 'datetime');
         $user->addColumn('date_modified', 'datetime');
@@ -33,11 +33,13 @@ class Version20170606103000 extends AbstractMigration
         $gallery = $schema->createTable('gallery');
         $gallery->addColumn('id', 'integer', ['autoincrement' => true]);
         $gallery->addColumn('title', 'string', ['length' => 64]);
+        $gallery->addColumn('slug', 'string');
         $gallery->addColumn('description', 'string', ['length' => 128]);
         $gallery->addColumn('is_front', 'boolean');
         $gallery->addColumn('date_created', 'datetime');
         $gallery->addColumn('date_modified', 'datetime');
         $gallery->setPrimaryKey(['id']);
+        $gallery->addUniqueIndex(['slug']);
 
         $galleryImage = $schema->createTable('gallery_image');
         $galleryImage->addColumn('id', 'integer', ['autoincrement' => true]);
@@ -52,11 +54,13 @@ class Version20170606103000 extends AbstractMigration
         $post->addColumn('id', 'integer', ['autoincrement' => true]);
         $post->addColumn('user_id', 'integer');
         $post->addColumn('title', 'string', ['length' => 64]);
+        $post->addColumn('slug', 'string');
         $post->addColumn('description', 'string', ['length' => 128]);
         $post->addColumn('body', 'text');
         $post->addColumn('date_created', 'datetime');
         $post->addColumn('date_modified', 'datetime');
         $post->setPrimaryKey(['id']);
+        $post->addUniqueIndex(['slug']);
 
         $postImage = $schema->createTable('post_image');
         $postImage->addColumn('id', 'integer', ['autoincrement' => true]);
@@ -76,11 +80,11 @@ class Version20170606103000 extends AbstractMigration
         $enquiry->addColumn('date_modified', 'datetime');
         $enquiry->setPrimaryKey(['id']);
 
+        $post->addForeignKeyConstraint($user, ['user_id'], ['id']);
         $galleryImage->addForeignKeyConstraint($gallery, ['gallery_id'], ['id']);
         $galleryImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
         $postImage->addForeignKeyConstraint($post, ['post_id'], ['id']);
         $postImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
-        $post->addForeignKeyConstraint($user, ['user_id'], ['id']);
     }
 
     /**

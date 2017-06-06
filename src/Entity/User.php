@@ -29,35 +29,35 @@ class User
     /**
      * @ORM\Column(type="string", length=64)
      *
-     * @var string $name
+     * @var string $username
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string")
      *
-     * @var string $email
+     * @var string $password
      */
     protected $password;
 
     /**
-     * @ORM\Column(type="string", length=512)
+     * @ORM\Column(type="string")
      *
-     * @var string $message
+     * @var string $token
      */
     protected $token;
 
     /**
      * @ORM\Column(type="boolean")
      *
-     * @var boolean $isAdmin
+     * @var boolean $is_admin
      */
     protected $is_admin = false;
 
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
      *
-     * @var Collection
+     * @var Collection $posts
      */
     protected $posts;
 

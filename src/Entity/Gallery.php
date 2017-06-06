@@ -42,7 +42,7 @@ class Gallery
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=128)
      *
      * @var string $email
      */
@@ -161,7 +161,6 @@ class Gallery
     {
         $this->is_front = $isFront;
     }
-
 
     /**
      * @param GalleryImage $galleryImage
