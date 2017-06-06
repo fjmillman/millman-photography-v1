@@ -3,11 +3,11 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
+use Arrayzy\ArrayImitator as A;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Section;
-use MillmanPhotography\Entity\Post;
 use MillmanPhotography\Entity\Gallery;
 use MillmanPhotography\Resource\PostResource;
 use MillmanPhotography\Resource\ImageResource;
@@ -57,43 +57,36 @@ class IndexController
             'overview',
             [
                 'sections' => Section::SECTIONS,
-                'blogItems' => $this->retrieveLatestPosts(),
-                'galleryItems' => $this->retrieveFrontPageGalleries(),
+                'posts' => $this->retrieveLatestPosts(),
+                'galleries' => $this->retrieveFrontPageGalleries(),
             ]
         );
     }
 
     /**
-     * Retrieve the title, image and link of the three latest blog posts to be displayed on the front page.
+     * Retrieve the three latest blog posts to be displayed on the front page.
      *
      * @return array
      */
     private function retrieveLatestPosts()
     {
-        return array_map(function (Post $post) {
-            return [
-                'image' => $this->imageResource->getById($post->getImageId())->getFilename(),
-                'title' => $post->getTitle(),
-                'description' => $post->getDescription(),
-                'link' => '#'
-            ];
-        }, array_slice($this->postResource->get(), 0, 3));
+        return A::create($this->postResource->get())
+                ->slice(0, 3)
+                ->toArray();
     }
 
     /**
-     * Retrieve the title, image, and link to the three chosen galleries to be displayed on the front page.
+     * Retrieve the three chosen galleries to be displayed on the front page.
      *
      * @return array
      */
     private function retrieveFrontPageGalleries()
     {
-        return array_map(function (Gallery $gallery) {
-            return [
-                'image' => $gallery->getImages(),
-                'title' => $gallery->getTitle(),
-                'description' => $gallery->getDescription(),
-                'link' => '#'
-            ];
-        }, array_slice($this->galleryResource->get(), 0, 3));
+        return A::create($this->galleryResource->get())
+                ->filter(function(Gallery $gallery) {
+                    return $gallery->getIsFront();
+                })
+                ->slice(0, 3)
+                ->toArray();
     }
 }

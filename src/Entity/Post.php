@@ -2,7 +2,10 @@
 
 namespace MillmanPhotography\Entity;
 
+use function Stringy\Create as S;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use MillmanPhotography\Entity\Traits\Timestamps;
 
@@ -23,6 +26,13 @@ class Post
      * @var integer $id
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     *
+     * @var string $slug
+     */
+    protected $slug;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -46,13 +56,6 @@ class Post
     protected $body;
 
     /**
-     * @ORM\Column(type="integer")
-     *
-     * @var integer $image_id
-     */
-    protected $image_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="post")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
@@ -61,11 +64,31 @@ class Post
     protected $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="post")
+     *
+     * @var Collection
+     */
+    protected $post_image;
+
+    public function __construct()
+    {
+        $this->post_image = new ArrayCollection();
+    }
+
+    /**
      * @return integer $id
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -93,19 +116,39 @@ class Post
     }
 
     /**
-     * @return integer $image_id
-     */
-    public function getImageId()
-    {
-        return $this->image_id;
-    }
-
-    /**
      * @return User
      */
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return array $post_image
+     */
+    public function getImages()
+    {
+        return $this->post_image->toArray();
+    }
+
+    /**
+     * @return string $filename
+     */
+    public function getCoverImage()
+    {
+        foreach ($this->getImages() as $postImage) {
+            if (!$postImage->getIsCover()) continue;
+            return $postImage->getImage()->getFilename();
+        }
+        return 'missing';
+    }
+
+    /**
+     * @return void
+     */
+    public function regenerateSlug()
+    {
+        $this->slug = (string) S($this->title . ' ' . time())->slugify();
     }
 
     /**
@@ -136,20 +179,33 @@ class Post
     }
 
     /**
-     * @param string $imageId
-     * @return void
-     */
-    public function setImageId($imageId)
-    {
-        $this->image_id = $imageId;
-    }
-
-    /**
      * @param User $user
      * @return void
      */
     public function setUser(User $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @param PostImage $postImage
+     * @return void
+     */
+    public function addImage(PostImage $postImage)
+    {
+        if (!$this->post_image->contains($postImage)) {
+            $this->post_image->add($postImage);
+        }
+    }
+
+    /**
+     * @param PostImage $postImage
+     * @return void
+     */
+    public function removeImage(PostImage $postImage)
+    {
+        if ($this->post_image->contains($postImage)) {
+            $this->post_image->removeElement($postImage);
+        }
     }
 }

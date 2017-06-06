@@ -26,16 +26,8 @@
             </div>
         </div>
         <div class="row">
-            <?php foreach ($blogItems as $blogItem): ?>
-                <div class="col-md-4 col-sm-6 project-item">
-                    <a href="<?= $this->e($blogItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->asset('asset/img/' . $blogItem['image'] . '.jpg') ?>" class="img-fluid" alt="">
-                    </a>
-                    <div class="project-caption">
-                        <h4><?= $this->e($blogItem['title']) ?></h4>
-                        <p><?= $this->e($blogItem['description']) ?></p>
-                    </div>
-                </div>
+            <?php foreach ($posts as $post): ?>
+                <?php $this->insert('partials/post', ['post' => $post]) ?>
             <?php endforeach; ?>
         </div>
         <div class="row">
@@ -84,16 +76,8 @@
             </div>
         </div>
         <div class="row">
-            <?php foreach ($galleryItems as $galleryItem): ?>
-                <div class="col-md-4 col-sm-6 project-item">
-                    <a href="<?= $this->e($galleryItem['link']) ?>" class="project-link">
-                        <img src="<?= $this->asset('asset/img/' . $galleryItem['image'] . '.jpg') ?>" class="img-fluid" alt="">
-                    </a>
-                    <div class="project-caption">
-                        <h4><?= $this->e($galleryItem['title']) ?></h4>
-                        <p><?= $this->e($galleryItem['description']) ?></p>
-                    </div>
-                </div>
+            <?php foreach ($galleries as $gallery): ?>
+                <?php $this->insert('partials/gallery', ['gallery' => $gallery]) ?>
             <?php endforeach; ?>
         </div>
         <div class="row">

@@ -25,28 +25,22 @@ class BlogController
     /** @var PostResource $postResource */
     private $postResource;
 
-    /** @var ImageResource $imageResource */
-    private $imageResource;
-
     /**
      * @param Plates $view
      * @param Session $session
      * @param UserResource $userResource
      * @param PostResource $postResource
-     * @param ImageResource $imageResource
      */
     public function __construct(
         Plates $view,
         Session $session,
         UserResource $userResource,
-        PostResource $postResource,
-        ImageResource $imageResource
+        PostResource $postResource
     ) {
         $this->view = $view;
         $this->session = $session;
         $this->userResource = $userResource;
         $this->postResource = $postResource;
-        $this->imageResource = $imageResource;
     }
 
     /**

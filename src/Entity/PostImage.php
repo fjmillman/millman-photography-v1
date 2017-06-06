@@ -8,10 +8,10 @@ use MillmanPhotography\Entity\Traits\Timestamps;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gallery_image")
+ * @ORM\Table(name="post_image")
  * @ORM\HasLifecycleCallbacks
  */
-class GalleryImage
+class PostImage
 {
     use Timestamps;
 
@@ -25,15 +25,15 @@ class GalleryImage
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="gallery_image")
-     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="post_image")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", nullable=false)
      *
-     * @var Gallery $gallery
+     * @var Post $post
      */
-    protected $gallery;
+    protected $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Image", inversedBy="gallery_image")
+     * @ORM\ManyToOne(targetEntity="Image", inversedBy="post_image")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=false)
      *
      * @var Image $image
@@ -56,11 +56,11 @@ class GalleryImage
     }
 
     /**
-     * @return Gallery $gallery
+     * @return Post $post
      */
-    public function getGallery()
+    public function getPost()
     {
-        return $this->gallery;
+        return $this->post;
     }
 
     /**
@@ -80,12 +80,12 @@ class GalleryImage
     }
 
     /**
-     * @param Gallery $gallery
+     * @param Post $post
      * @return void
      */
-    public function setGallery($gallery)
+    public function setPost($post)
     {
-        $this->gallery = $gallery;
+        $this->post = $post;
     }
 
     /**

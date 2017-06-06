@@ -17,6 +17,7 @@ use MillmanPhotography\Resource\ImageResource;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
+use MillmanPhotography\Resource\PostImageResource;
 use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Validator\EnquiryValidator;
 use MillmanPhotography\Controller\AdminController;
@@ -25,6 +26,7 @@ use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
+use MillmanPhotography\Resource\GalleryImageResource;
 use MillmanPhotography\Validator\RegistrationValidator;
 use MillmanPhotography\Controller\RegistrationController;
 use MillmanPhotography\Middleware\AuthorisationMiddleware;
@@ -66,11 +68,15 @@ $container[IndexController::class] = function (Container $container) {
     return new IndexController($view, $galleryResource, $imageResource, $postResource);
 };
 
+$container[ImageResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new ImageResource($entityManager);
+};
+
 $container[GalleryController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryResource = $container->get(GalleryResource::class);
-    $imageResource = $container->get(ImageResource::class);
-    return new GalleryController($view, $galleryResource, $imageResource);
+    return new GalleryController($view, $galleryResource);
 };
 
 $container[GalleryResource::class] = function (Container $container) {
@@ -78,9 +84,9 @@ $container[GalleryResource::class] = function (Container $container) {
     return new GalleryResource($entityManager);
 };
 
-$container[ImageResource::class] = function (Container $container) {
+$container[GalleryImageResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
-    return new ImageResource($entityManager);
+    return new GalleryImageResource($entityManager);
 };
 
 $container[BlogController::class] = function (Container $container) {
@@ -88,13 +94,17 @@ $container[BlogController::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
-    $imageResource = $container->get(ImageResource::class);
-    return new BlogController($view, $session, $userResource, $postResource, $imageResource);
+    return new BlogController($view, $session, $userResource, $postResource);
 };
 
 $container[PostResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new PostResource($entityManager);
+};
+
+$container[PostImageResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new PostImageResource($entityManager);
 };
 
 $container[EnquiryController::class] = function (Container $container) {
@@ -115,6 +125,11 @@ $container[EnquiryResource::class] = function (Container $container) {
 $container[AdminController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     return new AdminController($view);
+};
+
+$container[UserResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new UserResource($entityManager);
 };
 
 $container[AuthorisationMiddleware::class] = function (Container $container) {
@@ -141,11 +156,6 @@ $container[LoginController::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $resource = $container->get(UserResource::class);
     return new LoginController($view, $session, $resource);
-};
-
-$container[UserResource::class] = function (Container $container) {
-    $entityManager = $container->get(EntityManager::class);
-    return new UserResource($entityManager);
 };
 
 $container[Csrf::class] = function (Container $container) {

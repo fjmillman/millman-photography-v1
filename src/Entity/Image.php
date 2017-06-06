@@ -48,11 +48,16 @@ class Image
     protected $gallery_image;
 
     /**
-     * Initialise gallery_image as an empty ArrayCollection
+     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="image")
+     *
+     * @var Collection
      */
+    protected $post_image;
+
     public function __construct()
     {
         $this->gallery_image = new ArrayCollection();
+        $this->post_image = new ArrayCollection();
     }
 
     /**
@@ -85,6 +90,14 @@ class Image
     public function getGalleries()
     {
         return $this->gallery_image->toArray();
+    }
+
+    /**
+     * @return array $post_image
+     */
+    public function getPosts()
+    {
+        return $this->post_image->toArray();
     }
 
     /**
@@ -124,6 +137,28 @@ class Image
     {
         if ($this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->removeElement($galleryImage);
+        }
+    }
+
+    /**
+     * @param PostImage $postImage
+     * @return void
+     */
+    public function addPost(PostImage $postImage)
+    {
+        if (!$this->post_image->contains($postImage)) {
+            $this->post_image->add($postImage);
+        }
+    }
+
+    /**
+     * @param PostImage $postImage
+     * @return void
+     */
+    public function removePost(PostImage $postImage)
+    {
+        if ($this->post_image->contains($postImage)) {
+            $this->post_image->removeElement($postImage);
         }
     }
 }
