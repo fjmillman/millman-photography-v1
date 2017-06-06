@@ -5,12 +5,13 @@ use Slim\Container;
 use Projek\Slim\Plates;
 use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
 use Projek\Slim\PlatesExtension;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use MillmanPhotography\Mail\Mailer;
 use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
 use MillmanPhotography\Resource\ImageResource;
@@ -110,7 +111,9 @@ $container[PostImageResource::class] = function (Container $container) {
 $container[EnquiryController::class] = function (Container $container) {
     $validator = $container->get(EnquiryValidator::class);
     $resource = $container->get(EnquiryResource::class);
-    return new EnquiryController($validator, $resource);
+    $mailer = $container->get(Mailer::class);
+    $logger = $container->get(Monolog::class);
+    return new EnquiryController($validator, $resource, $mailer, $logger);
 };
 
 $container[EnquiryValidator::class] = function (Container $container) {
@@ -149,6 +152,20 @@ $container[RegistrationController::class] = function (Container $container) {
 
 $container[RegistrationValidator::class] = function (Container $container) {
     return new RegistrationValidator();
+};
+
+$container[Mailer::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $settings = $container->get('settings')['mailer'];
+    $mailer = new PHPMailer();
+    $mailer->Host = $settings['host'];  // your email host, to test I use localhost and check emails using test mail server application (catches all  sent mails)
+    $mailer->SMTPAuth = $settings['authentication'];                 // I set false for localhost
+    $mailer->SMTPSecure = $settings['security'];              // set blank for localhost
+    $mailer->Port = $settings['port'];                        // 25 for local host
+	$mailer->Username = $settings['email'];
+	$mailer->Password = $settings['password'];
+	$mailer->isHTML(true);
+	return new Mailer($view, $mailer);
 };
 
 $container[LoginController::class] = function (Container $container) {

@@ -24,6 +24,14 @@ return [
                 'password' => getenv('DB_PASSWORD'),
             ]
         ],
+        'mailer' => [
+            'host' => getenv('MAILER_HOST'),
+            'authentication' => getenv('MAILER_AUTHENTICATION'),
+            'security' => getenv('MAILER_SECURITY'),
+            'port' => getenv('MAILER_PORT'),
+            'email' => getenv('MAILER_USER'),
+            'password' => getenv('MAILER_PASSWORD'),
+        ],
         'logger' => [
             'name' => 'millman-photography',
             'settings' => [

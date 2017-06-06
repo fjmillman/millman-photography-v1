@@ -36,6 +36,7 @@ class EnquiryResource extends Resource
      * Create a new enquiry
      *
      * @param array $data
+     * @return Enquiry $enquiry
      */
     public function create(array $data)
     {
@@ -47,6 +48,8 @@ class EnquiryResource extends Resource
 
         $this->entityManager->persist($enquiry);
         $this->entityManager->flush();
+
+        return $enquiry;
     }
 
     /**

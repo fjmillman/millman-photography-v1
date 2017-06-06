@@ -2,10 +2,13 @@
 
 namespace MillmanPhotography\Controller;
 
-use Psr\Http\Message\ResponseInterface;
+use Projek\Slim\Monolog;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Psr\Http\Message\ResponseInterface;
 
+use MillmanPhotography\Mail\Mailer;
+use MillmanPhotography\Mail\Message;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Validator\EnquiryValidator;
 
@@ -17,14 +20,23 @@ class EnquiryController
     /** @var EnquiryResource $resource */
     private $resource;
 
+    /** @var Mailer $mailer */
+    private $mailer;
+
+    private $logger;
+
     /**
      * @param EnquiryValidator $validator
      * @param EnquiryResource $resource
+     * @param Mailer $mailer
+     * @param Monolog $logger
      */
-    public function __construct(EnquiryValidator $validator, EnquiryResource $resource)
+    public function __construct(EnquiryValidator $validator, EnquiryResource $resource, Mailer $mailer, Monolog $logger)
     {
         $this->validator = $validator;
         $this->resource = $resource;
+        $this->mailer = $mailer;
+        $this->logger = $logger;
     }
 
     /**
@@ -41,9 +53,18 @@ class EnquiryController
         }
 
         try {
-            $this->resource->create($data);
+            $enquiry = $this->resource->create($data);
+            $this->mailer->send('emails/reply', ['enquiry' => $enquiry], function (Message $message) use ($enquiry) {
+                $message->to($enquiry->getEmail());
+                $message->subject('Millman Photography Enquiry');
+            });
+            $this->mailer->send('emails/enquiry', ['enquiry' => $enquiry], function (Message $message) use ($enquiry) {
+                $message->to('freddie.millman@icloud.com');
+                $message->subject('Millman Photography Enquiry');
+            });
             return $response->withJson(['Success'], 200);
         } catch (\Exception $exception) {
+            $this->logger->log(100, $exception->getMessage() . ' in ' . $exception->getFile() . $exception->getLine());
             return $response->withJson(['Error: Try Again'], 404);
         }
     }

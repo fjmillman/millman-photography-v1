@@ -11,7 +11,8 @@ $(function() {
 });
 
 /**
- * Enquiry Form
+ * A dynamic form for the enquiry section of the front page which does
+ * not move away from the front page on submission.
  */
 $(function () {
     const $form = $('#enquiry-form');
