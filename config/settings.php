@@ -29,7 +29,7 @@ return [
             'authentication' => getenv('MAILER_AUTHENTICATION'),
             'security' => getenv('MAILER_SECURITY'),
             'port' => getenv('MAILER_PORT'),
-            'email' => getenv('MAILER_USER'),
+            'email' => getenv('MAILER_EMAIL'),
             'password' => getenv('MAILER_PASSWORD'),
         ],
         'logger' => [

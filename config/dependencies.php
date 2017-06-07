@@ -158,10 +158,10 @@ $container[Mailer::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $settings = $container->get('settings')['mailer'];
     $mailer = new PHPMailer();
-    $mailer->Host = $settings['host'];  // your email host, to test I use localhost and check emails using test mail server application (catches all  sent mails)
-    $mailer->SMTPAuth = $settings['authentication'];                 // I set false for localhost
-    $mailer->SMTPSecure = $settings['security'];              // set blank for localhost
-    $mailer->Port = $settings['port'];                        // 25 for local host
+    $mailer->Host = $settings['host'];
+    $mailer->SMTPAuth = $settings['authentication'];
+    $mailer->SMTPSecure = $settings['security'];
+    $mailer->Port = $settings['port'];
 	$mailer->Username = $settings['email'];
 	$mailer->Password = $settings['password'];
 	$mailer->isHTML(true);
