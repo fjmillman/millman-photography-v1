@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <!-- Metadata -->
-        <meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Millman Photography">
         <meta name="author" content="Freddie John Millman">
@@ -110,7 +110,7 @@
                 }
             }
 
-            nav {
+            header {
                 position:fixed;
                 top:0;
                 color: #000;
@@ -119,6 +119,11 @@
                 background: #ffffff;
                 box-shadow:0 1px 15px #232323;
                 z-index:10;
+            }
+
+            .signature {
+                height: 50px;
+                width: 130px;
             }
 
             ul.social-button-group {
@@ -192,12 +197,15 @@
     </head>
     <body style="margin: 0 !important; padding: 0 !important;">
         <!-- Pre-Header -->
-        <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;mso-hide:all;">
+        <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide:all;">
             Millman Photography
         </div>
 
         <!-- Header -->
         <header>
+            <!-- Logo -->
+            <img class="signature" src="<?= $cid ?>" alt="logo">
+
             <!-- Social Buttons -->
             <ul class="social-button-group">
                 <li class="facebook-button">
@@ -222,13 +230,13 @@
 
         <!-- Footer -->
         <footer>
-                    <span class="tag-line">
-                        Photography by Freddie John Millman
-                    </span>
+            <span class="tag-line">
+                Photography by Freddie John Millman
+            </span>
             <span class="copyright">
-                        <i id="copyright" class="fa fa-copyright"></i>
+                <i id="copyright" class="fa fa-copyright"></i>
                 <?= date("Y"); ?> Freddie John Millman All Rights Reserved
-                    </span>
+            </span>
         </footer>
     </body>
 </html>

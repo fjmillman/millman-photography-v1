@@ -2,7 +2,9 @@
 
 use Slim\Csrf\Guard as Csrf;
 
+use MillmanPhotography\Middleware\PostLocator;
 use MillmanPhotography\Controller\BlogController;
+use MillmanPhotography\Controller\PostController;
 use MillmanPhotography\Controller\AdminController;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Middleware\CsrfTokenHeader;
@@ -17,6 +19,8 @@ use MillmanPhotography\Middleware\AuthorisationMiddleware;
 $millmanphotography->get('/[index]', IndexController::class)->setName('index')->add(CsrfTokenProvider::class)->add(Csrf::class);
 
 $millmanphotography->get('/blog', BlogController::class)->setName('blog');
+
+$millmanphotography->get('/blog/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class)->add(PostLocator::class);
 
 $millmanphotography->get('/gallery', GalleryController::class)->setName('gallery');
 

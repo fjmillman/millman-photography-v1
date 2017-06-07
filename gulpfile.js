@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     postcss = require('gulp-postcss'),
     sourcemaps = require('gulp-sourcemaps'),
     processors = [
@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     paths = {
         source: 'src/css/*.css',
         destination: 'public/css/'
-    }
+    };
 
 gulp.task('css', function () {
     return gulp.src(paths.source)

@@ -33,6 +33,17 @@ class PostResource extends Resource
     }
 
     /**
+     * Get a post by $slug
+     *
+     * @param string $slug
+     * @return object
+     */
+    public function getBySlug($slug)
+    {
+        return $this->entityManager->getRepository(Post::class)->findOneBy(['slug' => $slug]);
+    }
+
+    /**
      * Create a new post
      *
      * @param array $data

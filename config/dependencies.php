@@ -7,17 +7,21 @@ use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Swift_Mailer as SwiftMailer;
 use Projek\Slim\PlatesExtension;
+use Swift_SmtpTransport as SwiftSmtpTransport;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Mail\Mailer;
+use MillmanPhotography\Mailer;
 use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
 use MillmanPhotography\Resource\ImageResource;
+use MillmanPhotography\Middleware\PostLocator;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
+use MillmanPhotography\Controller\PostController;
 use MillmanPhotography\Resource\PostImageResource;
 use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Validator\EnquiryValidator;
@@ -98,6 +102,19 @@ $container[BlogController::class] = function (Container $container) {
     return new BlogController($view, $session, $userResource, $postResource);
 };
 
+$container[PostLocator::class] = function (Container $container) {
+    $resource = $container->get(PostResource::class);
+    return new PostLocator($resource);
+};
+
+$container[PostController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
+    $userResource = $container->get(UserResource::class);
+    $postResource = $container->get(PostResource::class);
+    return new PostController($view, $session, $userResource, $postResource);
+};
+
 $container[PostResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new PostResource($entityManager);
@@ -154,25 +171,31 @@ $container[RegistrationValidator::class] = function (Container $container) {
     return new RegistrationValidator();
 };
 
-$container[Mailer::class] = function (Container $container) {
-    $view = $container->get(Plates::class);
-    $settings = $container->get('settings')['mailer'];
-    $mailer = new PHPMailer();
-    $mailer->Host = $settings['host'];
-    $mailer->SMTPAuth = $settings['authentication'];
-    $mailer->SMTPSecure = $settings['security'];
-    $mailer->Port = $settings['port'];
-	$mailer->Username = $settings['email'];
-	$mailer->Password = $settings['password'];
-	$mailer->isHTML(true);
-	return new Mailer($view, $mailer);
-};
-
 $container[LoginController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $session = $container->get(Session::class);
     $resource = $container->get(UserResource::class);
     return new LoginController($view, $session, $resource);
+};
+
+$container[SwiftSMTPTransport::class] = function (Container $container) {
+    $settings = $container->get('settings')['mailer'];
+    $transport = new SwiftSMTPTransport($settings['host'], $settings['port'], $settings['security']);
+    return $transport
+        ->setUsername($settings['username'])
+        ->setPassword($settings['password'])
+        ->setAuthMode($settings['authentication']);
+};
+
+$container[SwiftMailer::class] = function (Container $container) {
+    $transport = $container->get(SwiftSMTPTransport::class);
+    return new SwiftMailer($transport);
+};
+
+$container[Mailer::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $mailer = $container->get(SwiftMailer::class);
+    return new Mailer($view, $mailer);
 };
 
 $container[Csrf::class] = function (Container $container) {

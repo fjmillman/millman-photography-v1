@@ -25,12 +25,12 @@ return [
             ]
         ],
         'mailer' => [
-            'host' => getenv('MAILER_HOST'),
-            'authentication' => getenv('MAILER_AUTHENTICATION'),
-            'security' => getenv('MAILER_SECURITY'),
-            'port' => getenv('MAILER_PORT'),
-            'email' => getenv('MAILER_EMAIL'),
-            'password' => getenv('MAILER_PASSWORD'),
+            'host' => getenv('SMTP_HOST'),
+            'authentication' => getenv('SMTP_AUTHENTICATION'),
+            'security' => getenv('SMTP_SECURITY'),
+            'port' => getenv('SMTP_PORT'),
+            'username' => getenv('SMTP_USERNAME'),
+            'password' => getenv('SMTP_PASSWORD'),
         ],
         'logger' => [
             'name' => 'millman-photography',

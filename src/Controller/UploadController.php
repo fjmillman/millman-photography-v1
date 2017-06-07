@@ -33,8 +33,9 @@ class UploadController
         }
 
         $filename = $file->getClientFilename();
-        $file->moveTo('/asset/img/' . $filename);
 
-        return $response->withStatus(302);
+        $file->moveTo('asset/img/' . $filename);
+
+        return $response->withStatus(302)->withHeader('Location', '/admin');
     }
 }

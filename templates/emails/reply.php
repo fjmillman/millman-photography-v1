@@ -10,14 +10,14 @@
         You sent you an Enquiry at <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
     </small>
     <p>
-        <?= $this->e($enquiry->getBody()) ?>
+        <?= $this->e($enquiry->getMessage()) ?>
     </p>
     <p>
         I will be sure to get back to you as soon as possible.
     </p>
     <p>
         Kind regards,
-        Fred
+        Freddie John Millman
     </p>
 </section>
 <?php $this->stop() ?>
