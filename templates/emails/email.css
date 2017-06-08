@@ -40,6 +40,11 @@ table {
 
 tr {
     max-width: 600px;
+    padding: 25px;
+}
+
+td {
+    padding: 5px;
 }
 
 /**************************/
@@ -84,7 +89,6 @@ tr {
 .subheading {
     color: rgba(255, 255, 255, 0.5);
     font-size: large;
-    padding-bottom: 15px;
 }
 
 /**************************/
@@ -92,17 +96,15 @@ tr {
 /**************************/
 .footer {
     text-align: center;
-    padding:15px;
+    bottom:0;
 }
 
 .tag-line {
-    padding: 0 10px 0 10px;
     font-size: small;
     text-transform: uppercase;
 }
 
 .copyright {
-    padding: 0 10px 0 10px;
     font-size: small;
     text-transform: uppercase;
 }

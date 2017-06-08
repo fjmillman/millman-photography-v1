@@ -10,7 +10,7 @@
             You sent you an Enquiry on the <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
         </p>
         <p>
-            <?= $this->e($enquiry->getMessage()) ?>
+            <?= nl2br($this->e($enquiry->getMessage())) ?>
         </p>
         <p>
             I will be sure to get back to you as soon as possible.

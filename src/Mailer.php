@@ -56,9 +56,7 @@ class Mailer
         $this->view->setResponse(new Response(200));
 
         $this->emogrifier->setHtml($this->view->render($template, $data));
-        $this->emogrifier->setCss(
-            file_get_contents(__DIR__ . '/../public/asset/css/email.css')
-        );
+        $this->emogrifier->setCss(file_get_contents(__DIR__ . '/../templates/emails/email.css'));
 
         $message->setBody($this->emogrifier->emogrify())->setContentType('text/html');
 
