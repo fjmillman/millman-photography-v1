@@ -92,7 +92,7 @@
                     <div class="col-lg-6">
                         <span class="copyright">
                             <i id="copyright" class="fa fa-copyright"></i>
-                            <?= date("Y"); ?> Freddie John Millman All Rights Reserved
+                            <?= date("Y"); ?> Millman Photography All Rights Reserved
                         </span>
                     </div>
                 </div>

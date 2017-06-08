@@ -1,13 +1,12 @@
-<?php $this->layout('emails/base', ['title' => 'Enquiry Sent']) ?>
+<?php $this->layout('emails/base', ['title' => 'Enquiry Sent', 'cid' => $cid]) ?>
 
 <?php $this->start('email') ?>
-<!-- Content -->
-<section>
+<div class="section">
     <h1>
         Thank you for your Enquiry.
     </h1>
     <small>
-        You sent you an Enquiry at <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
+        You sent you an Enquiry on the <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
     </small>
     <p>
         <?= $this->e($enquiry->getMessage()) ?>
@@ -17,7 +16,8 @@
     </p>
     <p>
         Kind regards,
+        <br>
         Freddie John Millman
     </p>
-</section>
+</div>
 <?php $this->stop() ?>

@@ -2,6 +2,7 @@
 
 use RKA\Session;
 use Slim\Container;
+use Pelago\Emogrifier;
 use Projek\Slim\Plates;
 use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
@@ -192,10 +193,15 @@ $container[SwiftMailer::class] = function (Container $container) {
     return new SwiftMailer($transport);
 };
 
+$container[Emogrifier::class] = function (Container $container) {
+    return new Emogrifier();
+};
+
 $container[Mailer::class] = function (Container $container) {
     $view = $container->get(Plates::class);
+    $emogrifier = $container->get(Emogrifier::class);
     $mailer = $container->get(SwiftMailer::class);
-    return new Mailer($view, $mailer);
+    return new Mailer($view, $emogrifier, $mailer);
 };
 
 $container[Csrf::class] = function (Container $container) {

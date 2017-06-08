@@ -1,8 +1,7 @@
-<?php $this->layout('emails/base', ['title' => 'Enquiry Received']) ?>
+<?php $this->layout('emails/base', ['title' => 'Enquiry Received', 'cid' => $cid]) ?>
 
 <?php $this->start('email') ?>
-<!-- Content -->
-<section>
+<div class="section">
     <h1>
         You have received an Enquiry.
     </h1>
@@ -13,7 +12,10 @@
         <?= $this->e($enquiry->getMessage()) ?>
     </p>
     <p>
-        Reply to <a href="mailto:<?= $this->e($enquiry->getName()) ?>"
+        Reply to
+        <a href="mailto:<?= $this->e($enquiry->getEmail()) ?>" style="text-decoration: none; color: black;">
+            <?= $this->e($enquiry->getName()) ?>
+        </a>
     </p>
-</section>
+</div>
 <?php $this->stop() ?>

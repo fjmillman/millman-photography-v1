@@ -14,7 +14,8 @@
     "akrabat/rka-slim-session-middleware": "^2.0",
     "danielstjules/stringy": "^3.0",
     "bocharsky-bw/arrayzy": "^0.6.1",
-    "swiftmailer/swiftmailer": "^6.0"
+    "swiftmailer/swiftmailer": "^6.0",
+    "pelago/emogrifier": "^1.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7"

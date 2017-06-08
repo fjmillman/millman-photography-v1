@@ -1,0 +1,160 @@
+/* CSS Document */
+
+/**************************/
+/*    General Styles      */
+/**************************/
+
+html {
+    height:100%;
+}
+
+body {
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    margin: 0;
+    padding-top: 75px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+    font-family: "Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h1,
+h2 {
+    text-transform: uppercase;
+    margin:0;
+    mso-line-height-rule:exactly;
+}
+
+p {
+    margin:0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+span {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/**************************/
+/*     Header Styles      */
+/**************************/
+.header {
+    text-align: center;
+    position:fixed;
+    top:0;
+    color: #000;
+    height:auto;
+    width:100%;
+    box-shadow:0 1px 15px #232323;
+}
+
+.signature {
+    height: 50px;
+    width: 130px;
+}
+
+/**************************/
+/*  Social Button Styles  */
+/**************************/
+ul.social-button-group {
+    padding-top: 15px;
+}
+
+ul.social-button-group li {
+    display: inline-block;
+}
+
+ul.social-button-group li a {
+    display: inline-block;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    font-size: 25px;
+    text-align: center;
+    color: #000000;
+    background-color: #ffffff;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    -o-transition: all .3s;
+}
+
+ul.social-button-group li.facebook-button:hover a,
+ul.social-button-group li.facebook-button:focus a,
+ul.social-button-group li.facebook-button:active a {
+    color: #3b5998;
+}
+
+ul.social-button-group li.instagram-button:hover a,
+ul.social-button-group li.instagram-button:focus a,
+ul.social-button-group li.instagram-button:active a {
+    color: #fb3958;
+}
+
+ul.social-button-group li.five-hundred-px-button:hover a,
+ul.social-button-group li.five-hundred-px-button:focus a,
+ul.social-button-group li.five-hundred-px-button:active a {
+    color: #696969;
+}
+
+/**************************/
+/*     Section Styles     */
+/**************************/
+.section {
+    text-align: center;
+    padding: 50px;
+}
+
+.heading {
+    color: rgb(255, 255, 255);
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.subheading {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: large;
+    padding-bottom: 15px;
+}
+
+/**************************/
+/*     Footer Styles      */
+/**************************/
+.footer {
+    text-align: center;
+    padding:15px;
+    width:100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.copyright {
+    font-size: small;
+    text-transform: uppercase;
+}
+
+.tag-line {
+    font-size: small;
+    text-transform: uppercase;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-facebook-f:before,
+.fa-facebook:before {
+    content: "\f09a";
+}

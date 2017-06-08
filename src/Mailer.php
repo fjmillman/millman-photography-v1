@@ -2,6 +2,7 @@
 
 namespace MillmanPhotography;
 
+use Pelago\Emogrifier;
 use Slim\Http\Response;
 use Projek\Slim\Plates;
 use Swift_Mailer as SwiftMailer;
@@ -18,17 +19,24 @@ class Mailer
     private $view;
 
     /**
+     * @var Emogrifier $emogrifier
+     */
+    private $emogrifier;
+
+    /**
      * @var SwiftMailer $mailer
      */
     private $mailer;
 
     /**
      * @param Plates $view
+     * @param Emogrifier $emogrifier
      * @param SwiftMailer $mailer
      */
-    public function __construct(Plates $view, SwiftMailer $mailer)
+    public function __construct(Plates $view, Emogrifier $emogrifier, SwiftMailer $mailer)
     {
         $this->view = $view;
+        $this->emogrifier = $emogrifier;
         $this->mailer = $mailer;
     }
 
@@ -43,11 +51,16 @@ class Mailer
     {
         $message = new SwiftMessage($this->mailer);
 
-        $data['cid'] = $message->embed(SwiftImage::fromPath('signature.png'));
+        $data['cid'] = $message->embed(SwiftImage::fromPath('asset/img/signature.png'));
 
         $this->view->setResponse(new Response(200));
 
-        $message->setBody($this->view->render($template, $data))->setContentType('text/html');
+        $this->emogrifier->setHtml($this->view->render($template, $data));
+        $this->emogrifier->setCss(
+            file_get_contents(__DIR__ . '/../public/asset/css/email.css')
+        );
+
+        $message->setBody($this->emogrifier->emogrify())->setContentType('text/html');
 
         call_user_func($callback, $message);
 
