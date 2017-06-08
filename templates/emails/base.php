@@ -9,46 +9,24 @@
         <title><?= $this->e($title)?> · Millman Photography</title>
     </head>
     <body>
-        <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide:all;">
-            Millman Photography
-        </div>
-        <div class="header">
-            <table>
-                <td>
+        <table>
+            <tr class="pre-header">
+                Millman Photography
+            </tr>
+            <tr class="header">
+                <td colspan="2">
                     <img class="signature" src="<?= $cid ?>" alt="logo">
                 </td>
-                <td>
-                    <ul class="social-button-group">
-                        <li class="facebook-button">
-                            <a href="https://facebook.com/millmanphotography" target="_blank">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="instagram-button">
-                            <a href="https://instagram.com/millmanphotography" target="_blank">
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="five-hundred-px-button">
-                            <a href="https://500px.com/millmanphotography" target="_blank">
-                                <i class="fa fa-500px" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
+            </tr>
+            <?= $this->section('email') ?>
+            <tr class="footer">
+                <td class="tag-line">
+                    Photography by Freddie John Millman
                 </td>
-            </table>
-        </div>
-
-        <?= $this->section('email') ?>
-
-        <div class="footer">
-            <span class="tag-line">
-                Photography by Freddie John Millman
-            </span>
-            <span class="copyright">
-                <i id="copyright" class="fa fa-copyright"></i>
-                <?= date("Y"); ?> Millman Photography All Rights Reserved
-            </span>
-        </div>
+                <td class="copyright">
+                    &#169 <?= date("Y"); ?> Millman Photography All Rights Reserved
+                </td>
+            </tr>
+        </table>
     </body>
 </html>

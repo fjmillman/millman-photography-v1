@@ -41,7 +41,6 @@ class GalleryController
         return $this->view->render(
             'gallery',
             [
-                'sections' => $this->retrieveGalleryTitles(),
                 'galleries' => $this->galleryResource->get(),
             ]
         );
@@ -49,6 +48,7 @@ class GalleryController
 
     /**
      * @return array $titles
+     * @deprecated
      */
     private function retrieveGalleryTitles()
     {

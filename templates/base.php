@@ -21,7 +21,7 @@
         <script src="https://use.fontawesome.com/b114e5fdf4.js"></script>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="<?= $this->asset('asset/css/millmanphotography.css') ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl() . $this->asset('asset/css/millmanphotography.css') ?>">
     </head>
     <body>
         <!-- Navigation -->
@@ -61,7 +61,7 @@
 
                 <!-- Logo -->
                 <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
-                    <img class="signature" src="<?= $this->asset('asset/img/signature.png') ?>">
+                    <img class="signature" src="<?= $this->baseUrl() . $this->asset('asset/img/signature.png') ?>">
                 </a>
 
                 <?php if (isset($sections)): ?>
@@ -91,8 +91,7 @@
                     </div>
                     <div class="col-lg-6">
                         <span class="copyright">
-                            <i id="copyright" class="fa fa-copyright"></i>
-                            <?= date("Y"); ?> Millman Photography All Rights Reserved
+                            &#169 <?= date("Y"); ?> Millman Photography All Rights Reserved
                         </span>
                     </div>
                 </div>
@@ -115,6 +114,6 @@
                 crossorigin="anonymous"></script>
 
         <!-- Javascript -->
-        <script src="<?= $this->asset('asset/js/millmanphotography.js') ?>"></script>
+        <script src="<?= $this->baseUrl() . $this->asset('asset/js/millmanphotography.js') ?>"></script>
     </body>
 </html>

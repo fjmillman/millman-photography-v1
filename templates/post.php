@@ -6,14 +6,20 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="section-heading"><?= $this->e($post->getTitle()) ?></h2>
-                <h3 class="section-subheading text-muted"><?= $this->e($post->getDateCreated()->format('jS M Y')) ?></h3>
+                <h2 class="text-black">
+                    <?= $this->e($post->getTitle()) ?>
+                </h2>
+                <h3 class="section-subheading text-muted">
+                    <?= $this->e($post->getDateCreated()->format('jS M Y')) ?>
+                </h3>
             </div>
         </div>
         <div class="row">
-            <p>
-                <?= $this->e($post->getBody()) ?>
-            </p>
+            <div class="col-lg-12">
+                <p>
+                    <?= $this->e($post->getBody()) ?>
+                </p>
+            </div>
         </div>
     </div>
 </section>
