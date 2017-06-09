@@ -30,6 +30,12 @@ a {
     font-size: small;
 }
 
+.message {
+    font-style: italic;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 /**************************/
 /*      Table Styles      */
 /**************************/

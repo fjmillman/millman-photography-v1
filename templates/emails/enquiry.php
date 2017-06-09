@@ -9,7 +9,7 @@
         <p class="small">
             <?= $this->e($enquiry->getName()) ?> sent you an Enquiry at <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
         </p>
-        <p>
+        <p class="message">
             <?= nl2br($this->e($enquiry->getMessage())) ?>
         </p>
         <p>

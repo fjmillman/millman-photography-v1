@@ -60,7 +60,7 @@ a.button:active {
 }
 
 button {
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
 button:hover {
@@ -397,7 +397,7 @@ section.enquiry .section-heading {
 /*     Project Styles     */
 /**************************/
 section .project-item {
-    width: 400px
+    width: 400px;
 }
 
 section .project-item .project-link {
