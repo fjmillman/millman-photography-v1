@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Send Message</button>
+                                <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl submit">Send Message</button>
                             </div>
                         </div>
                     </form>

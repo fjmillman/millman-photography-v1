@@ -1,9 +1,19 @@
 @charset "UTF-8";
 /* CSS Document */
 
+/**************************/
+/*    General Styles      */
+/**************************/
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     height:100%;
-    box-sizing: border-box;
 }
 
 body {
@@ -11,20 +21,8 @@ body {
     min-height: 100%;
     position: relative;
     margin: 0;
-    padding-bottom: 50px;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
-/**************************/
-/*    General Styles      */
-/**************************/
-body {
     padding-top: 75px;
+    padding-bottom: 50px;
     overflow-x: hidden;
     font-family: "Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -59,8 +57,9 @@ a.button:active {
     border-color: #ffffff;
 }
 
-button {
+button.submit {
     margin: 20px;
+    margin-bottom: 0;
 }
 
 button:hover {

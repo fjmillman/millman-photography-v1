@@ -13,7 +13,7 @@
         <div class="row">
             <?php if (count($galleries) === 0) : ?>
                 <li>
-                    <h2>There aren't any Galleries!</h2>
+                    <h2>Watch this space!</h2>
                 </li>
             <?php else : ?>
                 <?php foreach ($galleries as $gallery): ?>
