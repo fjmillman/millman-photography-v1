@@ -18,7 +18,7 @@
               crossorigin="anonymous">
 
         <!-- Fonts -->
-        <script src="https://use.fontawesome.com/b114e5fdf4.js"></script>
+        <link rel="stylesheet" href="<?= $this->baseUrl() . $this->asset('asset/css/font-awesome.min.css') ?>">
 
         <!-- CSS -->
         <link rel="stylesheet" href="<?= $this->baseUrl() . $this->asset('asset/css/millmanphotography.css') ?>">
