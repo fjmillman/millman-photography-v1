@@ -1,7 +1,6 @@
 'use strict';
 
 let gulp = require('gulp');
-let prefix = require('gulp-autoprefixer');
 let concat = require('gulp-concat');
 let rename = require('gulp-rename');
 let sourcemaps = require('gulp-sourcemaps');
@@ -48,40 +47,32 @@ gulp.task('scripts', function() {
 ///////////////////////
 
 let stylus = require('gulp-stylus');
+let poststylus = require('poststylus');
+let cssnext = require('postcss-cssnext');
+let cssnano = require('cssnano');
 let nib = require('nib');
 
 gulp.task('styles', function () {
-    gulp.src(paths.css.source + '*.styl')
+    let processors = [
+        cssnext({ autoprefixer: true }),
+        cssnano(),
+    ];
+    return gulp.src(paths.css.source + '*.styl')
+        .pipe(concat('millmanphotography.styl'))
         .pipe(sourcemaps.init())
         .pipe(stylus({
-            paths:  ['node_modules', 'styles/globals'],
+            paths:  ['node_modules'],
             import: ['jeet/stylus/jeet', 'stylus-type-utils', 'nib', 'rupture/rupture', 'variables', 'mixins'],
-            use: [nib()],
+            use: [
+                nib(),
+                poststylus(processors)
+            ],
             'include css': true
         }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.css.destination))
-        .pipe(browserSync.stream());
-});
-
-let postcss = require('gulp-postcss');
-let processors = [
-    require("postcss-import")(),
-    require("postcss-url")(),
-    require("postcss-cssnext")(),
-    require("cssnano")({ autoprefixer: true }),
-    require("postcss-browser-reporter")(),
-    require("postcss-reporter")()
-];
-
-gulp.task('postcss', function () {
-    return gulp.src(paths.css.source + '*.css')
-        .pipe(concat('millmanphotography.css'))
-        .pipe(sourcemaps.init())
-        .pipe(postcss(processors))
-        .pipe(sourcemaps.write('.'))
+        .pipe(sourcemaps.write('./'))
         .pipe(rename('millmanphotography.min.css'))
         .pipe(gulp.dest(paths.css.destination))
+        .pipe(browserSync.stream());
 });
 
 ///////////////////////
@@ -89,7 +80,7 @@ gulp.task('postcss', function () {
 ///////////////////////
 gulp.task('watch', function () {
     gulp.watch(paths.js.source + '*.js', ['lint', 'scripts']);
-    gulp.watch(paths.css.source + '*.styl', ['styles', 'postcss']);
+    gulp.watch(paths.css.source + '*.styl', ['styles']);
 });
 
 /////////////////////////
@@ -112,5 +103,5 @@ gulp.task('browsersync', function () {
 ////////////////////////
 //    Server Tasks    //
 ////////////////////////
-gulp.task('default', ['scripts', 'styles', 'postcss', 'watch']);
-gulp.task('serve', ['scripts', 'styles', 'postcss', 'watch', 'browserSync']);
+gulp.task('default', ['scripts', 'styles', 'watch']);
+gulp.task('serve', ['scripts', 'styles', 'watch', 'browserSync']);
