@@ -138,6 +138,10 @@ $container[PostResource::class] = function (Container $container) {
     return new PostResource($entityManager);
 };
 
+$container[PostValidator::class] = function (Container $container) {
+    return new PostValidator();
+};
+
 $container[PostImageResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new PostImageResource($entityManager);
