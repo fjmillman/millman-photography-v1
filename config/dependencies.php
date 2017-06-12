@@ -10,6 +10,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Swift_Mailer as SwiftMailer;
 use Projek\Slim\PlatesExtension;
+use League\CommonMark\CommonMarkConverter;
 use Swift_SmtpTransport as SwiftSmtpTransport;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -18,7 +19,9 @@ use MillmanPhotography\Mailer;
 use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
 use MillmanPhotography\Resource\ImageResource;
+use MillmanPhotography\Validator\PostValidator;
 use MillmanPhotography\Middleware\PostLocator;
+use MillmanPhotography\Middleware\UserProvider;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
@@ -47,6 +50,13 @@ $container[Plates::class] = function (Container $container) {
 
 $container[Session::class] = function (Container $container) {
     return new Session();
+};
+
+$container[UserProvider::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $session = $container->get(Session::class);
+    $resource = $container->get(UserResource::class);
+    return new UserProvider($view, $session, $resource);
 };
 
 $container[EntityManager::class] = function (Container $container) {
@@ -113,7 +123,14 @@ $container[PostController::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
-    return new PostController($view, $session, $userResource, $postResource);
+    $markdown = $container->get(CommonMarkConverter::class);
+    $validator = $container->get(PostValidator::class);
+    return new PostController($view, $session, $userResource, $postResource, $markdown, $validator);
+};
+
+$container[CommonMarkConverter::class] = function (Container $container) {
+    $settings = $container->get('settings')['markdown'];
+    return new CommonMarkConverter($settings);
 };
 
 $container[PostResource::class] = function (Container $container) {

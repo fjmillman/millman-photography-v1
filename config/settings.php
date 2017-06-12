@@ -7,6 +7,19 @@ return [
             'directory' =>  __DIR__ . '/../templates/',
             'assetPath' => __DIR__ . '/../public/',
         ],
+        'markdown' => [
+            'renderer' => [
+                'block_separator' => "\n",
+                'inner_separator' => "\n",
+                'soft_break'      => "\n",
+            ],
+            'enable_em' => true,
+            'enable_strong' => true,
+            'use_asterisk' => true,
+            'use_underscore' => true,
+            'html_input' => 'escape',
+            'allow_unsafe_links' => false,
+        ],
         'doctrine' => [
             'meta' => [
                 'entity_path' => [

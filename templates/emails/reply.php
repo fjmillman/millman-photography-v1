@@ -7,7 +7,7 @@
             Thank you for your Enquiry.
         </h1>
         <p class="small">
-            You sent the following Enquiry on the <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
+            You sent the following Enquiry on the <?= $this->e($enquiry->getDateCreated()->format('jS \of F Y')) ?>
         </p>
         <p class="message">
             <?= nl2br($this->e($enquiry->getMessage())) ?>

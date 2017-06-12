@@ -26,7 +26,7 @@
                         <div class="col-md-3"></div>
                         <div class="col-lg-12">
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Register</button>
-                            <p><a href="/login">Already have an account?</a></p>
+                            <p class="switch"><a href="/login">Already have an account?</a></p>
                         </div>
                     </div>
                 </form>

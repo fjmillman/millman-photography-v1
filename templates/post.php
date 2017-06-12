@@ -10,14 +10,14 @@
                     <?= $this->e($post->getTitle()) ?>
                 </h2>
                 <h3 class="section-subheading text-muted">
-                    <?= $this->e($post->getDateCreated()->format('jS M Y')) ?>
+                    <?= $this->e($post->getDateCreated()->format('jS \of F Y')) ?>
                 </h3>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <p>
-                    <?= $this->e($post->getBody()) ?>
+                    <?= $post->getBody() ?>
                 </p>
             </div>
         </div>

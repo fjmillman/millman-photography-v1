@@ -12,20 +12,22 @@
         <title><?= isset($title) ? $this->e($title) . ' · ' : '' ?>Millman Photography</title>
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/bootstrap.min.css')) ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/bootstrap-grid.min.css')) ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/bootstrap-reboot.min.css')) ?>">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="<?= $this->baseUrl() . $this->asset('asset/css/font-awesome.min.css') ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/font-awesome.min.css')) ?>">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="<?= $this->baseUrl() . $this->asset('asset/css/millmanphotography.css') ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/millmanphotography.min.css')) ?>">
     </head>
     <body>
         <!-- Navigation -->
         <nav role="navigation" class="navbar fixed-top navbar-toggleable-md">
             <div class="container">
                 <!-- Social Buttons -->
-                <ul class="social-button-group navbar-toggler-right">
+                <ol class="social-button-group navbar-toggler-right">
                     <li class="facebook-button">
                         <a href="https://facebook.com/millmanphotography" target="_blank">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -41,7 +43,7 @@
                             <i class="fa fa-500px" aria-hidden="true"></i>
                         </a>
                     </li>
-                </ul>
+                </ol>
 
                 <?php if (isset($sections)): ?>
                     <!-- Navigation Toggle -->
@@ -57,8 +59,8 @@
                 <?php endif; ?>
 
                 <!-- Logo -->
-                <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
-                    <img class="signature" src="<?= $this->baseUrl() . $this->asset('asset/img/signature.png') ?>">
+                <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : $this->baseUrl('#top') ?>">
+                    <img class="signature" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
                 </a>
 
                 <?php if (isset($sections)): ?>
@@ -85,6 +87,15 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <span class="tag-line">Photography by Freddie John Millman</span>
+                        <?php if (isset($user)): ?>
+                            <a class="admin-button" href="<?= $this->baseUrl('logout') ?>" target="_self">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            </a>
+                        <?php else: ?>
+                            <a class="admin-button" href="<?= $this->baseUrl('login') ?>" target="_self">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <div class="col-lg-6">
                         <span class="copyright">
@@ -96,15 +107,15 @@
         </footer>
 
         <!-- JQuery -->
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="<?= $this->baseUrl($this->asset('js/jquery.min.js')) ?>"></script>
 
         <!-- Tether -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="<?= $this->baseUrl($this->asset('js/tether.min.js')) ?>"></script>
 
-        <!-- Bootstrap Javascript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="<?= $this->baseUrl($this->asset('js/bootstrap.min.js')) ?>"></script>
 
         <!-- Javascript -->
-        <script src="<?= $this->baseUrl() . $this->asset('asset/js/millmanphotography.js') ?>"></script>
+        <script src="<?= $this->baseUrl($this->asset('js/millmanphotography.js')) ?>"></script>
     </body>
 </html>

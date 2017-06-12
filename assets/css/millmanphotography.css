@@ -4,12 +4,10 @@
 /**************************/
 /*    General Styles      */
 /**************************/
-*,
-*:before,
-*:after {
-    margin: 0;
-    padding: 0;
+* {
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 html {
@@ -37,8 +35,8 @@ h6 {
 }
 
 a {
-    text-decoration: none;
     color: black;
+    text-decoration: none;
 }
 
 a.button {
@@ -72,6 +70,29 @@ button:hover {
 
 .text-white {
     color: white;
+}
+
+.switch {
+    padding: 15px;
+}
+
+/**************************/
+/*  Admin Button Styles  */
+/**************************/
+a.admin-button {
+    font-size: 15px;
+    text-align: center;
+    color: #000000;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    -o-transition: all .3s;
+}
+
+a.admin-button:hover,
+a.admin-button:focus,
+a.admin-button:active {
+    color: #878787;
 }
 
 /**************************/
@@ -136,15 +157,15 @@ ul#navigation a.navigation-button li.navigation {
 /**************************/
 /*  Social Button Styles  */
 /**************************/
-ul.social-button-group {
+ol.social-button-group {
     padding-top: 15px;
 }
 
-ul.social-button-group li {
+ol.social-button-group li {
     display: inline-block;
 }
 
-ul.social-button-group li a {
+ol.social-button-group li a {
     display: inline-block;
     line-height: 30px;
     height: 30px;
@@ -159,21 +180,21 @@ ul.social-button-group li a {
     -o-transition: all .3s;
 }
 
-ul.social-button-group li.facebook-button:hover a,
-ul.social-button-group li.facebook-button:focus a,
-ul.social-button-group li.facebook-button:active a {
+ol.social-button-group li.facebook-button:hover a,
+ol.social-button-group li.facebook-button:focus a,
+ol.social-button-group li.facebook-button:active a {
     color: #3b5998;
 }
 
-ul.social-button-group li.instagram-button:hover a,
-ul.social-button-group li.instagram-button:focus a,
-ul.social-button-group li.instagram-button:active a {
+ol.social-button-group li.instagram-button:hover a,
+ol.social-button-group li.instagram-button:focus a,
+ol.social-button-group li.instagram-button:active a {
     color: #fb3958;
 }
 
-ul.social-button-group li.five-hundred-px-button:hover a,
-ul.social-button-group li.five-hundred-px-button:focus a,
-ul.social-button-group li.five-hundred-px-button:active a {
+ol.social-button-group li.five-hundred-px-button:hover a,
+ol.social-button-group li.five-hundred-px-button:focus a,
+ol.social-button-group li.five-hundred-px-button:active a {
     color: #696969;
 }
 

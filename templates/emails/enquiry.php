@@ -7,7 +7,7 @@
             You have received an Enquiry.
         </h1>
         <p class="small">
-            <?= $this->e($enquiry->getName()) ?> sent you an Enquiry at <?= $this->e($enquiry->getDateCreated()->format('jS M Y')) ?>
+            <?= $this->e($enquiry->getName()) ?> sent you an Enquiry at <?= $this->e($enquiry->getDateCreated()->format('jS \of F Y')) ?>
         </p>
         <p class="message">
             <?= nl2br($this->e($enquiry->getMessage())) ?>

@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 banner">
-                    <img class="signature img-fluid" src="<?= $this->asset('asset/img/signature.png') ?>">
+                    <img class="signature img-fluid" src="<?= $this->asset('img/signature.png') ?>">
                     <h2 class="header-heading">Millman Photography</h2>
                     <h3 class="header-subheading text-muted">Photography by Freddie John Millman</h3>
                 </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="<?= $this->asset('asset/img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
+                    <img src="<?= $this->asset('img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
                 </div>
                 <div class="col-lg-6">
                     <div class="text-block">

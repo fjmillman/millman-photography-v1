@@ -23,7 +23,9 @@
                         <div class="col-md-3"></div>
                         <div class="col-lg-12">
                             <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl">Login</button>
-                            <p><a href="/register">Don't have an account?</a></p>
+                            <?php if (getenv('ENABLE_REGISTRATION')): ?>
+                                <p class="switch"><a href="/register">Don't have an account?</a></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </form>

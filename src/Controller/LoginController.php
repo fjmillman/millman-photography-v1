@@ -68,7 +68,7 @@ class LoginController
 
         $this->session->set('token', $this->resource->updateToken($user->getId()));
 
-        return $response->withStatus(302)->withHeader('Location', '/admin');
+        return $response->withStatus(302)->withHeader('Location', '/');
     }
 
     /**
@@ -80,6 +80,6 @@ class LoginController
     {
         Session::destroy();
 
-        return $response->withStatus(302)->withHeader('Location', '/login');
+        return $response->withStatus(302)->withHeader('Location', '/');
     }
 }
