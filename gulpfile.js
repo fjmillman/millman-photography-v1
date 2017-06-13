@@ -67,9 +67,10 @@ gulp.task('styles', function () {
                 nib(),
                 poststylus(processors)
             ],
-            'include css': true
+            compress: true,
+            'include css': true,
         }))
-        .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.write())
         .pipe(rename('millmanphotography.min.css'))
         .pipe(gulp.dest(paths.css.destination))
         .pipe(browserSync.stream());
