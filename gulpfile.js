@@ -54,12 +54,8 @@ let poststylus = require('poststylus');
 
 gulp.task('styles', function () {
     let processors = [
-        'postcss-import',
-        'postcss-url',
         'postcss-cssnext',
         'cssnano',
-        'postcss-browser-reporter',
-        'postcss-reporter',
     ];
     return gulp.src(paths.css.source + '*.styl')
         .pipe(concat('millmanphotography.styl'))
