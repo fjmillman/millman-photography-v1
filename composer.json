@@ -17,6 +17,7 @@
     "swiftmailer/swiftmailer": "^6.0",
     "pelago/emogrifier": "^1.2",
     "league/commonmark": "^0.15.4",
+    "league/glide": "^1.2",
     "phing/phing": "^2.16"
   },
   "require-dev": {

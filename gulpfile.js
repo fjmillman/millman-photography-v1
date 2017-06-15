@@ -47,29 +47,34 @@ gulp.task('scripts', function() {
 ///////////////////////
 
 let stylus = require('gulp-stylus');
-let poststylus = require('poststylus');
-let cssnext = require('postcss-cssnext');
-let cssnano = require('cssnano');
+let jeet = require('jeet');
 let nib = require('nib');
+let rupture = require('rupture');
+let poststylus = require('poststylus');
 
 gulp.task('styles', function () {
     let processors = [
-        cssnext({ autoprefixer: true }),
-        cssnano(),
+        'postcss-import',
+        'postcss-url',
+        'postcss-cssnext',
+        'cssnano',
+        'postcss-browser-reporter',
+        'postcss-reporter',
     ];
     return gulp.src(paths.css.source + '*.styl')
         .pipe(concat('millmanphotography.styl'))
-        .pipe(sourcemaps.init())
         .pipe(stylus({
-            paths:  ['node_modules'],
-            import: ['jeet/stylus/jeet', 'stylus-type-utils', 'nib', 'rupture/rupture', 'variables', 'mixins'],
+            'include css': true,
             use: [
+                jeet(),
                 nib(),
+                rupture(),
                 poststylus(processors)
             ],
-            'include css': true
+            paths:  ['node_modules', 'assets/styles'],
+            import: ['stylus-type-utils', 'jeet', 'nib', 'rupture'],
+            compress: true,
         }))
-        .pipe(sourcemaps.write('./'))
         .pipe(rename('millmanphotography.min.css'))
         .pipe(gulp.dest(paths.css.destination))
         .pipe(browserSync.stream());

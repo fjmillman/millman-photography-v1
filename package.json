@@ -6,8 +6,7 @@
   "repository": "git@github.com:fjmillman/millmanphotography.git",
   "author": "fjmillman <freddie.millman@icloud.com>",
   "license": "Copyright 2017 Freddie John Millman",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "bower": "^1.4.1",
     "browser-sync": "^2.8.1",
@@ -22,10 +21,10 @@
     "gulp-strip-debug": "^1.0.2",
     "gulp-stylus": "^2.6.0",
     "gulp-uglify": "^1.2.0",
-    "jeet": "^6.1.2",
+    "jeet": "^7.1.0",
     "jshint-stylish": "^2.0.1",
     "lost": "^8.0.0",
-    "nib": "^1.1.0",
+    "nib": "^1.1.2",
     "postcss": "^5.2.17",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cli": "^3.2.0",
@@ -34,7 +33,7 @@
     "postcss-reporter": "^3.0.0",
     "postcss-url": "^6.0.4",
     "poststylus": "^0.2.3",
-    "rupture": "^0.6.1",
+    "rupture": "^0.6.2",
     "stylus": "^0.52.0",
     "stylus-type-utils": "0.0.3",
     "yargs": "^3.18.0"

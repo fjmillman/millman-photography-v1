@@ -1,12 +1,11 @@
 /**************************/
 /*    General Styles      */
 /**************************/
-* {
+*
   box-sizing: border-box;
-}
 
 html
-  height:100%
+  height: 100%
 
 body
   height: auto
@@ -16,7 +15,7 @@ body
   padding-top: 75px
   padding-bottom: 50px
   overflow-x: hidden
-  font-family: "Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Helvetica,Arial,sans-serif
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Helvetica, Arial, sans-serif
 
 h1,
 h2,
@@ -44,7 +43,6 @@ a.button:active
   color: white
   border-color: #ffffff
 
-
 button.submit
   margin: 20px
   margin-bottom: 0
@@ -55,9 +53,8 @@ button:hover
 .text-black
   color: black
 
-.text-white {
+.text-white
   color: white
-}
 
 .switch
   padding: 15px
@@ -65,388 +62,226 @@ button:hover
 /**************************/
 /*  Admin Button Styles  */
 /**************************/
-a.admin-button {
-    font-size: 15px;
-    text-align: center;
-    color: #000000;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    transition: all .3s;
-    -o-transition: all .3s;
-}
+a.admin-button
+  font-size: 15px
+  text-align: center
+  color: #000000
+  transition: all .3s
 
 a.admin-button:hover,
 a.admin-button:focus,
-a.admin-button:active {
-    color: #878787;
-}
-
-/**************************/
-/*   Navigation Styles    */
-/**************************/
-nav {
-    position:fixed;
-    top:0;
-    color: #000;
-    height:auto;
-    width:100%;
-    background: #ffffff;
-    box-shadow:0 1px 15px #232323;
-    z-index:10;
-}
-
-nav .signature {
-    height: 50px;
-    width: 130px;
-}
-
-ul#navigation {
-    padding:0 25px 0 25px;
-}
-
-ul#navigation a.navigation-button {
-    color: black;
-    padding:5px 20px 15px 20px;
-    text-transform:uppercase;
-    vertical-align:middle;
-    letter-spacing:.05em;
-}
-
-ul#navigation a.navigation-button li.navigation {
-    padding-top:10px;
-    display: inline-block;
-}
-
-.underline {
-    display: inline-block;
-    position: relative;
-}
-
-.underline:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 0;
-    width: 100%;
-    background: transparent;
-    -webkit-transition: all ease 0.1s;
-    -moz-transition: all ease 0.1s;
-    transition: all ease 0.1s;
-}
-
-.underline:hover:after {
-    height: 2px;
-    background: #000000;
-}
-
-/**************************/
-/*  Social Button Styles  */
-/**************************/
-ol.social-button-group {
-    padding-top: 15px;
-}
-
-ol.social-button-group li {
-    display: inline-block;
-}
-
-ol.social-button-group li a {
-    display: inline-block;
-    line-height: 30px;
-    height: 30px;
-    width: 30px;
-    font-size: 25px;
-    text-align: center;
-    color: #000000;
-    background-color: #ffffff;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    transition: all .3s;
-    -o-transition: all .3s;
-}
-
-ol.social-button-group li.facebook-button:hover a,
-ol.social-button-group li.facebook-button:focus a,
-ol.social-button-group li.facebook-button:active a {
-    color: #3b5998;
-}
-
-ol.social-button-group li.instagram-button:hover a,
-ol.social-button-group li.instagram-button:focus a,
-ol.social-button-group li.instagram-button:active a {
-    color: #fb3958;
-}
-
-ol.social-button-group li.five-hundred-px-button:hover a,
-ol.social-button-group li.five-hundred-px-button:focus a,
-ol.social-button-group li.five-hundred-px-button:active a {
-    color: #696969;
-}
+a.admin-button:active
+  color: #878787
 
 /**************************/
 /*     Header Styles      */
 /**************************/
-header {
-    height: 95vh;
-    padding: 50px;
-    background-color: #ffffff;
-    z-index: 9;
-}
+header
+  height: 95vh
+  padding: 50px
+  background-color: #ffffff
+  z-index: 9
 
-header:before {
-    content: "";
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    background: url(../img/ashnessjetty.jpg) center center no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
+header:before
+  content: ""
+  position: fixed
+  height: 100vh
+  width: 100vw
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  display: block
+  background: url(../img/ashnessjetty.jpg) center center no-repeat fixed
+  background-size: cover
 
-header .banner {
-    background-color: rgba(255, 255, 255, 0.75);
-    padding: 20px;
-}
+header .banner
+  background-color: rgba(255, 255, 255, 0.75)
+  padding: 20px
 
-.signature {
-    height: 100px;
-    width: 260px;
-}
+.signature
+  height: 100px
+  width: 260px
 
-header .header-heading {
-    color: rgba(0, 0, 0, 0.75);
-    font-size: xx-large;
-    font-weight: 100;
-}
+header .header-heading
+  color: rgba(0, 0, 0, 0.75)
+  font-size: xx-large
+  font-weight: 100
 
-header .header-subheading {
-    color: rgb(80, 80, 80);
-    font-size: medium;
-    letter-spacing: 0.01em;
-}
+header .header-subheading
+  color: rgb(80, 80, 80)
+  font-size: medium
+  letter-spacing: 0.01em
 
 /**************************/
 /*     Section Styles     */
 /**************************/
-section {
-    padding: 50px;
-}
+section
+  padding: 50px
 
-section .section-heading {
-    color: rgb(255, 255, 255);
-    font-size: xx-large;
-    font-weight: bold;
-}
+section .section-heading
+  color: rgb(255, 255, 255)
+  font-size: xx-large
+  font-weight: bold
 
-section .section-subheading {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: large;
-    padding-bottom: 15px;
-}
+section .section-subheading
+  color: rgba(255, 255, 255, 0.5)
+  font-size: large
+  padding-bottom: 15px
 
-.anchor {
-    display: block;
-    height: 75px;
-    margin-top: -75px;
-    visibility: hidden;
-}
+.anchor
+  display: block
+  height: 75px
+  margin-top: -75px
+  visibility: hidden
 
-.fix-panel-background {
-    overflow: auto;
-    position: relative;
-    z-index: -1;
-}
+.fix-panel-background
+  overflow: auto
+  position: relative
+  z-index: -1
 
 /**************************/
 /*      Blog Styles       */
 /**************************/
-section.blog {
-    background-color: white;
-    z-index: 1;
-}
+section.blog
+  background-color: white
+  z-index: 1
 
-section.blog .section-heading {
-    color: rgb(0, 0, 0);
-}
+section.blog .section-heading
+  color: rgb(0, 0, 0)
 
-ol.blog-posts {
-    margin-left: -35px;
-    padding-top: 15px;
-    list-style-type: none;
-}
+ol.blog-posts
+  margin-left: -35px
+  padding-top: 15px
+  list-style-type: none
 
 /**************************/
 /*     Form Styles     */
 /**************************/
-form {
-    padding: 15px;
-}
+form
+  padding: 15px
 
-.form-group {
-    margin-bottom: 25px;
-}
+.form-group
+  margin-bottom: 25px
 
 .form-group input,
-.form-group textarea {
-    padding: 20px;
-}
+.form-group textarea
+  padding: 20px
 
-.form-group textarea.form-control {
-    height: 150px;
-}
+.form-group textarea.form-control
+  height: 150px
 
-.form-control:focus {
-    border-color: #373737;
-    box-shadow: none;
-}
+.form-control:focus
+  border-color: #373737
+  box-shadow: none
 
 /**************************/
 /*      About Styles      */
 /**************************/
-section.about {
-    color: white;
-}
+section.about
+  color: white
 
-section.about:before {
-    content: "";
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    background: url(../img/northumberland.jpg) center center no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
-}
+section.about:before
+  content: ""
+  position: fixed
+  height: 100vh
+  width: 100vw
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  display: block
+  background: url(../img/northumberland.jpg) center center no-repeat fixed
+  background-size: cover
+  filter: blur(10px)
 
-section.about .portrait {
-    padding-top: 25px;
-    width: 450px;
-}
+section.about .portrait
+  padding-top: 25px
+  width: 450px
 
-section.about .text-block {
-    padding-top: 25px;
-    max-width: 475px;
-}
+section.about .text-block
+  padding-top: 25px
+  max-width: 475px
 
 /**************************/
 /*     Gallery Styles     *
 /**************************/
-section.gallery {
-    background-color: white;
-    z-index: 1;
-}
+section.gallery
+  background-color: white
+  z-index: 1
 
-section.gallery .section-heading {
-    color: rgb(0, 0, 0);
-}
+section.gallery .section-heading
+  color: rgb(0, 0, 0)
 
 /**************************/
 /*    Services Styles     */
 /**************************/
-section.services:before {
-    content: "";
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    background: url(../img/swaledale.jpg) center center no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
-}
+section.services:before
+  content: ""
+  position: fixed
+  height: 100%
+  width: 100%
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  display: block
+  background: url(../img/swaledale.jpg) center center no-repeat fixed
+  background-size: cover
+  filter: blur(10px)
 
-section.services .service-group {
-    padding-top: 20px;
-}
+section.services .service-group
+  padding-top: 20px
 
-section.services .service-heading {
-    padding-top: 15px;
-}
+section.services .service-heading
+  padding-top: 15px
 
 /**************************/
 /*     Enquiry Styles     */
 /**************************/
-section.enquiry .section-heading {
-    color: rgb(0, 0, 0);
-}
+section.enquiry .section-heading
+  color: rgb(0, 0, 0)
 
 /**************************/
 /*     Project Styles     */
 /**************************/
-section .project-item {
-    width: 400px;
-}
+section .project-item
+  width: 400px
 
-section .project-item .project-link {
-    display: block;
-    position: relative;
-    margin: 0 auto;
-}
+section .project-item .project-link
+  display: block
+  position: relative
+  margin: 0 auto
 
-section .project-item .project-caption {
-    padding-top: 20px;
-    padding-bottom: 5px;
-    text-align: center;
-    background-color: #fff;
-}
+section .project-item .project-caption
+  padding-top: 20px
+  padding-bottom: 5px
+  text-align: center
+  background-color: #fff
 
-section .project-item .project-caption h4 {
-    text-transform: none;
-}
+section .project-item .project-caption h4
+  text-transform: none
 
-section .project-item .project-caption p {
-    font-size: 16px;
-    font-style: italic;
-}
+section .project-item .project-caption p
+  font-size: 16px
+  font-style: italic
 
 /**************************/
 /*     Footer Styles      */
 /**************************/
-footer {
-    padding:15px;
-    width:100%;
-    background: #ffffff;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
+footer
+  padding: 15px
+  width: 100%
+  background: #ffffff
+  position: absolute
+  right: 0
+  bottom: 0
+  left: 0
 
-footer .copyright {
-    font-size: small;
-    text-transform: uppercase;
-}
+footer .copyright
+  font-size: small
+  text-transform: uppercase
 
-footer .tag-line {
-    font-size: small;
-    text-transform: uppercase;
-}
+footer .tag-line
+  font-size: small
+  text-transform: uppercase
