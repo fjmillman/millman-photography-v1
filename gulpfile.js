@@ -63,7 +63,6 @@ gulp.task('styles', function () {
     ];
     return gulp.src(paths.css.source + '*.styl')
         .pipe(concat('millmanphotography.styl'))
-        .pipe(sourcemaps.init())
         .pipe(stylus({
             'include css': true,
             use: [
@@ -73,10 +72,9 @@ gulp.task('styles', function () {
                 poststylus(processors)
             ],
             paths:  ['node_modules', 'assets/styles'],
-            import: ['stylus-type-utils', 'jeet', 'nib', 'rupture', 'variables', 'mixins'],
+            import: ['stylus-type-utils', 'jeet', 'nib', 'rupture'],
             compress: true,
         }))
-        .pipe(sourcemaps.write())
         .pipe(rename('millmanphotography.min.css'))
         .pipe(gulp.dest(paths.css.destination))
         .pipe(browserSync.stream());

@@ -60,7 +60,7 @@
 
                 <!-- Logo -->
                 <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : $this->baseUrl('#top') ?>">
-                    <img class="signature" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
+                    <img class="logo" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
                 </a>
 
                 <?php if (isset($sections)): ?>
