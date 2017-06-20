@@ -1,12 +1,3 @@
-$(function() {
-    $(document).on('click', 'a[href*=\\#]:not([href=\\#])', function(e) {
-        e.preventDefault();
-        let target = $(this).attr('href');
-        let scrollToPosition = $(target).offset().top;
-        $('html, body').animate({ 'scrollTop': scrollToPosition }, 600);
-    });
-});
-
 $(function () {
     const $form = $('#enquiry-form');
     const $submit = $('#submit');
@@ -23,11 +14,11 @@ $(function () {
     function success(data) {
         $form.trigger('reset');
         let $message = $('<p>').text(data).css('color', 'green').prependTo($submit.parent());
-        setTimeout(function() { $message.remove() }, 2500);
+        setTimeout(function() { $message.remove(); }, 2500);
     }
     function error(request) {
         let $message = $('<p>').text(request.responseJSON).css('color', 'red').prependTo($submit.parent());
-        setTimeout(function() { $message.remove() }, 2500);
+        setTimeout(function() { $message.remove(); }, 2500);
     }
     function complete (request) {
         let csrfToken = request.getResponseHeader('X-CSRFToken');

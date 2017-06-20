@@ -51,12 +51,12 @@ class Mailer
     {
         $message = new SwiftMessage($this->mailer);
 
-        $data['cid'] = $message->embed(SwiftImage::fromPath('asset/img/signature.png'));
+        $data['cid'] = $message->embed(SwiftImage::fromPath('img/signature.png'));
 
         $this->view->setResponse(new Response(200));
 
         $this->emogrifier->setHtml($this->view->render($template, $data));
-        $this->emogrifier->setCss(file_get_contents(__DIR__ . '/../templates/emails/email.css'));
+        $this->emogrifier->setCss(file_get_contents(__DIR__ . '/../public/css/millmanphotography-email.min.css'));
 
         $message->setBody($this->emogrifier->emogrify())->setContentType('text/html');
 

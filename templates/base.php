@@ -59,7 +59,7 @@
                 <?php endif; ?>
 
                 <!-- Logo -->
-                <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : $this->baseUrl('#top') ?>">
+                <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
                     <img class="logo" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
                 </a>
 
@@ -116,6 +116,6 @@
         <script src="<?= $this->baseUrl($this->asset('js/bootstrap.min.js')) ?>"></script>
 
         <!-- Javascript -->
-        <script src="<?= $this->baseUrl($this->asset('js/millmanphotography.js')) ?>"></script>
+        <script src="<?= $this->baseUrl($this->asset('js/millmanphotography.min.js')) ?>"></script>
     </body>
 </html>

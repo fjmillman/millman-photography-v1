@@ -6,16 +6,18 @@
   "repository": "git@github.com:fjmillman/millmanphotography.git",
   "author": "fjmillman <freddie.millman@icloud.com>",
   "license": "Copyright 2017 Freddie John Millman",
-  "dependencies": {},
   "devDependencies": {
     "bower": "^1.4.1",
     "browser-sync": "^2.8.1",
     "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^2.3.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-cache": "^0.4.6",
     "gulp-cli": "^1.3.0",
     "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^3.3.0",
     "gulp-jshint": "^1.11.2",
+    "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-strip-debug": "^1.0.2",
@@ -32,14 +34,24 @@
     "postcss-import": "^9.1.0",
     "postcss-reporter": "^3.0.0",
     "postcss-url": "^6.0.4",
+    "postcss-load-config": "^1.2.0",
+    "postcss-loader": "^2.0.5",
+    "postcss-smart-import": "^0.7.0",
+    "precss": "^1.4.0",
     "poststylus": "^0.2.3",
     "rupture": "^0.6.2",
     "stylus": "^0.52.0",
     "stylus-type-utils": "0.0.3",
     "yargs": "^3.18.0"
   },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1"
+  },
   "scripts": {
-    "postinstall": "find node_modules/ -name '*.info' -type f -delete",
     "gulp": "node_modules/.bin/gulp"
   }
 }
