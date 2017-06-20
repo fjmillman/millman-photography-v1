@@ -30,10 +30,14 @@ let nib = require('nib');
 let rupture = require('rupture');
 let poststylus = require('poststylus');
 let postcss = require('gulp-postcss');
+let cssimport = require('postcss-import');
+let cssurl = require('postcss-url');
 let cssnext = require('postcss-cssnext');
 let cssnano = require('cssnano');
 let processors = [
-    cssnext(),
+    cssimport(),
+    cssurl({ url: 'inline' }),
+    cssnext({ browserslist: '>= ie 8, last 2 versions' }),
     cssnano({ autoprefixer: false })
 ];
 
