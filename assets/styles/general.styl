@@ -156,32 +156,12 @@ ol.blog-posts
   list-style-type: none
 
 /**************************/
-/*     Form Styles     */
-/**************************/
-form
-  padding: 15px
-
-.form-group
-  margin-bottom: 25px
-
-.form-group input,
-.form-group textarea
-  padding: 20px
-
-.form-group textarea.form-control
-  height: 150px
-
-.form-control:focus
-  border-color: #373737
-  box-shadow: none
-
-/**************************/
 /*      About Styles      */
 /**************************/
-section.about
+.about
   color: white
 
-section.about:before
+.about:before
   content: ""
   position: fixed
   height: 100vh
@@ -195,28 +175,28 @@ section.about:before
   background-size: cover
   filter: blur(10px)
 
-section.about .portrait
+.about .portrait
   padding-top: 25px
   width: 450px
 
-section.about .text-block
+.about .text-block
   padding-top: 25px
   max-width: 475px
 
 /**************************/
 /*     Gallery Styles     *
 /**************************/
-section.gallery
+.gallery
   background-color: white
   z-index: 1
 
-section.gallery .section-heading
+.gallery .section-heading
   color: rgb(0, 0, 0)
 
 /**************************/
 /*    Services Styles     */
 /**************************/
-section.services:before
+.services:before
   content: ""
   position: fixed
   height: 100%
@@ -230,10 +210,10 @@ section.services:before
   background-size: cover
   filter: blur(10px)
 
-section.services .service-group
+.services .service-group
   padding-top: 20px
 
-section.services .service-heading
+.services .service-heading
   padding-top: 15px
 
 /**************************/
@@ -245,26 +225,22 @@ section.enquiry .section-heading
 /**************************/
 /*     Project Styles     */
 /**************************/
-section .project-item
+.project-item
   width: 400px
-
-section .project-item .project-link
-  display: block
-  position: relative
-  margin: 0 auto
-
-section .project-item .project-caption
-  padding-top: 20px
-  padding-bottom: 5px
-  text-align: center
-  background-color: #fff
-
-section .project-item .project-caption h4
-  text-transform: none
-
-section .project-item .project-caption p
-  font-size: 16px
-  font-style: italic
+  .project-link
+    display: block
+    position: relative
+    margin: 0 auto
+  .project-caption
+    padding-top: 20px
+    padding-bottom: 5px
+    text-align: center
+    background-color: #fff
+    h4
+      text-transform: none
+    p
+      font-size: 16px
+      font-style: italic
 
 /**************************/
 /*     Footer Styles      */
@@ -278,10 +254,10 @@ footer
   bottom: 0
   left: 0
 
-footer .copyright
+.copyright
   font-size: small
   text-transform: uppercase
 
-footer .tag-line
+.tag-line
   font-size: small
   text-transform: uppercase

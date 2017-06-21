@@ -121,7 +121,7 @@ let imagemin = require('gulp-imagemin');
 
 gulp.task('images', function() {
     return gulp.src(paths.img.source + '*.+(png|jpg|jpeg|gif|svg)')
-        .pipe(cache(imagemin({ optimizationLevel: 5 })))
+        .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest(paths.img.destination));
 });
 
