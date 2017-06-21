@@ -33,12 +33,17 @@ let postcss = require('gulp-postcss');
 let cssimport = require('postcss-import');
 let cssurl = require('postcss-url');
 let cssnext = require('postcss-cssnext');
+let lost = require('lost');
+let autoprefixer = require('autoprefixer');
 let cssnano = require('cssnano');
+let reporter = require('postcss-reporter');
 let processors = [
     cssimport(),
     cssurl({ url: 'inline' }),
-    cssnext({ browserslist: '>= ie 8, last 2 versions' }),
-    cssnano({ autoprefixer: false })
+    cssnext({ autoprefixer: false }),
+    autoprefixer({ browsers: ['last 2 versions', 'IE > 8'] }),
+    cssnano({ autoprefixer: false }),
+    reporter()
 ];
 
 gulp.task('styles', function () {

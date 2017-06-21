@@ -16,9 +16,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <p>
-                    <?= $post->getBody() ?>
-                </p>
+                <?= $post->getBody() ?>
             </div>
         </div>
     </div>
