@@ -32,7 +32,7 @@ $millmanphotography->get('/login', LoginController::class)->setName('login')->ad
 $millmanphotography->post('/login', LoginController::class . ':login');
 $millmanphotography->get('/logout', LoginController::class . ':logout')->setName('logout')->add(AuthorisationMiddleware::class);
 
-if (getenv('ENABLE_REGISTRATION') === 'true') {
+if (getenv('ENABLE_REGISTRATION')) {
     $millmanphotography->get('/register', RegistrationController::class)->setName('register')->add(CsrfTokenProvider::class)->add(Csrf::class);
     $millmanphotography->post('/register', RegistrationController::class . ':register');
 }
