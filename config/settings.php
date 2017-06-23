@@ -5,7 +5,7 @@ return [
         'displayErrorDetails' => getenv('ENVIRONMENT') == 'development' ? true : false,
         'plates' => [
             'directory' =>  __DIR__ . '/../templates/',
-            'assetPath' => __DIR__ . '/../public/',
+            'assetPath' => getenv('ENVIRONMENT') == 'development' ? __DIR__ . '/../public/' : __DIR__ . '/../public_html/',
         ],
         'markdown' => [
             'renderer' => [

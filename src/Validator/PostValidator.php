@@ -2,16 +2,12 @@
 
 namespace MillmanPhotography\Validator;
 
-use Schemer\Validator as V;
-use Schemer\Validator\ValidatorInterface;
-use Schemer\Formatter\FormatterInterface;
+use Respect\Validation\Validator as V;
+use Respect\Validation\Exceptions\NestedValidationException;
 
-class PostValidator implements Validator
+class PostValidator
 {
-    /** @var FormatterInterface $formatter */
-    private $formatter;
-
-    /** @var ValidatorInterface $validator */
+    /** @var Validator $validator */
     private $validator;
 
     /** @var array $errors */
@@ -19,10 +15,9 @@ class PostValidator implements Validator
 
     public function __construct()
     {
-        $this->validator = V::assoc([
-            'title' => V::text()->min(3)->max(50),
-            'body' => V::text()->min(10),
-        ]);
+        $this->validator =
+            V::key('title', V::stringType()->min(3)->max(50))
+             ->key('body', V::stringType()->min(10));
     }
 
     /**
@@ -31,9 +26,12 @@ class PostValidator implements Validator
      */
     public function isValid(array $data)
     {
-        $result = $this->validator->validate($data);
-        $this->errors = $result->map('ucfirst')->errors();
-        return !$result->isError();
+        try {
+            return $this->validator->assert($data);
+        } catch (NestedValidationException $exception) {
+            $this->errors = $exception->getMessages();
+            return false;
+        }
     }
 
     /**

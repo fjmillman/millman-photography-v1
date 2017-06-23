@@ -46,7 +46,7 @@ class Version20170606153100 extends AbstractMigration
             [
                 'id' => 3,
                 'caption' => 'The Reflection in the Lakes',
-                'filename' => 'ashness-jetty',
+                'filename' => 'ashnessjetty',
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],

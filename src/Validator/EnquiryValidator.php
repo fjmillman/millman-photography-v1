@@ -2,17 +2,12 @@
 
 namespace MillmanPhotography\Validator;
 
-use Schemer\Validator as V;
-use Schemer\Formatter as F;
-use Schemer\Validator\ValidatorInterface;
-use Schemer\Formatter\FormatterInterface;
+use Respect\Validation\Validator as V;
+use Respect\Validation\Exceptions\NestedValidationException;
 
-class EnquiryValidator implements Validator
+class EnquiryValidator
 {
-    /** @var FormatterInterface $formatter */
-    private $formatter;
-
-    /** @var ValidatorInterface $validator */
+    /** @var Validator $validator */
     private $validator;
 
     /** @var array $errors */
@@ -20,25 +15,10 @@ class EnquiryValidator implements Validator
 
     public function __construct()
     {
-        $this->formatter = F::assoc([
-            'name' => F::text(),
-            'email' => F::text(),
-            'message' => F::text(),
-        ])->only([
-            'name',
-            'email',
-            'message',
-        ])->renameMany([
-            'name' => 'Name',
-            'email' => 'Email',
-            'message' => 'Message',
-        ]);
-
-        $this->validator = V::assoc([
-            'Name' => V::text(),
-            'Email' => V::text()->email(),
-            'Message' => V::text(),
-        ]);
+        $this->validator =
+            V::key('name', V::stringType())
+             ->key('email', V::stringType()->email())
+             ->key('message', V::stringType());
     }
 
     /**
@@ -47,10 +27,12 @@ class EnquiryValidator implements Validator
      */
     public function isValid(array $data)
     {
-        $data = $this->formatter->format($data);
-        $result = $this->validator->validate($data);
-        $this->errors = $result->errors();
-        return !$result->isError();
+        try {
+            return $this->validator->assert($data);
+        } catch (NestedValidationException $exception) {
+            $this->errors = $exception->getMessages();
+            return false;
+        }
     }
 
     /**

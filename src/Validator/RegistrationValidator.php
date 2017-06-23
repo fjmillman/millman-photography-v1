@@ -2,17 +2,12 @@
 
 namespace MillmanPhotography\Validator;
 
-use Schemer\Validator as V;
-use Schemer\Formatter as F;
-use Schemer\Validator\ValidatorInterface;
-use Schemer\Formatter\FormatterInterface;
+use Respect\Validation\Validator as V;
+use Respect\Validation\Exceptions\NestedValidationException;
 
-class RegistrationValidator implements Validator
+class RegistrationValidator
 {
-    /** @var FormatterInterface $formatter */
-    private $formatter;
-
-    /** @var ValidatorInterface $validator */
+    /** @var Validator $validator */
     private $validator;
 
     /** @var array $errors */
@@ -20,20 +15,6 @@ class RegistrationValidator implements Validator
 
     public function __construct()
     {
-        $this->formatter = F::assoc([
-            'username' => F::text(),
-            'password' => F::text(),
-            'password_confirmation' => F::text(),
-        ])->only([
-            'username',
-            'password',
-            'password_confirmation',
-        ])->renameMany([
-            'username' => 'Username',
-            'password' => 'Password',
-            'password_confirmation' => 'Password Confirmation'
-        ]);
-
         $this->validator = V::assoc([
             'Username' => V::text()->min(3)->max(32),
             'Password' => V::text()->min(7),
@@ -43,6 +24,11 @@ class RegistrationValidator implements Validator
             },
             'Passwords did not match!'
         );
+
+        $this->validator =
+            V::key('username', V::stringType()->min(3)->max(32))
+             ->key('password', V::stringType()->min(7))
+             ->key('password_confirmation', V::stringType()->min(7));
     }
 
     /**
@@ -51,10 +37,12 @@ class RegistrationValidator implements Validator
      */
     public function isValid(array $data)
     {
-        $data = $this->formatter->format($data);
-        $result = $this->validator->validate($data);
-        $this->errors = $result->errors();
-        return !$result->isError();
+        try {
+            return $this->validator->assert($data);
+        } catch (NestedValidationException $exception) {
+            $this->errors = $exception->getMessages();
+            return false;
+        }
     }
 
     /**
