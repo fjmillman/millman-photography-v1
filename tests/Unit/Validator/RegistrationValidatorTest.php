@@ -35,7 +35,7 @@ class RegistrationValidatorTest extends TestCase
             'password_confirmation' => 'passwrd',
         ];
         $this->assertFalse($validator->isValid($data));
-        $this->assertSame(['Passwords did not match!'], $validator->getErrors());
+        $this->assertSame(['Password_confirmation must be equals "password"'], $validator->getErrors());
     }
 
     /**
@@ -52,8 +52,8 @@ class RegistrationValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
         $this->assertSame(
             [
-                'Password: not at least 7 characters',
-                'Password Confirmation: not at least 7 characters'
+                'Password must have a length greater than 7',
+                'Password_confirmation must have a length greater than 7'
             ],
             $validator->getErrors()
         );

@@ -79,23 +79,9 @@ a.admin-button:active
 header
   height: 95vh
   padding: 50px
-  background-color: #ffffff
-  z-index: 9
+  z-index: 0
 
-header:before
-  content: ""
-  position: fixed
-  height: 100vh
-  width: 100vw
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  display: block
-  background: url(../img/ashnessjetty.jpg) center center no-repeat fixed
-  background-size: cover
-
-header .banner
+.banner
   background-color: rgba(255, 255, 255, 0.75)
   padding: 20px
 
@@ -103,12 +89,12 @@ header .banner
   height: 100px
   width: 260px
 
-header .header-heading
+.header-heading
   color: rgba(0, 0, 0, 0.75)
   font-size: xx-large
   font-weight: 100
 
-header .header-subheading
+.header-subheading
   color: rgb(80, 80, 80)
   font-size: medium
   letter-spacing: 0.01em
@@ -119,12 +105,12 @@ header .header-subheading
 section
   padding: 50px
 
-section .section-heading
+.section-heading
   color: rgb(255, 255, 255)
   font-size: xx-large
   font-weight: bold
 
-section .section-subheading
+.section-subheading
   color: rgba(255, 255, 255, 0.5)
   font-size: large
   padding-bottom: 15px
@@ -135,22 +121,33 @@ section .section-subheading
   margin-top: -75px
   visibility: hidden
 
-.fix-panel-background
-  overflow: auto
-  position: relative
+.background-image
+  position: fixed
+  height: 100vh
+  width: 100vw
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  overflow: hidden
+  display: block
+  background-position center center
+  background-repeat no-repeat
+  background-size cover
+  transition: background 1s linear
   z-index: -1
 
 /**************************/
 /*      Blog Styles       */
 /**************************/
-section.blog
+.blog
   background-color: white
   z-index: 1
 
-section.blog .section-heading
+.blog .section-heading
   color: rgb(0, 0, 0)
 
-ol.blog-posts
+.blog-posts
   margin-left: -35px
   padding-top: 15px
   list-style-type: none
@@ -160,20 +157,9 @@ ol.blog-posts
 /**************************/
 .about
   color: white
-
-.about:before
-  content: ""
-  position: fixed
-  height: 100vh
-  width: 100vw
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  display: block
-  background: url(../img/northumberland.jpg) center center no-repeat fixed
-  background-size: cover
-  filter: blur(10px)
+  background: rgb(0, 0, 0) transparent
+  background: rgba(0, 0, 0, 0.5)
+  z-index: 0
 
 .about .portrait
   padding-top: 25px
@@ -196,19 +182,10 @@ ol.blog-posts
 /**************************/
 /*    Services Styles     */
 /**************************/
-.services:before
-  content: ""
-  position: fixed
-  height: 100%
-  width: 100%
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  display: block
-  background: url(../img/swaledale.jpg) center center no-repeat fixed
-  background-size: cover
-  filter: blur(10px)
+.services
+  background: rgb(0, 0, 0) transparent
+  background: rgba(0, 0, 0, 0.5)
+  z-index: 0
 
 .services .service-group
   padding-top: 20px
@@ -219,7 +196,11 @@ ol.blog-posts
 /**************************/
 /*     Enquiry Styles     */
 /**************************/
-section.enquiry .section-heading
+.enquiry
+  background-color: #ffffff
+  z-index: 1
+
+.enquiry .section-heading
   color: rgb(0, 0, 0)
 
 /**************************/

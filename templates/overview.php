@@ -1,13 +1,16 @@
 <?php $this->layout('base', ['sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
+    <!-- Background -->
+    <div id="background-image" class="background-image" style="background-image: url('<?= $this->baseUrl($this->asset('img/ashnessjetty.jpg')) ?>')"></div>
+
     <!-- Header -->
     <span class="anchor" id="top"></span>
-    <header class="fix-panel-background text-center">
+    <header class="text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 banner">
-                    <img class="signature img-fluid" src="<?= $this->asset('img/signature.png') ?>">
+                    <img class="signature img-fluid" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
                     <h2 class="header-heading">Millman Photography</h2>
                     <h3 class="header-subheading text-muted">Photography by Freddie John Millman</h3>
                 </div>
@@ -40,12 +43,12 @@
 
     <!-- About -->
     <span class="anchor" id="about"></span>
-    <section class="about fix-panel-background text-center">
+    <section class="about text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="section-heading">Who am I?</h2>
-                    <h3 class="section-subheading text-muted">That is a very good question.</h3>
+                    <h3 class="section-subheading text-white">That is a very good question.</h3>
                 </div>
             </div>
             <div class="row">
@@ -90,7 +93,7 @@
 
     <!-- Services -->
     <span class="anchor" id="services"></span>
-    <section class="services fix-panel-background text-center">
+    <section class="services text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -101,17 +104,17 @@
             <div class="row service-group">
                 <div class="col-md-4">
                     <i class="fa fa-camera fa-3x text-white" aria-hidden="true"></i>
-                    <h4 class="service-heading">Photography</h4>
+                    <h4 class="service-heading text-white">Photography</h4>
                     <p class="text-white">My services in photography.</p>
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-battery fa-3x text-white" aria-hidden="true"></i>
-                    <h4 class="service-heading">Events</h4>
+                    <h4 class="service-heading text-white">Events</h4>
                     <p class="text-white">My services in events.</p>
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-print fa-3x text-white" aria-hidden="true"></i>
-                    <h4 class="service-heading">Prints</h4>
+                    <h4 class="service-heading text-white">Prints</h4>
                     <p class="text-white">My services in prints.</p>
                 </div>
             </div>

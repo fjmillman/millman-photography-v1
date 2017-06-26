@@ -2,6 +2,8 @@
 
 namespace MillmanPhotography\Validator;
 
+use Arrayzy\ArrayImitator as A;
+use function Stringy\Create as S;
 use Respect\Validation\Validator as V;
 use Respect\Validation\Exceptions\NestedValidationException;
 
@@ -15,20 +17,11 @@ class RegistrationValidator
 
     public function __construct()
     {
-        $this->validator = V::assoc([
-            'Username' => V::text()->min(3)->max(32),
-            'Password' => V::text()->min(7),
-            'Password Confirmation' => V::text()->min(7),
-        ])->should(function ($data) {
-                return $data['Password'] === $data['Password Confirmation'];
-            },
-            'Passwords did not match!'
-        );
-
         $this->validator =
-            V::key('username', V::stringType()->min(3)->max(32))
-             ->key('password', V::stringType()->min(7))
-             ->key('password_confirmation', V::stringType()->min(7));
+            V::key('username', V::stringType()->length(3, 32))
+             ->key('password', V::stringType()->length(7))
+             ->key('password_confirmation', V::stringType()->length(7))
+             ->keyValue('password_confirmation', 'equals', 'password');
     }
 
     /**
@@ -40,7 +33,9 @@ class RegistrationValidator
         try {
             return $this->validator->assert($data);
         } catch (NestedValidationException $exception) {
-            $this->errors = $exception->getMessages();
+            $this->errors = A::create($exception->getMessages())->map(function ($message) {
+                return (string) S($message)->upperCaseFirst();
+            })->toArray();
             return false;
         }
     }

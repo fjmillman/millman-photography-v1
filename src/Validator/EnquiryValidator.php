@@ -2,6 +2,8 @@
 
 namespace MillmanPhotography\Validator;
 
+use function Stringy\Create as S;
+use Arrayzy\ArrayImitator as A;
 use Respect\Validation\Validator as V;
 use Respect\Validation\Exceptions\NestedValidationException;
 
@@ -30,7 +32,9 @@ class EnquiryValidator
         try {
             return $this->validator->assert($data);
         } catch (NestedValidationException $exception) {
-            $this->errors = $exception->getMessages();
+            $this->errors = A::create($exception->getMessages())->map(function ($message) {
+                return (string) S($message)->upperCaseFirst();
+            })->toArray();
             return false;
         }
     }

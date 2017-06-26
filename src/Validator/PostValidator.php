@@ -2,6 +2,8 @@
 
 namespace MillmanPhotography\Validator;
 
+use Arrayzy\ArrayImitator as A;
+use function Stringy\Create as S;
 use Respect\Validation\Validator as V;
 use Respect\Validation\Exceptions\NestedValidationException;
 
@@ -16,8 +18,8 @@ class PostValidator
     public function __construct()
     {
         $this->validator =
-            V::key('title', V::stringType()->min(3)->max(50))
-             ->key('body', V::stringType()->min(10));
+            V::key('title', V::stringType()->length(3, 50))
+             ->key('body', V::stringType()->length(10));
     }
 
     /**
@@ -29,7 +31,9 @@ class PostValidator
         try {
             return $this->validator->assert($data);
         } catch (NestedValidationException $exception) {
-            $this->errors = $exception->getMessages();
+            $this->errors = A::create($exception->getMessages())->map(function ($message) {
+                return (string) S($message)->upperCaseFirst();
+            })->toArray();
             return false;
         }
     }

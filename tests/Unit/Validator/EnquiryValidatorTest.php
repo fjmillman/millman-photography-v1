@@ -35,6 +35,6 @@ class EnquiryValidatorTest extends TestCase
             'message' => 'This is a message.',
         ];
         $this->assertFalse($validator->isValid($data));
-        $this->assertSame(['Email: not an email'], $validator->getErrors());
+        $this->assertSame(['Email must be valid email'], $validator->getErrors());
     }
 }
