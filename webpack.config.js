@@ -1,15 +1,19 @@
+const webpack = require('webpack');
 const path = require('path');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
-    SRC: path.resolve(__dirname, '..', 'public'),
-    DIST: path.resolve(__dirname, '..', 'public', 'dist'),
-    ASSETS: '/dist',
     entry: './webpack.js',
     output: {
         filename: './millmanphotography.js'
     },
     module: {
         loaders: [
+            {
+                test: /\.styl$/,
+                loader: ExtractTextPlugin.extract("style", "!css!stylus") // plugin used to extract css file from your compiled `styl` files
+            },
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
@@ -25,5 +29,8 @@ module.exports = {
             }
         ],
     },
+    plugins: [
+        new ExtractTextPlugin('millmanphotography.css')
+    ],
     watch: true,
 };
