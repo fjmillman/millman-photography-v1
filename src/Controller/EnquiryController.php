@@ -64,9 +64,8 @@ class EnquiryController
 
             $this->mailer->send('emails/reply', ['enquiry' => $enquiry],
                 function (SwiftMessage $message) use ($enquiry) {
-                    $message->setFrom('freddie.john.millman@millmanphotography.co.uk', 'Millman Photography')
+                    $message->setFrom(getenv('SMTP_EMAIL'), 'Millman Photography')
                         ->setTo($enquiry->getEmail(), $enquiry->getName())
-                        ->setReplyTo('freddie.john.millman@millmanphotography.co.uk', 'Millman Photography')
                         ->setSubject('Millman Photography Enquiry');
                 }
             );
@@ -74,8 +73,7 @@ class EnquiryController
             $this->mailer->send('emails/enquiry', ['enquiry' => $enquiry],
                 function (SwiftMessage $message) use ($enquiry) {
                     $message->setFrom($enquiry->getEmail(), $enquiry->getName())
-                        ->setTo('freddie.john.millman@millmanphotography.co.uk', 'Millman Photography')
-                        ->setReplyTo($enquiry->getEmail(), $enquiry->getName())
+                        ->setTo(getenv('SMTP_EMAIL'), 'Millman Photography')
                         ->setSubject('Millman Photography Enquiry');
                 }
             );
