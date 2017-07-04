@@ -1,6 +1,0 @@
-{
-  "use": ["precss", "cssnext", "cssnano"],
-  "input": "assets/styles/millmanphotography.css",
-  "output": "public/css/millmanphotography.min.css",
-  "local-plugins": true
-}

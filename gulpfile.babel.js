@@ -90,7 +90,7 @@ let stylish = require('jshint-stylish');
 
 gulp.task('lint', function () {
     return gulp.src([paths.js.source + '*.js'])
-        .pipe(jshint())
+        .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter(stylish))
 });
 
