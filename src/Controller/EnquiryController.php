@@ -10,6 +10,7 @@ use Swift_Message as SwiftMessage;
 use Psr\Http\Message\ResponseInterface;
 
 use MillmanPhotography\Mailer;
+use MillmanPhotography\Entity\Enquiry;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Validator\EnquiryValidator;
 use MillmanPhotography\Exception\MailerException;
@@ -62,16 +63,18 @@ class EnquiryController
         try {
             $enquiry = $this->resource->create($data);
 
-            $this->mailer->send('emails/reply', ['enquiry' => $enquiry],
+            $this->mailer->send('reply', ['enquiry' => $enquiry, 'title' => 'Enquiry Received'],
                 function (SwiftMessage $message) use ($enquiry) {
+                    $message->addPart($this->getReplyEmail($enquiry), 'text/plain');
                     $message->setFrom(getenv('SMTP_EMAIL'), 'Millman Photography')
                         ->setTo($enquiry->getEmail(), $enquiry->getName())
                         ->setSubject('Millman Photography Enquiry');
                 }
             );
 
-            $this->mailer->send('emails/enquiry', ['enquiry' => $enquiry],
+            $this->mailer->send('enquiry', ['enquiry' => $enquiry, 'title' => 'Enquiry Sent'],
                 function (SwiftMessage $message) use ($enquiry) {
+                    $message->addPart($this->getEnquiryEmail($enquiry), 'text/plain');
                     $message->setFrom($enquiry->getEmail(), $enquiry->getName())
                         ->setTo(getenv('SMTP_EMAIL'), 'Millman Photography')
                         ->setSubject('Millman Photography Enquiry');
@@ -86,5 +89,42 @@ class EnquiryController
             $this->logger->log(100, $exception->getMessage() . ' in ' . $exception->getFile() . $exception->getLine());
             return $response->withJson(['Error: Try Again'], 404);
         }
+    }
+
+    /**
+     * @param Enquiry $enquiry
+     * @return string
+     */
+    private function getEnquiryEmail(Enquiry $enquiry)
+    {
+        return <<<EOT
+You have received an Enquiry.
+
+{$enquiry->getName()} sent you an Enquiry at {$enquiry->getDateCreated()->format('jS \of F Y')}
+
+{$enquiry->getMessage()}
+
+Reply to {$enquiry->getName()} at {$enquiry->getEmail()}
+EOT;
+    }
+
+    /**
+     * @param Enquiry $enquiry
+     * @return string
+     */
+    private function getReplyEmail(Enquiry $enquiry)
+    {
+        return <<<EOT
+Thank you for your Enquiry.
+
+You sent the following Enquiry on the {$enquiry->getDateCreated()->format('jS \of F Y')}
+
+{$enquiry->getMessage()}
+
+I will be sure to get back to you as soon as possible.
+
+Kind regards,
+Freddie John Millman
+EOT;
     }
 }

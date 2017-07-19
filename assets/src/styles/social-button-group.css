@@ -1,0 +1,37 @@
+/**************************/
+/*  Social Button Styles  */
+/**************************/
+.social-button-group {
+  padding: 10px;
+  & li {
+    display: inline-block;
+    & a {
+      display: inline-block;
+      height: 35px;
+      width: 35px;
+      font-size: 25px;
+      text-align: center;
+      color: black;
+      background-color: white;
+      transition: all .3s;
+    }
+  }
+}
+
+.facebook-button:hover a,
+.facebook-button:focus a,
+.facebook-button:active a {
+  color: var(--facebook-main-colour);
+}
+
+.instagram-button:hover a,
+.instagram-button:focus a,
+.instagram-button:active a {
+  color: var(--instagram-main-colour);
+}
+
+.five-hundred-px-button:hover a,
+.five-hundred-px-button:focus a,
+.five-hundred-px-button:active a {
+  color: var(--500px-main-colour);
+}

@@ -1,0 +1,42 @@
+{
+  "name": "millman-photography-styles",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-babili": "^0.1.4",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "cssnano": "^3.10.0",
+    "eslint": "^4.2.0",
+    "parallelshell": "^3.0.1",
+    "postcss": "^6.0.7",
+    "postcss-cli": "^3.1.1",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-import": "^9.1.0",
+    "postcss-reporter": "^4.0.0",
+    "postcss-url": "^6.0.4",
+    "watch": "^1.0.2"
+  },
+  "babel": {
+    "presets": [
+      "babili",
+      "env",
+      "react",
+      "flow"
+    ]
+  },
+  "scripts": {
+    "css:postcss": "postcss src/styles/style.css -o dist/millman-photography.min.css",
+    "css:postcss:email": "postcss src/styles/email/style.css -o dist/millman-photography-email.min.css",
+    "build:css": "yarn css:postcss && yarn css:postcss:email",
+    "watch:css": "watch 'yarn build:css' src/styles/",
+    "js:lint": "eslint src/scripts/**/*.js",
+    "js:babelify": "babel src/scripts/**/*.js --out-file dist/millman-photography.min.js",
+    "build:js": "yarn js:lint || yarn js:babelify",
+    "watch:js": "watch 'yarn build:js' src/scripts/",
+    "build": "yarn build:css && yarn build:js",
+    "watch:build": "parallelshell 'yarn watch:css' 'yarn watch:js'"
+  }
+}

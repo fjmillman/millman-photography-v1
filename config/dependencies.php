@@ -48,6 +48,12 @@ $container[Plates::class] = function (Container $container) {
     return $view;
 };
 
+$container['Plates::body'] = function (Container $container) {
+    $view = new Plates($container->get('settings')['plates']);
+    $view->loadExtension(new PlatesExtension($container['router'], $container['request']->getUri()));
+    return $view;
+};
+
 $container[Session::class] = function (Container $container) {
     return new Session();
 };
@@ -220,9 +226,10 @@ $container[Emogrifier::class] = function (Container $container) {
 
 $container[Mailer::class] = function (Container $container) {
     $view = $container->get(Plates::class);
+    $body = $container->get('Plates::body');
     $emogrifier = $container->get(Emogrifier::class);
     $mailer = $container->get(SwiftMailer::class);
-    return new Mailer($view, $emogrifier, $mailer);
+    return new Mailer($view, $body, $emogrifier, $mailer);
 };
 
 $container[Csrf::class] = function (Container $container) {

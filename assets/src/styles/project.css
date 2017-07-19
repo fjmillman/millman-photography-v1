@@ -1,0 +1,24 @@
+/**************************/
+/*     Project Styles     */
+/**************************/
+.project-item {
+  width: 400px;
+  & .project-link {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+  }
+  & .project-caption {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: #fff;
+    & h4 {
+      text-transform: none;
+    }
+    & p {
+      font-size: 16px;
+      font-style: italic;
+    }
+  }
+}

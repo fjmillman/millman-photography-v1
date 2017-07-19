@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/font-awesome.min.css')) ?>">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/millmanphotography.min.css')) ?>">
+        <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/millman-photography.min.css')) ?>">
     </head>
     <body>
         <!-- Navigation -->
@@ -116,6 +116,6 @@
         <script src="<?= $this->baseUrl($this->asset('js/bootstrap.min.js')) ?>"></script>
 
         <!-- Javascript -->
-        <script src="<?= $this->baseUrl($this->asset('js/millmanphotography.min.js')) ?>"></script>
+        <script src="<?= $this->baseUrl($this->asset('js/millman-photography.min.js')) ?>"></script>
     </body>
 </html>

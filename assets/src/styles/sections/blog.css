@@ -1,0 +1,17 @@
+/**************************/
+/*      Blog Styles       */
+/**************************/
+.blog {
+  background-color: white;
+  z-index: 1;
+}
+
+.blog .section-heading {
+  color: rgb(0, 0, 0);
+}
+
+.blog-posts {
+  margin-left: -35px;
+  padding-top: 15px;
+  list-style-type: none;
+}

@@ -1,0 +1,67 @@
+/**************************/
+/*    General Styles      */
+/**************************/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: auto;
+  min-height: 100%;
+  position: relative;
+  margin: 0;
+  padding-top: 75px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:--heading {
+  text-transform: uppercase;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a.button {
+  background: rgb(255, 255, 255);
+  width: 200px;
+  padding: 8px;
+  border-color: #000000;
+  border-radius: 5px;
+}
+
+a.button:hover,
+a.button:focus,
+a.button:active {
+  background: rgb(0, 0, 0);
+  color: white;
+  border-color: #ffffff;
+}
+
+button.submit {
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+button:hover {
+  background: rgb(130, 130, 130);
+}
+
+.text-black {
+  color: black;
+}
+
+.text-white {
+  color: white;
+}
+
+.switch {
+  padding: 15px;
+}

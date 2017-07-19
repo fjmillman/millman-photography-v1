@@ -16,7 +16,7 @@ use MillmanPhotography\Middleware\CsrfTokenProvider;
 use MillmanPhotography\Controller\RegistrationController;
 use MillmanPhotography\Middleware\AuthorisationMiddleware;
 
-$millmanphotography->get('/[index]', IndexController::class)->setName('index')->add(CsrfTokenProvider::class)->add(Csrf::class);
+$millmanphotography->get('/', IndexController::class)->setName('index')->add(CsrfTokenProvider::class)->add(Csrf::class);
 
 $millmanphotography->get('/blog', BlogController::class)->setName('blog');
 
@@ -37,4 +37,4 @@ if (getenv('ENABLE_REGISTRATION')) {
     $millmanphotography->post('/register', RegistrationController::class . ':register');
 }
 
-$millmanphotography->post('/upload', UploadController::class)->setName('upload');
+$millmanphotography->post('/upload', UploadController::class)->setName('upload')->add(AuthorisationMiddleware::class);

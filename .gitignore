@@ -1,6 +1,4 @@
 cache/
-node_modules/
 vendor/
 .env
 composer.lock
-yarn.lock
