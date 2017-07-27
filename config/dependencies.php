@@ -26,7 +26,6 @@ use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Controller\PostController;
-use MillmanPhotography\Resource\PostImageResource;
 use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Validator\EnquiryValidator;
 use MillmanPhotography\Controller\AdminController;
@@ -36,7 +35,6 @@ use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Controller\ArchiveController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
-use MillmanPhotography\Resource\GalleryImageResource;
 use MillmanPhotography\Validator\RegistrationValidator;
 use MillmanPhotography\Controller\RegistrationController;
 use MillmanPhotography\Middleware\AuthorisationMiddleware;
@@ -106,17 +104,10 @@ $container[GalleryResource::class] = function (Container $container) {
     return new GalleryResource($entityManager);
 };
 
-$container[GalleryImageResource::class] = function (Container $container) {
-    $entityManager = $container->get(EntityManager::class);
-    return new GalleryImageResource($entityManager);
-};
-
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
-    $session = $container->get(Session::class);
-    $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
-    return new BlogController($view, $session, $userResource, $postResource);
+    return new BlogController($view, $postResource);
 };
 
 $container[PostLocator::class] = function (Container $container) {
@@ -126,21 +117,11 @@ $container[PostLocator::class] = function (Container $container) {
 
 $container[PostController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
-    $session = $container->get(Session::class);
-    $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
     $markdown = $container->get(CommonMarkConverter::class);
     $validator = $container->get(PostValidator::class);
     $logger = $container->get(Monolog::class);
-    return new PostController(
-        $view,
-        $session,
-        $userResource,
-        $postResource,
-        $markdown,
-        $validator,
-        $logger
-    );
+    return new PostController($view, $postResource, $markdown, $validator, $logger);
 };
 
 $container[CommonMarkConverter::class] = function (Container $container) {
@@ -157,16 +138,10 @@ $container[PostValidator::class] = function (Container $container) {
     return new PostValidator();
 };
 
-$container[PostImageResource::class] = function (Container $container) {
-    $entityManager = $container->get(EntityManager::class);
-    return new PostImageResource($entityManager);
-};
-
 $container[ArchiveController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
-    $userResource = $container->get(UserResource::class);
     $postResource = $container->get(PostResource::class);
-    return new ArchiveController($view, $userResource, $postResource);
+    return new ArchiveController($view, $postResource);
 };
 
 $container[EnquiryController::class] = function (Container $container) {

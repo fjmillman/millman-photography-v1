@@ -14,45 +14,20 @@ class PostResource extends Resource
         'edit',
         'delete',
         'archive',
+        'restore',
     ];
 
     /**
-     * Get a collection of posts by given parameters
+     * Get posts in order of creation
      *
-     * @param array $parameters
-     * @param array $orderBy
      * @return array
      */
-    public function get(array $parameters = null, array $orderBy = null)
+    public function get()
     {
-        if (!isset($parameters)) {
-            return $this->entityManager->getRepository(Post::class)->findAll();
-        }
-
-        return $this->entityManager->getRepository(Post::class)->findBy($parameters, $orderBy);
-    }
-
-    /**
-     * Get the all posts in order of creation
-     *
-     * @return array $posts
-     */
-    public function getPosts()
-    {
-        return $this->get(['in_archive' => 0], ['date_created' => 'DESC']);
-    }
-
-    /**
-     * Get the latest post for a given user
-     *
-     * @param int $userId
-     * @return Post $post
-     */
-    public function getLatest($userId)
-    {
-        $posts = $this->get(['user' => $userId], ['date_created' => 'DESC']);
-
-        return $posts[0];
+        return $this->entityManager->getRepository(Post::class)->findBy(
+            ['in_archive' => false],
+            ['date_created' => 'DESC']
+        );
     }
 
     /**
@@ -78,10 +53,28 @@ class PostResource extends Resource
     }
 
     /**
-     * Get the next post
-     * @param string $dateCreated
+     * Get the latest 3 posts
      *
-     * @return object
+     * @return array
+     */
+    public function getLatestThree()
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('p')
+            ->from('MillmanPhotography\Entity\Post', 'p')
+            ->where('p.in_archive = 0')
+            ->orderBy('p.date_created', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Get the next post
+     *
+     * @param string $dateCreated
+     * @return Post
      */
     public function getNext($dateCreated)
     {
@@ -101,7 +94,7 @@ class PostResource extends Resource
      * Get the previous post
      *
      * @param string $dateCreated
-     * @return object
+     * @return Post
      */
     public function getPrevious($dateCreated)
     {
@@ -115,24 +108,6 @@ class PostResource extends Resource
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
-    }
-
-    /**
-     * Get the latest 3 posts
-     *
-     * @return array
-     */
-    public function getLatestThree()
-    {
-        return $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from('MillmanPhotography\Entity\Post', 'p')
-            ->where('p.in_archive = 0')
-            ->orderBy('p.date_created', 'DESC')
-            ->setFirstResult(0)
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult();
     }
 
     /**
@@ -199,17 +174,6 @@ class PostResource extends Resource
     }
 
     /**
-     * Delete an existing post
-     *
-     * @param Post $post
-     */
-    public function delete(Post $post)
-    {
-        $this->entityManager->remove($post);
-        $this->entityManager->flush();
-    }
-
-    /**
      * Archive an existing post
      *
      * @param Post $post
@@ -232,6 +196,17 @@ class PostResource extends Resource
         $post->setInArchive(false);
 
         $this->entityManager->persist($post);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Delete an existing post
+     *
+     * @param Post $post
+     */
+    public function delete(Post $post)
+    {
+        $this->entityManager->remove($post);
         $this->entityManager->flush();
     }
 

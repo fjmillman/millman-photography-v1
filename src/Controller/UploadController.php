@@ -3,8 +3,8 @@
 namespace MillmanPhotography\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\UploadedFileInterface as File;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Exception\UploadException;
 
@@ -20,7 +20,7 @@ class UploadController
         $files = $request->getUploadedFiles();
 
         if (empty($files['file'])) {
-            return $response->withStatus(404)->withHeader('Location', '/admin');
+            return $response->withStatus(404);
         }
 
         return $this->processFile($files['file'], $response);
@@ -34,8 +34,8 @@ class UploadController
 
         $filename = $file->getClientFilename();
 
-        $file->moveTo('asset/img/' . $filename);
+        $file->moveTo('img/' . $filename);
 
-        return $response->withStatus(302)->withHeader('Location', '/admin');
+        return $response->withStatus(302);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace MillmanPhotography\Controller;
 
-use RKA\Session;
 use Projek\Slim\Plates;
 use Projek\Slim\Monolog;
 use Stringy\Stringy as S;
@@ -12,19 +11,12 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Section;
 use MillmanPhotography\Resource\PostResource;
-use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Validator\PostValidator;
 
 class PostController
 {
     /** @var Plates $view */
     private $view;
-
-    /** @var Session $session */
-    private $session;
-
-    /** @var UserResource $userResource */
-    private $userResource;
 
     /** @var PostResource $postResource */
     private $postResource;
@@ -40,8 +32,6 @@ class PostController
 
     /**
      * @param Plates $view
-     * @param Session $session
-     * @param UserResource $userResource
      * @param PostResource $postResource
      * @param CommonMarkConverter $markdown
      * @param PostValidator $validator
@@ -49,16 +39,12 @@ class PostController
      */
     public function __construct(
         Plates $view,
-        Session $session,
-        UserResource $userResource,
         PostResource $postResource,
         CommonMarkConverter $markdown,
         PostValidator $validator,
         Monolog $logger
     ) {
         $this->view = $view;
-        $this->session = $session;
-        $this->userResource = $userResource;
         $this->postResource = $postResource;
         $this->markdown = $markdown;
         $this->validator = $validator;

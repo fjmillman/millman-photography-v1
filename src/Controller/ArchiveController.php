@@ -15,24 +15,18 @@ class ArchiveController
     /** @var Plates $view */
     private $view;
 
-    /** @var UserResource $userResource */
-    private $userResource;
-
     /** @var PostResource $postResource */
     private $postResource;
 
     /**
      * @param Plates $view
-     * @param UserResource $userResource
      * @param PostResource $postResource
      */
     public function __construct(
         Plates $view,
-        UserResource $userResource,
         PostResource $postResource
     ) {
         $this->view = $view;
-        $this->userResource = $userResource;
         $this->postResource = $postResource;
     }
 
@@ -61,7 +55,6 @@ class ArchiveController
     public function archive(Request $request, Response $response)
     {
         $post = $request->getAttribute('post');
-        $slug = $post->getSlug();
 
         $this->postResource->archive($post);
 
@@ -76,7 +69,6 @@ class ArchiveController
     public function restore(Request $request, Response $response)
     {
         $post = $request->getAttribute('post');
-        $slug = $post->getSlug();
 
         $this->postResource->restore($post);
 

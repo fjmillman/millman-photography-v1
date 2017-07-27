@@ -36,8 +36,10 @@ $millmanphotography->group('/blog', function () {
         })->add(PostLocator::class);
     })->add(AuthorisationMiddleware::class);
 
-    $this->get('/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class)->add(PostLocator::class);
-    $this->get('/archive/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class)->add(PostLocator::class);
+    $this->group('', function () {
+        $this->get('/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class);
+        $this->get('/archive/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class);
+    })->add(PostLocator::class);
 });
 
 $millmanphotography->get('/gallery', GalleryController::class);

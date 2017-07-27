@@ -16,30 +16,18 @@ class BlogController
     /** @var Plates $view */
     private $view;
 
-    /** @var Session $session */
-    private $session;
-
-    /** @var UserResource $userResource */
-    private $userResource;
-
     /** @var PostResource $postResource */
     private $postResource;
 
     /**
      * @param Plates $view
-     * @param Session $session
-     * @param UserResource $userResource
      * @param PostResource $postResource
      */
     public function __construct(
         Plates $view,
-        Session $session,
-        UserResource $userResource,
         PostResource $postResource
     ) {
         $this->view = $view;
-        $this->session = $session;
-        $this->userResource = $userResource;
         $this->postResource = $postResource;
     }
 
@@ -54,7 +42,7 @@ class BlogController
         return $this->view->render(
             'blog',
             [
-                'posts' => $this->postResource->getPosts(),
+                'posts' => $this->postResource->get(),
                 'sections' => Section::BLOG,
             ]
         );
