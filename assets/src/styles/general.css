@@ -67,4 +67,12 @@ button:hover {
 
 .pagination {
   padding: 5px;
+  transition: all .3s;
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    color: gray;
+    transition: all .3s;
+  }
 }

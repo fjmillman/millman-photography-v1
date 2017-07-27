@@ -71,19 +71,21 @@ class PostResource extends Resource
     }
 
     /**
-     * Get the next post
+     * Get the previous post
      *
-     * @param string $dateCreated
+     * @param Post $post
      * @return Post
      */
-    public function getNext($dateCreated)
+    public function getPrevious($post)
     {
         return $this->entityManager->createQueryBuilder()
             ->select('p')
             ->from('MillmanPhotography\Entity\Post', 'p')
-            ->where('p.date_created > :date_created')
-            ->setParameter(':date_created', $dateCreated)
-            ->orderBy('p.date_created', 'ASC')
+            ->where('p.date_created < :date_created')
+            ->andWhere('p.in_archive = :in_archive')
+            ->setParameter(':date_created', $post->getDateCreated())
+            ->setParameter(':in_archive', $post->getInArchive())
+            ->orderBy('p.date_created', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(1)
             ->getQuery()
@@ -91,19 +93,21 @@ class PostResource extends Resource
     }
 
     /**
-     * Get the previous post
+     * Get the next post
      *
-     * @param string $dateCreated
+     * @param Post $post
      * @return Post
      */
-    public function getPrevious($dateCreated)
+    public function getNext($post)
     {
         return $this->entityManager->createQueryBuilder()
             ->select('p')
             ->from('MillmanPhotography\Entity\Post', 'p')
-            ->where('p.date_created < :date_created')
-            ->setParameter(':date_created', $dateCreated)
-            ->orderBy('p.date_created', 'DESC')
+            ->where('p.date_created > :date_created')
+            ->andWhere('p.in_archive = :in_archive')
+            ->setParameter(':date_created', $post->getDateCreated())
+            ->setParameter(':in_archive', $post->getInArchive())
+            ->orderBy('p.date_created', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults(1)
             ->getQuery()

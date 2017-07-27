@@ -72,6 +72,23 @@ class Version20170606150000 extends AbstractMigration
         $postImage->addColumn('date_modified', 'datetime');
         $postImage->setPrimaryKey(['id']);
 
+        $tag = $schema->createTable('tag');
+        $tag->addColumn('id', 'integer', ['autoincrement' => true]);
+        $tag->addColumn('name', 'string', ['length' => 50]);
+        $tag->addColumn('slug', 'string');
+        $tag->addColumn('date_created', 'datetime');
+        $tag->addColumn('date_modified', 'datetime');
+        $tag->setPrimaryKey(['id']);
+        $tag->addUniqueIndex(['slug']);
+
+        $postTag = $schema->createTable('post_tag');
+        $postTag->addColumn('id', 'integer', ['autoincrement' => true]);
+        $postTag->addColumn('post_id', 'integer');
+        $postTag->addColumn('tag_id', 'integer');
+        $postTag->addColumn('date_created', 'datetime');
+        $postTag->addColumn('date_modified', 'datetime');
+        $postTag->setPrimaryKey(['id']);
+
         $enquiry = $schema->createTable('enquiry');
         $enquiry->addColumn('id', 'integer', ['autoincrement' => true]);
         $enquiry->addColumn('name', 'string', ['length' => 64]);
@@ -86,6 +103,8 @@ class Version20170606150000 extends AbstractMigration
         $galleryImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
         $postImage->addForeignKeyConstraint($post, ['post_id'], ['id']);
         $postImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
+        $postTag->addForeignKeyConstraint($post, ['post_id'], ['id']);
+        $postTag->addForeignKeyConstraint($tag, ['tag_id'], ['id']);
     }
 
     /**
@@ -99,6 +118,8 @@ class Version20170606150000 extends AbstractMigration
         $schema->dropTable('gallery_image');
         $schema->dropTable('post');
         $schema->dropTable('post_image');
+        $schema->dropTable('tag');
+        $schema->dropTable('post_tag');
         $schema->dropTable('enquiry');
     }
 }

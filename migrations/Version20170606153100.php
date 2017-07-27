@@ -17,7 +17,7 @@ class Version20170606153100 extends AbstractMigration
             'username' => 'fred',
             'password' => '$2y$10$tO5hT3qsKKHcay0GS5rBpeB2CKg0anuMlUym/bQmxSCBuC3a2W88m',
             'token' => 'e099554d34c818421a8f6b1334b1fcb0e52779af2c322190ac5a8b7c71b612c10094e4d8e68b1a88be8438445124465b3a4b4b5ed461b19516a9dd67683815df24295b5090231ef4f444e6b058a2469fa9f5be13d2f71846ac4e3c5ae3e6c67c45169c77bcb7e22be9b126cb4b3b2813a4d4ac98d8d7335c346770aa2e66e864',
-            'is_admin' => true,
+            'is_admin' => 1,
             'date_created' => '2017-06-06 15:00:00',
             'date_modified' => '2017-06-06 15:00:00',
         ];
@@ -46,7 +46,7 @@ class Version20170606153100 extends AbstractMigration
             [
                 'id' => 3,
                 'caption' => 'The Reflection in the Lakes',
-                'filename' => 'ashnessjetty',
+                'filename' => 'ashness-jetty',
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -66,7 +66,7 @@ class Version20170606153100 extends AbstractMigration
                 'title' => 'Landscape',
                 'slug' => 'landscape',
                 'description' => 'A world of discovery',
-                'is_front' => true,
+                'is_front' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -75,7 +75,7 @@ class Version20170606153100 extends AbstractMigration
                 'title' => 'Bath',
                 'slug' => 'bath',
                 'description' => 'A city of wonder',
-                'is_front' => true,
+                'is_front' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -84,7 +84,7 @@ class Version20170606153100 extends AbstractMigration
                 'title' => 'Nature',
                 'slug' => 'nature',
                 'description' => 'The natural world around you',
-                'is_front' => true,
+                'is_front' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -103,7 +103,7 @@ class Version20170606153100 extends AbstractMigration
                 'id' => 1,
                 'gallery_id' => 1,
                 'image_id' => 1,
-                'is_cover' => true,
+                'is_cover' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -111,7 +111,7 @@ class Version20170606153100 extends AbstractMigration
                 'id' => 2,
                 'gallery_id' => 2,
                 'image_id' => 2,
-                'is_cover' => true,
+                'is_cover' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -119,7 +119,7 @@ class Version20170606153100 extends AbstractMigration
                 'id' => 3,
                 'gallery_id' => 3,
                 'image_id' => 3,
-                'is_cover' => true,
+                'is_cover' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -141,7 +141,7 @@ class Version20170606153100 extends AbstractMigration
                 'slug' => 'this-is-my-blog',
                 'description' => 'Welcome to my Blog',
                 'body' => 'Look at this Blog Post.',
-                'in_archive' => false,
+                'in_archive' => 0,
                 'date_created' => '2017-06-04 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -152,7 +152,7 @@ class Version20170606153100 extends AbstractMigration
                 'slug' => 'talking-points',
                 'description' => 'Things to talk about',
                 'body' => 'A list of items of which to discuss in this blog.',
-                'in_archive' => false,
+                'in_archive' => 0,
                 'date_created' => '2017-06-05 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -163,7 +163,7 @@ class Version20170606153100 extends AbstractMigration
                 'slug' => 'travelling-around',
                 'description' => 'Where to go and what to photograph',
                 'body' => 'How about a blog post on travel photography, a list of things to take with you and how to approach photography.',
-                'in_archive' => false,
+                'in_archive' => 0,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -174,7 +174,7 @@ class Version20170606153100 extends AbstractMigration
                 'slug' => 'what-is-this',
                 'description' => 'So, what do we do about this photograph.',
                 'body' => '### How to go about doing this?',
-                'in_archive' => true,
+                'in_archive' => 1,
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],
@@ -222,12 +222,75 @@ class Version20170606153100 extends AbstractMigration
                 'date_modified' => '2017-06-06 15:00:00',
             ],
         ];
-
         foreach ($post_images as $post_image) {
             $this->addSql(
                 'INSERT INTO `post_image` (`id`, `post_id`, `image_id`, `is_cover`, `date_created`, `date_modified`)
                  VALUES (:id, :post_id, :image_id, :is_cover, :date_created, :date_modified)',
                 $post_image
+            );
+        }
+
+        $tags = [
+            [
+                'id' => 1,
+                'name' => 'Landscape',
+                'slug' => 'landscape',
+                'date_created' => '2017-06-04 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Travel Photography',
+                'slug' => 'travel-photography',
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 3,
+                'name' => 'Tips',
+                'slug' => 'tips',
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+        ];
+
+        foreach ($tags as $tag) {
+            $this->addSql(
+                'INSERT INTO `tag` (`id`, `name`, `slug`, `date_created`, `date_modified`)
+                 VALUES (:id, :name, :slug, :date_created, :date_modified)',
+                $tag
+            );
+        }
+
+        $post_tags = [
+            [
+                'id' => 1,
+                'post_id' => 1,
+                'tag_id' => 1,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 2,
+                'post_id' => 2,
+                'tag_id' => 2,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 3,
+                'post_id' => 3,
+                'tag_id' => 3,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+        ];
+
+        foreach ($post_tags as $post_tag) {
+            $this->addSql(
+                'INSERT INTO `post_tag` (`id`, `post_id`, `tag_id`, `date_created`, `date_modified`)
+                 VALUES (:id, :post_id, :tag_id, :date_created, :date_modified)',
+                $post_tag
             );
         }
 

@@ -76,10 +76,9 @@ nav {
   height: 0;
   width: 100%;
   background: transparent;
-  transition: all ease 0.3s;
 }
 
 .underline:hover:after {
-  height: 4px;
+  height: 1px;
   background: #000000;
 }

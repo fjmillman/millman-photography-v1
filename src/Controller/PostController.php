@@ -71,10 +71,10 @@ class PostController
         return $this->view->render(
             'post',
             [
-                'post' => $post,
                 'sections' => Section::BLOG,
-                'previous' => $this->postResource->getPrevious($post->getDateCreated()),
-                'next' => $this->postResource->getNext($post->getDateCreated()),
+                'post' => $post,
+                'previous' => $this->postResource->getPrevious($post),
+                'next' => $this->postResource->getNext($post),
             ]
         );
     }
