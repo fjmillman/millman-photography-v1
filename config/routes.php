@@ -1,8 +1,8 @@
 <?php
 
 use Slim\Csrf\Guard as Csrf;
-
 use MillmanPhotography\Middleware\PostLocator;
+use MillmanPhotography\Middleware\UserProvider;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Controller\PostController;
 use MillmanPhotography\Controller\AdminController;
@@ -10,31 +10,49 @@ use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Controller\UploadController;
+use MillmanPhotography\Controller\ArchiveController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
 use MillmanPhotography\Controller\RegistrationController;
 use MillmanPhotography\Middleware\AuthorisationMiddleware;
 
-$millmanphotography->get('/', IndexController::class)->setName('index')->add(CsrfTokenProvider::class)->add(Csrf::class);
+$millmanphotography->get('/', IndexController::class)->add(CsrfTokenProvider::class)->add(Csrf::class);;
 
-$millmanphotography->get('/blog', BlogController::class)->setName('blog');
+$millmanphotography->group('/blog', function () {
+    $this->get('', BlogController::class);
+    $this->get('/archive', BlogController::class . ':archive');
 
-$millmanphotography->get('/blog/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class)->add(PostLocator::class);
+    $this->group('/post', function () {
+        $this->get('/new', PostController::class . ':create')->add(CsrfTokenProvider::class)->add(Csrf::class);
+        $this->post('/new', PostController::class . ':store')->add(UserProvider::class);
 
-$millmanphotography->get('/gallery', GalleryController::class)->setName('gallery');
+        $this->group('', function () {
+            $this->get('/edit/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class . ':edit')->add(CsrfTokenProvider::class)->add(Csrf::class);
+            $this->post('/edit/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class . ':update');
+            $this->get('/delete/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class . ':delete');
+            $this->get('/archive/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class . ':archive');
+            $this->get('/restore/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class . ':restore');
+        })->add(PostLocator::class);
+    })->add(AuthorisationMiddleware::class);
 
-$millmanphotography->post('/enquiry', EnquiryController::class)->setName('enquiry')->add(CsrfTokenHeader::class);
+    $this->get('/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class)->add(PostLocator::class);
+    $this->get('/archive/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class)->add(PostLocator::class);
+});
 
-$millmanphotography->get('/admin', AdminController::class)->setName('admin')->add(AuthorisationMiddleware::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
+$millmanphotography->get('/gallery', GalleryController::class);
 
-$millmanphotography->get('/login', LoginController::class)->setName('login')->add(CsrfTokenProvider::class)->add(Csrf::class);
+$millmanphotography->post('/enquiry', EnquiryController::class)->add(CsrfTokenHeader::class);
+
+$millmanphotography->get('/admin', AdminController::class)->add(AuthorisationMiddleware::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
+
+$millmanphotography->get('/login', LoginController::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
 $millmanphotography->post('/login', LoginController::class . ':login');
-$millmanphotography->get('/logout', LoginController::class . ':logout')->setName('logout')->add(AuthorisationMiddleware::class);
+$millmanphotography->get('/logout', LoginController::class . ':logout')->add(AuthorisationMiddleware::class);
 
 if (getenv('ENABLE_REGISTRATION')) {
-    $millmanphotography->get('/register', RegistrationController::class)->setName('register')->add(CsrfTokenProvider::class)->add(Csrf::class);
+    $millmanphotography->get('/register', RegistrationController::class)->add(CsrfTokenProvider::class)->add(Csrf::class);
     $millmanphotography->post('/register', RegistrationController::class . ':register');
 }
 
-$millmanphotography->post('/upload', UploadController::class)->setName('upload')->add(AuthorisationMiddleware::class);
+$millmanphotography->post('/upload', UploadController::class)->add(AuthorisationMiddleware::class);

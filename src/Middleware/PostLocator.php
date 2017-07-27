@@ -33,10 +33,10 @@ class PostLocator
         $slug = $route->getArgument('slug');
         $post = $this->resource->getBySlug($slug);
 
-        if ($post) {
-            return $next($request->withAttribute('post', $post), $response);
+        if (!$post) {
+            return $response->withStatus(404)->withHeader('Location', '/');
         }
 
-        return $response->withStatus(404)->withHeader('Location', '/');
+        return $next($request->withAttribute('post', $post), $response);
     }
 }

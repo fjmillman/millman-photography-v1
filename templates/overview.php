@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
     <!-- Background -->
-    <div id="background-image" class="background-image" style="background-image: url('<?= $this->baseUrl($this->asset('img/ashnessjetty.jpg')) ?>')"></div>
+    <div id="background-image" class="background-image" style="background-image: url('<?= $this->baseUrl($this->asset('img/ashness-jetty.jpg')) ?>')"></div>
 
     <!-- Header -->
     <span class="anchor" id="top"></span>
@@ -24,14 +24,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="section-heading">Blog.</h2>
-                    <h3 class="section-subheading text-muted">Check out what I have been up to.</h3>
+                    <h2 class="section-heading">Blog</h2>
+                    <h3 class="section-subheading text-muted">Check out what I have been up to</h3>
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($posts as $post): ?>
-                    <?php $this->insert('partials/post', ['post' => $post]) ?>
-                <?php endforeach; ?>
+                <?php if (isset($posts)): ?>
+                    <?php foreach ($posts as $post): ?>
+                        <?php $this->insert('partials/post', ['post' => $post]) ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>
+                        <h2>Watch this space!</h2>
+                    </li>
+                <?php endif ?>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -48,7 +54,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="section-heading">Who am I?</h2>
-                    <h3 class="section-subheading text-white">That is a very good question.</h3>
+                    <h3 class="section-subheading text-white">That is a very good question</h3>
                 </div>
             </div>
             <div class="row">
@@ -74,14 +80,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="section-heading">Gallery.</h2>
-                    <h3 class="section-subheading text-muted">Time to show off my work.</h3>
+                    <h2 class="section-heading">Gallery</h2>
+                    <h3 class="section-subheading text-muted">Time to show off my work</h3>
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($galleries as $gallery): ?>
-                    <?php $this->insert('partials/gallery', ['gallery' => $gallery]) ?>
-                <?php endforeach; ?>
+                <?php if (isset($galleries)): ?>
+                    <?php foreach ($galleries as $gallery): ?>
+                        <?php $this->insert('partials/gallery', ['gallery' => $gallery]) ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>
+                        <h2>Watch this space!</h2>
+                    </li>
+                <?php endif ?>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -97,25 +109,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="section-heading">Services.</h2>
-                    <h3 class="section-subheading text-white">What I can do for you.</h3>
+                    <h2 class="section-heading">Services</h2>
+                    <h3 class="section-subheading text-white">What I can do for you</h3>
                 </div>
             </div>
             <div class="row service-group">
                 <div class="col-md-4">
                     <i class="fa fa-camera fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Photography</h4>
-                    <p class="text-white">My services in photography.</p>
+                    <p class="text-white">Perhaps you would like to give me my next challenge and commission me to capture a scene</p>
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-battery fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Events</h4>
-                    <p class="text-white">My services in events.</p>
+                    <p class="text-white">If you would like me to photography an event, please get in touch with me</p>
                 </div>
                 <div class="col-md-4">
                     <i class="fa fa-print fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Prints</h4>
-                    <p class="text-white">My services in prints.</p>
+                    <p class="text-white">My photography is available to you as prints and canvases, just let me know what you would like</p>
                 </div>
             </div>
         </div>
@@ -127,8 +139,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="section-heading">Enquiry.</h2>
-                    <h3 class="section-subheading text-muted">Get in touch.</h3>
+                    <h2 class="section-heading">Enquiry</h2>
+                    <h3 class="section-subheading text-muted">Get in touch</h3>
                 </div>
             </div>
             <div class="row">

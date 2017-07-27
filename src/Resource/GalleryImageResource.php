@@ -96,7 +96,7 @@ class GalleryImageResource extends Resource
     {
         $galleryImage = $this->entityManager->getRepository(GalleryImage::class)->find($id);
 
-        $this->entityManager->detach($galleryImage);
+        $this->entityManager->remove($galleryImage);
         $this->entityManager->flush();
     }
 }

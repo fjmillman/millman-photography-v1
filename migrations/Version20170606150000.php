@@ -57,6 +57,7 @@ class Version20170606150000 extends AbstractMigration
         $post->addColumn('slug', 'string');
         $post->addColumn('description', 'string', ['length' => 128]);
         $post->addColumn('body', 'text');
+        $post->addColumn('in_archive', 'boolean');
         $post->addColumn('date_created', 'datetime');
         $post->addColumn('date_modified', 'datetime');
         $post->setPrimaryKey(['id']);

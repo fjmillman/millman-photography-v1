@@ -56,6 +56,13 @@ class Post
     protected $body;
 
     /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool $in_archive
+     */
+    protected $in_archive;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="post")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
@@ -116,6 +123,14 @@ class Post
     }
 
     /**
+     * @return bool $in_archive
+     */
+    public function getInArchive()
+    {
+        return $this->in_archive;
+    }
+
+    /**
      * @return User
      */
     public function getUser()
@@ -144,20 +159,24 @@ class Post
     }
 
     /**
-     * @return void
-     */
-    public function regenerateSlug()
-    {
-        $this->slug = (string) S($this->title . ' ' . time())->slugify();
-    }
-
-    /**
      * @param string $title
      * @return void
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        if (!$this->slug) {
+            $this->slug = (string) s($title)->slugify();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function regenerateSlug()
+    {
+        $this->slug = (string) S($this->title . ' ' . time())->slugify();
     }
 
     /**
@@ -176,6 +195,15 @@ class Post
     public function setBody($body)
     {
         $this->body = $body;
+    }
+
+    /**
+     * @param bool $inArchive
+     * @return void
+     */
+    public function setInArchive($inArchive)
+    {
+        $this->in_archive = $inArchive;
     }
 
     /**

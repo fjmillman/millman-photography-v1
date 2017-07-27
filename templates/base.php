@@ -26,56 +26,63 @@
         <!-- Navigation -->
         <nav role="navigation" class="navbar fixed-top navbar-toggleable-md">
             <div class="container">
-                    <!-- Social Buttons -->
-                    <ol class="social-button-group navbar-toggler-right">
-                        <li class="facebook-button">
-                            <a href="https://facebook.com/millmanphotography" target="_blank">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="instagram-button">
-                            <a href="https://instagram.com/millmanphotography" target="_blank">
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="five-hundred-px-button">
-                            <a href="https://500px.com/millmanphotography" target="_blank">
-                                <i class="fa fa-500px" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ol>
+                <?php $this->insert('partials/social-media-buttons') ?>
 
-                    <?php if (isset($sections)): ?>
-                        <!-- Navigation Toggle -->
-                        <button class="navbar-toggler collapsed"
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#navbar"
-                                aria-controls="navbar"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <i class="fa fa-bars fa-lg"></i>
-                        </button>
-                    <?php endif; ?>
+                <?php if (isset($sections)): ?>
+                    <!-- Navigation Toggle -->
+                    <button class="navbar-toggler collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbar"
+                            aria-controls="navbar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fa fa-bars fa-lg"></i>
+                    </button>
+                <?php endif ?>
 
-                    <!-- Logo -->
-                    <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
-                        <img class="logo" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
-                    </a>
+                <!-- Logo -->
+                <a class="navbar-brand" href="<?= isset($title) ? $this->baseUrl() : '#top' ?>">
+                    <img class="logo" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
+                </a>
 
-                    <?php if (isset($sections)): ?>
-                        <!-- Navigation Bar -->
-                        <div class="collapse navbar-collapse" id="navbar">
-                            <ul class="navbar-nav mr-auto" id="navigation">
-                                <?php foreach ($sections as $section): ?>
-                                    <a class="navigation-button underline page-scroll"
-                                       href="<?= isset($title) ? $this->baseUrl('#' . $section) : '#'.$this->e($section) ?>">
-                                        <li class="navigation"><?= $this->e($section) ?></li>
-                                    </a>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+                <?php if (isset($sections)): ?>
+                    <!-- Navigation Bar -->
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav navigation">
+                            <?php foreach ($sections as $key => $section): ?>
+                                <?php if (is_array($section)): ?>
+                                    <li class="nav-item navigation-button underline page-scroll dropdown">
+                                        <a class="nav-link navigation-link"
+                                           href="<?= isset($title) ? $this->baseUrl($key) : '#' . $this->e(strtolower($key)) ?>">
+                                            <?= $this->e($key) ?>
+                                        </a>
+                                        <a class="dropdown-arrow dropdown-toggle"
+                                           href=""
+                                           id="blog-dropdown"
+                                           data-toggle="dropdown"
+                                           aria-haspopup="true"
+                                           aria-expanded="false"></a>
+                                        <div class="dropdown-menu" aria-labelledby="blog-dropdown">
+                                            <?php foreach ($section as $label => $dropdown): ?>
+                                                <a class="dropdown-item" href="<?= $this->baseUrl($dropdown) ?>">
+                                                    <?= $this->e($label) ?>
+                                                </a>
+                                            <?php endforeach ?>
+                                        </div>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="nav-item navigation-button underline page-scroll">
+                                        <a class="nav-link navigation-link"
+                                           href="<?= isset($title) ? $this->baseUrl($section) : '#' . $this->e($section) ?>">
+                                            <?= $this->e($key) ?>
+                                        </a>
+                                    </li>
+                                <?php endif ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif ?>
             </div>
         </nav>
 

@@ -33,6 +33,24 @@ class GalleryResource extends Resource
     }
 
     /**
+     * Get the 3 front galleries
+     *
+     * @return array
+     */
+    public function getFrontThree()
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('g')
+            ->from('MillmanPhotography\Entity\Gallery', 'g')
+            ->where('g.is_front = true')
+            ->setFirstResult(0)
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    /**
      * Create a new gallery
      *
      * @param array $data
@@ -74,7 +92,7 @@ class GalleryResource extends Resource
     {
         $gallery = $this->entityManager->getRepository(Gallery::class)->find($id);
 
-        $this->entityManager->detach($gallery);
+        $this->entityManager->remove($gallery);
         $this->entityManager->flush();
     }
 }

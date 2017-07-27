@@ -34,6 +34,7 @@ use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
+use MillmanPhotography\Controller\ArchiveController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
 use MillmanPhotography\Resource\GalleryImageResource;
 use MillmanPhotography\Validator\RegistrationValidator;
@@ -85,9 +86,8 @@ $container[Monolog::class] = function (Container $container) {
 $container[IndexController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryResource = $container->get(GalleryResource::class);
-    $imageResource = $container->get(ImageResource::class);
     $postResource = $container->get(PostResource::class);
-    return new IndexController($view, $galleryResource, $imageResource, $postResource);
+    return new IndexController($view, $galleryResource, $postResource);
 };
 
 $container[ImageResource::class] = function (Container $container) {
@@ -131,7 +131,16 @@ $container[PostController::class] = function (Container $container) {
     $postResource = $container->get(PostResource::class);
     $markdown = $container->get(CommonMarkConverter::class);
     $validator = $container->get(PostValidator::class);
-    return new PostController($view, $session, $userResource, $postResource, $markdown, $validator);
+    $logger = $container->get(Monolog::class);
+    return new PostController(
+        $view,
+        $session,
+        $userResource,
+        $postResource,
+        $markdown,
+        $validator,
+        $logger
+    );
 };
 
 $container[CommonMarkConverter::class] = function (Container $container) {
@@ -151,6 +160,13 @@ $container[PostValidator::class] = function (Container $container) {
 $container[PostImageResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new PostImageResource($entityManager);
+};
+
+$container[ArchiveController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $userResource = $container->get(UserResource::class);
+    $postResource = $container->get(PostResource::class);
+    return new ArchiveController($view, $userResource, $postResource);
 };
 
 $container[EnquiryController::class] = function (Container $container) {

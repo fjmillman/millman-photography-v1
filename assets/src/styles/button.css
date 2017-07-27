@@ -1,0 +1,80 @@
+/*************************/
+/*     Button Styles     */
+/*************************/
+.button-group {
+  padding: 10px;
+  margin-bottom: 0;
+  & li {
+    display: inline-block;
+    & a {
+      display: inline-block;
+      height: 36px;
+      width: 35px;
+      font-size: 25px;
+      text-align: center;
+      color: black;
+      transition: all .3s;
+    }
+  }
+}
+
+.project-button-group {
+  padding: 0;
+  margin-bottom: 5px;
+  & li {
+    display: inline-block;
+    & a {
+      display: inline-block;
+      height: 36px;
+      width: 35px;
+      font-size: 25px;
+      text-align: center;
+      color: black;
+      transition: all .3s;
+    }
+  }
+}
+
+.edit-button,
+.delete-button,
+.archive-button,
+.restore-button,
+.add-post-button {
+  & a {
+    &:hover,
+    &:focus,
+    &:active {
+      color: gray;
+    }
+  }
+}
+
+.facebook-button {
+  & a {
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--facebook-main-colour);
+    }
+  }
+}
+
+.instagram-button {
+  & a {
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--instagram-main-colour);
+    }
+  }
+}
+
+.five-hundred-px-button {
+  & a {
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--500px-main-colour);
+    }
+  }
+}

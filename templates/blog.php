@@ -1,4 +1,4 @@
-<?php $this->layout('base', ['title' => 'Blog']) ?>
+<?php $this->layout('base', ['title' => 'Blog', 'sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
 <!-- Blog -->
@@ -6,15 +6,28 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="section-heading">Blog.</h2>
-                <h3 class="section-subheading text-muted">Check out what I have been up to.</h3>
+                <h2 class="section-heading">Blog</h2>
+                <h3 class="section-subheading text-muted">Check out what I have been up to</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php if (isset($user)): ?>
+                    <ol class="project-button-group">
+                        <li class="add-post-button">
+                            <a href="<?= $this->baseUrl('/blog/post/new') ?>">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </li>
+                    </ol>
+                <?php endif ?>
             </div>
         </div>
         <div class="row">
             <?php if (count($posts) === 0) : ?>
-                <li>
-                    <h2>Watch this space!</h2>
-                </li>
+                <div class="col-lg-12">
+                    <h3>Watch this space!</h3>
+                </div>
             <?php else : ?>
                 <?php foreach ($posts as $post): ?>
                     <?php $this->insert('partials/post', ['post' => $post]) ?>

@@ -18,7 +18,8 @@ class PostValidator
     public function __construct()
     {
         $this->validator =
-            V::key('title', V::stringType()->length(3, 50))
+            V::key('title', V::stringType()->length(3, 25))
+             ->key('description', V::stringType()->length(3, 50))
              ->key('body', V::stringType()->length(10));
     }
 

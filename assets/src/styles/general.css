@@ -35,14 +35,13 @@ a.button {
   padding: 8px;
   border-color: #000000;
   border-radius: 5px;
-}
-
-a.button:hover,
-a.button:focus,
-a.button:active {
-  background: rgb(0, 0, 0);
-  color: white;
-  border-color: #ffffff;
+  &:hover,
+  &:focus,
+  &:active {
+    background: rgb(0, 0, 0);
+    color: white;
+    border-color: #ffffff;
+  }
 }
 
 button.submit {
@@ -64,4 +63,8 @@ button:hover {
 
 .switch {
   padding: 15px;
+}
+
+.pagination {
+  padding: 5px;
 }

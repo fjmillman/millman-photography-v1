@@ -79,7 +79,7 @@ class EnquiryResource extends Resource
     {
         $post = $this->entityManager->getRepository(Enquiry::class)->find($id);
 
-        $this->entityManager->detach($post);
+        $this->entityManager->remove($post);
         $this->entityManager->flush();
     }
 }

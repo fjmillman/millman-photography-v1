@@ -2,7 +2,6 @@
 
 namespace MillmanPhotography;
 
-use MillmanPhotography\Entity\Enquiry;
 use Pelago\Emogrifier;
 use Slim\Http\Response;
 use Projek\Slim\Plates;

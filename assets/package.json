@@ -30,11 +30,14 @@
   "scripts": {
     "css:postcss": "postcss src/styles/style.css -o dist/millman-photography.min.css",
     "css:postcss:email": "postcss src/styles/email/style.css -o dist/millman-photography-email.min.css",
-    "build:css": "yarn css:postcss && yarn css:postcss:email",
+    "copy:css": "cp dist/millman-photography.min.css ../public/css/millman-photography.min.css",
+    "copy:css:email": "cp dist/millman-photography-email.min.css ../public/css/millman-photography-email.min.css",
+    "build:css": "yarn css:postcss && yarn copy:css && yarn css:postcss:email && yarn copy:css:email",
     "watch:css": "watch 'yarn build:css' src/styles/",
     "js:lint": "eslint src/scripts/**/*.js",
     "js:babelify": "babel src/scripts/**/*.js --out-file dist/millman-photography.min.js",
-    "build:js": "yarn js:lint || yarn js:babelify",
+    "copy:js": "cp dist/millman-photography.min.js ../public/js/millman-photography.min.js",
+    "build:js": "yarn js:lint || (yarn js:babelify && yarn copy:js)",
     "watch:js": "watch 'yarn build:js' src/scripts/",
     "build": "yarn build:css && yarn build:js",
     "watch:build": "parallelshell 'yarn watch:css' 'yarn watch:js'"

@@ -74,7 +74,7 @@ class ImageResource extends Resource
     {
         $image = $this->entityManager->getRepository(Image::class)->find($id);
 
-        $this->entityManager->detach($image);
+        $this->entityManager->remove($image);
         $this->entityManager->flush();
     }
 }

@@ -19,24 +19,48 @@ nav {
 }
 
 .navigation {
-  display: block;
-}
-
-ul#navigation {
   padding: 0 25px 0 25px;
 }
 
-ul#navigation a.navigation-button {
+.navigation-button {
   color: black;
-  padding: 5px 20px 15px 20px;
   text-transform: uppercase;
   vertical-align: middle;
   letter-spacing: .05em;
+  margin: 0 15px;
+  transition: all ease 0.3s;
+  &:hover,
+  &:focus,
+  &:active {
+    color: gray;
+    transition: all ease 0.3s;
+  }
 }
 
-ul#navigation a.navigation-button li.navigation {
-  padding-top: 10px;
+.navigation-link {
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: inline-block;
+  color: black;
+  transition: all ease 0.3s;
+  &:hover,
+  &:focus,
+  &:active {
+    color: gray;
+    transition: all ease 0.3s;
+  }
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  padding: 5px;
+  transition: all ease 0.3s;
+  &:hover,
+  &:focus,
+  &:active {
+    color: gray;
+    transition: all ease 0.3s;
+  }
 }
 
 .underline {
@@ -52,10 +76,10 @@ ul#navigation a.navigation-button li.navigation {
   height: 0;
   width: 100%;
   background: transparent;
-  transition: all ease 0.1s;
+  transition: all ease 0.3s;
 }
 
 .underline:hover:after {
-  height: 2px;
+  height: 4px;
   background: #000000;
 }

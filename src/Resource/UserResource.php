@@ -134,7 +134,7 @@ class UserResource extends Resource
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 
-        $this->entityManager->detach($user);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
 }

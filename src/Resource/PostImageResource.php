@@ -96,7 +96,7 @@ class PostImageResource extends Resource
     {
         $postImage = $this->entityManager->getRepository(PostImage::class)->find($id);
 
-        $this->entityManager->detach($postImage);
+        $this->entityManager->remove($postImage);
         $this->entityManager->flush();
     }
 }

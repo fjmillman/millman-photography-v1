@@ -142,6 +142,10 @@ class Gallery
     public function setTitle($title)
     {
         $this->title = $title;
+
+        if (!$this->slug) {
+            $this->slug = (string) S($this->title)->slugify();
+        }
     }
 
     /**
