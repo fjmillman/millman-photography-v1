@@ -127,6 +127,7 @@ class PostResource extends Resource
         return $this->entityManager->createQueryBuilder()
             ->select('p')
             ->from('MillmanPhotography\Entity\Post', 'p')
+            ->where('p.in_archive = 0')
             ->orderBy('p.date_created', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(3)
