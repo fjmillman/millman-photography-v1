@@ -3,11 +3,10 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
-use Arrayzy\ArrayImitator as A;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use MillmanPhotography\Entity\Gallery;
+use MillmanPhotography\Section;
 use MillmanPhotography\Resource\GalleryResource;
 
 class GalleryController
@@ -42,19 +41,8 @@ class GalleryController
             'gallery',
             [
                 'galleries' => $this->galleryResource->get(),
+                'sections' => Section::GALLERY,
             ]
         );
-    }
-
-    /**
-     * @return array $titles
-     * @deprecated
-     */
-    private function retrieveGalleryTitles()
-    {
-        return A::create($this->galleryResource->get())
-                ->map(function (Gallery $gallery) {
-                    return $gallery->getTitle();
-                })->toArray();
     }
 }

@@ -1,4 +1,4 @@
-<?php $this->layout('base', ['title' => 'Gallery']) ?>
+<?php $this->layout('base', ['title' => 'Gallery', 'sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
 <!-- Gallery -->
