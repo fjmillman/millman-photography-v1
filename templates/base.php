@@ -21,6 +21,8 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/millman-photography.min.css')) ?>">
+
+        <?= $this->section('styles') ?>
     </head>
     <body>
         <!-- Navigation -->

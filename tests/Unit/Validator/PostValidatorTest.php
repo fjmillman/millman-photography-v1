@@ -11,11 +11,12 @@ class PostValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testItPassesWhenTitleAndBodyAreValid()
+    public function testItPassesWhenTitleDescriptionAndBodyAreValid()
     {
         $validator = new PostValidator();
         $data = [
             'title' => 'This is a Title',
+            'description' => 'This is a description',
             'body' => 'This is the body of the blog post.',
         ];
         $this->assertTrue($validator->isValid($data));

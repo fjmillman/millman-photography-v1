@@ -1,8 +1,8 @@
 <?php $this->layout('base', ['title' => 'Archive', 'sections' => $sections]) ?>
 
 <?php $this->start('page') ?>
-<!-- Blog -->
-<section class="blog text-center">
+<!-- Archive -->
+<section class="archive text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

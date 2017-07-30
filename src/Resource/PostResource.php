@@ -4,6 +4,8 @@ namespace MillmanPhotography\Resource;
 
 use Arrayzy\ArrayImitator as A;
 use MillmanPhotography\Entity\Post;
+use MillmanPhotography\Entity\PostTag;
+use MillmanPhotography\Entity\Tag;
 use MillmanPhotography\Entity\User;
 
 class PostResource extends Resource
@@ -131,10 +133,11 @@ class PostResource extends Resource
      * Create a new post
      *
      * @param array $data
+     * @param array $tags
      * @param User $user
      * @return string $slug
      */
-    public function create(array $data, User $user)
+    public function create(array $data, array $tags, User $user)
     {
         $post = new Post();
 
@@ -143,6 +146,7 @@ class PostResource extends Resource
         $post->setBody($data['body']);
         $post->setInArchive(false);
         $post->setUser($user);
+        $post->processTags($tags);
 
         if (!$this->isSlugValid($post->getSlug())) {
             $post->regenerateSlug();
@@ -159,13 +163,15 @@ class PostResource extends Resource
      *
      * @param Post $post
      * @param array $data
+     * @param array $tags
      * @return string $slug
      */
-    public function update(Post $post, array $data)
+    public function update(Post $post, array $data, array $tags)
     {
         $post->setTitle($data['title']);
         $post->setDescription($data['description']);
         $post->setBody($data['body']);
+        $post->processTags($tags);
 
         if (!$this->isSlugValid($post->getSlug())) {
             $post->regenerateSlug();
@@ -222,7 +228,6 @@ class PostResource extends Resource
      */
     private function isSlugValid($slug)
     {
-        return !A::create(self::RESERVED_SLUGS)->contains($slug)
-            && !$this->getBySlug($slug);
+        return !A::create(self::RESERVED_SLUGS)->contains($slug);
     }
 }

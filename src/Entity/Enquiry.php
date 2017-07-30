@@ -79,28 +79,34 @@ class Enquiry
 
     /**
      * @param string $name
-     * @return void
+     * @return Enquiry
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
      * @param string $email
-     * @return void
+     * @return Enquiry
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
      * @param string $message
-     * @return void
+     * @return Enquiry
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
     }
 }

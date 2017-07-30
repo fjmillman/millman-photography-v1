@@ -81,28 +81,34 @@ class PostImage
 
     /**
      * @param Post $post
-     * @return void
+     * @return PostImage
      */
     public function setPost($post)
     {
         $this->post = $post;
+
+        return $this;
     }
 
     /**
      * @param Image $image
-     * @return void
+     * @return PostImage
      */
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
     }
 
     /**
      * @param $isCover
-     * @return void
+     * @return PostImage
      */
     public function setIsCover($isCover)
     {
         $this->is_cover = $isCover;
+
+        return $this;
     }
 }

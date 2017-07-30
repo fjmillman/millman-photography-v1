@@ -1,8 +1,10 @@
 <?php
 
 use Slim\Csrf\Guard as Csrf;
+use MillmanPhotography\Middleware\TagLocator;
 use MillmanPhotography\Middleware\PostLocator;
 use MillmanPhotography\Middleware\UserProvider;
+use MillmanPhotography\Controller\TagController;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Controller\PostController;
 use MillmanPhotography\Controller\AdminController;
@@ -21,6 +23,7 @@ $millmanphotography->get('/', IndexController::class)->add(CsrfTokenProvider::cl
 
 $millmanphotography->group('/blog', function () {
     $this->get('', BlogController::class);
+    $this->get('/tags', BlogController::class . ':tags');
     $this->get('/archive', BlogController::class . ':archive');
 
     $this->group('/post', function () {
@@ -40,6 +43,8 @@ $millmanphotography->group('/blog', function () {
         $this->get('/post/{slug:[a-zA-Z\d\s-_\-]+}', PostController::class);
         $this->get('/archive/{slug:[a-zA-Z\d\s-_\-]+}', ArchiveController::class);
     })->add(PostLocator::class);
+
+    $this->get('/tag/{slug:[a-zA-Z\d\s-_\-]+}', TagController::class)->add(TagLocator::class);
 });
 
 $millmanphotography->get('/gallery', GalleryController::class);

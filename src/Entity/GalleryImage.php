@@ -83,7 +83,7 @@ class GalleryImage
      * @param Gallery $gallery
      * @return void
      */
-    public function setGallery($gallery)
+    public function setGallery(Gallery $gallery)
     {
         $this->gallery = $gallery;
     }
@@ -92,7 +92,7 @@ class GalleryImage
      * @param Image $image
      * @return void
      */
-    public function setImage($image)
+    public function setImage(Image $image)
     {
         $this->image = $image;
     }

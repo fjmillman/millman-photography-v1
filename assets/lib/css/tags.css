@@ -1,0 +1,16 @@
+.tags {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  & .tag {
+    display: inline-block;
+    text-transform: uppercase;
+    font-style: italic;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.tag-row {
+  padding-top: 10px;
+}

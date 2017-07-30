@@ -240,8 +240,8 @@ class Version20170606153100 extends AbstractMigration
             ],
             [
                 'id' => 2,
-                'name' => 'Travel Photography',
-                'slug' => 'travel-photography',
+                'name' => 'Travel',
+                'slug' => 'travel',
                 'date_created' => '2017-06-06 15:00:00',
                 'date_modified' => '2017-06-06 15:00:00',
             ],

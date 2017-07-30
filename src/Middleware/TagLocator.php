@@ -2,21 +2,21 @@
 
 namespace MillmanPhotography\Middleware;
 
-use MillmanPhotography\Resource\PostResource;
+use MillmanPhotography\Resource\TagResource;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class PostLocator
+class TagLocator
 {
     /**
-     * @var PostResource
+     * @var TagResource
      */
     private $resource;
 
     /**
-     * @param PostResource $resource
+     * @param TagResource $resource
      */
-    public function __construct(PostResource $resource)
+    public function __construct(TagResource $resource)
     {
         $this->resource = $resource;
     }
@@ -31,12 +31,12 @@ class PostLocator
     {
         $route = $request->getAttribute('route');
         $slug = $route->getArgument('slug');
-        $post = $this->resource->getBySlug($slug);
+        $tag = $this->resource->getBySlug($slug);
 
-        if (!$post) {
-            return $response->withStatus(404)->withHeader('Location', '/blog/');
+        if (!$tag) {
+            return $response->withStatus(404)->withHeader('Location', '/blog/tags/');
         }
 
-        return $next($request->withAttribute('post', $post), $response);
+        return $next($request->withAttribute('tag', $tag), $response);
     }
 }

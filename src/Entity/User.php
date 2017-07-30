@@ -111,37 +111,45 @@ class User
 
     /**
      * @param string $username
-     * @return void
+     * @return User
      */
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     /**
      * @param string $password
-     * @return void
+     * @return User
      */
     public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
+
+        return $this;
     }
 
     /**
      * @param string $token
-     * @return void
+     * @return User
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
     }
 
     /**
      * @param string $isAdmin
-     * @return void
+     * @return User
      */
     public function setIsAdmin($isAdmin)
     {
         $this->is_admin = $isAdmin;
+
+        return $this;
     }
 }

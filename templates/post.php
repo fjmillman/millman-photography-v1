@@ -12,6 +12,10 @@
                 <h3 class="section-subheading text-muted">
                     <?= $this->e($post->getDateCreated()->format('jS \of F Y')) ?>
                 </h3>
+                <p>
+                    <?= $this->e($post->getDescription()) ?>
+                </p>
+                <?php $this->insert('partials/tags', ['postTags' => $post->getPostTag()]) ?>
                 <?php if (isset($user)): ?>
                     <ol class="button-group">
                         <li class="edit-button">
@@ -43,7 +47,9 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <?= $post->getBody() ?>
+                <div class="blog-post">
+                    <?= $post->getBody() ?>
+                </div>
             </div>
         </div>
         <?php if (isset($next) || isset($previous))

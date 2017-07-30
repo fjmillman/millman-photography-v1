@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
     $(document).on('click', 'a[href*=\\#]:not([href=\\#])', function(e) {
         e.preventDefault();
         let target = $(this).attr('href');

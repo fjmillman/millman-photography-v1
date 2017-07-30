@@ -1,6 +1,7 @@
 @import 'variables.css';
 @import 'custom-selectors.css';
 @import 'admin.css';
+@import 'blog.css';
 @import 'footer.css';
 @import 'form.css';
 @import 'general.css';
@@ -8,4 +9,5 @@
 @import 'project.css';
 @import 'navigation.css';
 @import 'section.css';
+@import 'tags.css';
 @import 'button.css';

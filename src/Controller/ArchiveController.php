@@ -41,8 +41,8 @@ class ArchiveController
         return $this->view->render(
             'archive',
             [
-                'posts' => $this->postResource->getArchive(),
                 'sections' => Section::BLOG,
+                'posts' => $this->postResource->getArchive(),
             ]
         );
     }

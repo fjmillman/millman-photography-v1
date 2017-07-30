@@ -16,14 +16,17 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Mailer;
+use MillmanPhotography\Resource\TagResource;
 use MillmanPhotography\Resource\UserResource;
 use MillmanPhotography\Resource\PostResource;
+use MillmanPhotography\Middleware\TagLocator;
 use MillmanPhotography\Resource\ImageResource;
-use MillmanPhotography\Validator\PostValidator;
 use MillmanPhotography\Middleware\PostLocator;
+use MillmanPhotography\Validator\PostValidator;
 use MillmanPhotography\Middleware\UserProvider;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
+use MillmanPhotography\Controller\TagController;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Controller\PostController;
 use MillmanPhotography\Controller\LoginController;
@@ -104,10 +107,28 @@ $container[GalleryResource::class] = function (Container $container) {
     return new GalleryResource($entityManager);
 };
 
+$container[TagResource::class] = function (Container $container) {
+    $entityManager = $container->get(EntityManager::class);
+    return new TagResource($entityManager);
+};
+
+$container[TagLocator::class] = function (Container $container) {
+    $resource = $container->get(TagResource::class);
+    return new TagLocator($resource);
+};
+
+$container[TagController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $resource = $container->get(TagResource::class);
+    return new TagController($view, $resource);
+};
+
+
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $postResource = $container->get(PostResource::class);
-    return new BlogController($view, $postResource);
+    $tagResource = $container->get(TagResource::class);
+    return new BlogController($view, $postResource, $tagResource);
 };
 
 $container[PostLocator::class] = function (Container $container) {
@@ -118,10 +139,11 @@ $container[PostLocator::class] = function (Container $container) {
 $container[PostController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $postResource = $container->get(PostResource::class);
+    $tagResource = $container->get(TagResource::class);
     $markdown = $container->get(CommonMarkConverter::class);
     $validator = $container->get(PostValidator::class);
     $logger = $container->get(Monolog::class);
-    return new PostController($view, $postResource, $markdown, $validator, $logger);
+    return new PostController($view, $postResource, $tagResource, $markdown, $validator, $logger);
 };
 
 $container[CommonMarkConverter::class] = function (Container $container) {

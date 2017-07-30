@@ -1,5 +1,10 @@
 <?php $this->layout('base', ['title' => isset($post) ? 'Edit Post' : 'Create New Post', 'sections' => $sections]) ?>
 
+<?php $this->start('styles') ?>
+<!-- Tokenfield -->
+<link rel="stylesheet" href="<?= $this->baseUrl($this->asset('css/tokenfield.min.css')) ?>">
+<?php $this->end() ?>
+
 <?php $this->start('page') ?>
 <!-- Editor -->
 <section class="editor text-center">
@@ -11,15 +16,13 @@
                       method="post"
                       action="<?= isset($post)
                           ? $this->baseUrl('/blog/post/edit/' . $post->getSlug())
-                          : $this->baseUrl('/blog/post/new') ?>"
-                      role="form">
+                          : $this->baseUrl('/blog/post/new') ?>">
                     <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class = "row">
                         <div class="col-md-6">
                             <div class="form-group center-block">
                                 <input name="title"
                                        id="title"
-                                       type="text"
                                        placeholder="Title *"
                                        class="form-control"
                                        maxlength="50"
@@ -28,12 +31,16 @@
                             <div class="form-group center-block">
                                 <input name="description"
                                        id="description"
-                                       type="text"
                                        placeholder="Description *"
                                        class="form-control"
                                        maxlength="50"
                                        required value="<?= isset($post) ? $post->getDescription() : '' ?>">
                             </div>
+                            <input id="tags"
+                                   name="tags"
+                                   placeholder="Tags"
+                                   class="tokenfield-input"
+                                   data-tag-data=<?= isset($tagData) ? $tagData : '' ?>>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group center-block">
@@ -47,7 +54,6 @@
                         </div>
                         <div class="col-md-12">
                             <button id="submit"
-                                    type="submit"
                                     name="submit"
                                     value="submit"
                                     class="btn btn-xl">

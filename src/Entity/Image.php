@@ -102,63 +102,75 @@ class Image
 
     /**
      * @param string $filename
-     * @return void
+     * @return Image
      */
     public function setFilename($filename)
     {
         $this->filename = $filename;
+
+        return $this;
     }
 
     /**
      * @param string $caption
-     * @return void
+     * @return Image
      */
     public function setCaption($caption)
     {
         $this->caption = $caption;
+
+        return $this;
     }
 
     /**
      * @param GalleryImage $galleryImage
-     * @return void
+     * @return Image
      */
     public function addGallery(GalleryImage $galleryImage)
     {
         if (!$this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->add($galleryImage);
         }
+
+        return $this;
     }
 
     /**
      * @param GalleryImage $galleryImage
-     * @return void
+     * @return Image
      */
     public function removeGallery(GalleryImage $galleryImage)
     {
         if ($this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->removeElement($galleryImage);
         }
+
+        return $this;
     }
 
     /**
      * @param PostImage $postImage
-     * @return void
+     * @return Image
      */
     public function addPost(PostImage $postImage)
     {
         if (!$this->post_image->contains($postImage)) {
             $this->post_image->add($postImage);
         }
+
+        return $this;
     }
 
     /**
      * @param PostImage $postImage
-     * @return void
+     * @return Image
      */
     public function removePost(PostImage $postImage)
     {
         if ($this->post_image->contains($postImage)) {
             $this->post_image->removeElement($postImage);
         }
+
+        return $this;
     }
 }

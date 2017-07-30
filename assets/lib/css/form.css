@@ -12,9 +12,13 @@ form {
     padding: 20px;
   }
   & textarea.form-control {
-    height: 150px;
+    height: 210px;
   }
   & :focus {
     border-color: black;
   }
+}
+
+#enquiry-form textarea.form-control {
+  height: 150px;
 }

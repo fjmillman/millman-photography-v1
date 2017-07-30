@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function () {
     const $form = $('#enquiry-form');
     const $submit = $('#submit');
     $form.on('submit', function () {
@@ -23,18 +23,14 @@ $(function () {
     function complete (request) {
         let csrfToken = request.getResponseHeader('X-CSRFToken');
         if (csrfToken) {
-            try {
-                csrfToken = $.parseJSON(csrfToken);
-                const csrfTokenKeys = Object.keys(csrfToken);
-                const hiddenFields = $form.find('input.csrf[type="hidden"]');
-                if (csrfTokenKeys.length === hiddenFields.length) {
-                    hiddenFields.each(function(i) {
-                        $(this).attr('name', csrfTokenKeys[i]);
-                        $(this).val(csrfToken[csrfTokenKeys[i]]);
-                    });
-                }
-            } catch (e) {
-                console.log(e);
+            csrfToken = $.parseJSON(csrfToken);
+            const csrfTokenKeys = Object.keys(csrfToken);
+            const hiddenFields = $form.find('input.csrf[type="hidden"]');
+            if (csrfTokenKeys.length === hiddenFields.length) {
+                hiddenFields.each(function(i) {
+                    $(this).attr('name', csrfTokenKeys[i]);
+                    $(this).val(csrfToken[csrfTokenKeys[i]]);
+                });
             }
         }
     }

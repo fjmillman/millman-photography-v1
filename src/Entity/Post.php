@@ -2,8 +2,9 @@
 
 namespace MillmanPhotography\Entity;
 
-use function Stringy\Create as S;
+use Arrayzy\ArrayImitator as A;
 use Doctrine\ORM\Mapping as ORM;
+use function Stringy\Create as S;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -77,9 +78,17 @@ class Post
      */
     protected $post_image;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PostTag", mappedBy="post", orphanRemoval=true, cascade={"persist"})
+     *
+     * @var Collection
+     */
+    protected $post_tag;
+
     public function __construct()
     {
         $this->post_image = new ArrayCollection();
+        $this->post_tag = new ArrayCollection();
     }
 
     /**
@@ -159,8 +168,16 @@ class Post
     }
 
     /**
+     * @return array
+     */
+    public function getPostTag()
+    {
+        return $this->post_tag->toArray();
+    }
+
+    /**
      * @param string $title
-     * @return void
+     * @return Post
      */
     public function setTitle($title)
     {
@@ -169,71 +186,155 @@ class Post
         if (!$this->slug) {
             $this->slug = (string) s($title)->slugify();
         }
+
+        return $this;
     }
 
     /**
-     * @return void
+     * @return Post
      */
     public function regenerateSlug()
     {
         $this->slug = (string) S($this->title . ' ' . time())->slugify();
+
+        return $this;
     }
 
     /**
      * @param string $description
-     * @return void
+     * @return Post
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
      * @param string $body
-     * @return void
+     * @return Post
      */
     public function setBody($body)
     {
         $this->body = $body;
+
+        return $this;
     }
 
     /**
      * @param bool $inArchive
-     * @return void
+     * @return Post
      */
     public function setInArchive($inArchive)
     {
         $this->in_archive = $inArchive;
+
+        return $this;
     }
 
     /**
      * @param User $user
-     * @return void
+     * @return Post
      */
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
      * @param PostImage $postImage
-     * @return void
+     * @return Post
      */
     public function addImage(PostImage $postImage)
     {
         if (!$this->post_image->contains($postImage)) {
             $this->post_image->add($postImage);
         }
+
+        return $this;
     }
 
     /**
      * @param PostImage $postImage
-     * @return void
+     * @return Post
      */
     public function removeImage(PostImage $postImage)
     {
         if ($this->post_image->contains($postImage)) {
             $this->post_image->removeElement($postImage);
         }
+
+        return $this;
+    }
+
+    /**
+     * @param PostTag $postTag
+     * @return Post
+     */
+    public function addPostTag(PostTag $postTag)
+    {
+        if (!$this->post_tag->contains($postTag)) {
+            $this->post_tag->add($postTag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PostTag $postTag
+     * @return Post
+     */
+    public function removePostTag(PostTag $postTag)
+    {
+        if ($this->post_tag->contains($postTag)) {
+            $this->post_tag->removeElement($postTag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Process the tags given for a post
+     *
+     * @param array $tags
+     */
+    public function processTags(array $tags)
+    {
+        A::create($tags)->walk(function (Tag $tag) {
+            if (!$this->postTagExists($tag)) {
+                $postTag = new PostTag();
+                $postTag->setPost($this)->setTag($tag);
+                $this->addPostTag($postTag);
+            }
+        });
+
+        $oldTagIds = A::create($this->getPostTag())->map(function (PostTag $postTag) {
+            return $postTag->getTag()->getId();
+        })->diff(A::create($tags)->map(function (Tag $tag) {
+            return $tag->getId();
+        })->toArray());
+
+        A::create($this->getPostTag())->walk(function (PostTag $postTag) use ($oldTagIds) {
+            $oldTagIds->walk(function ($oldTagId) use ($postTag) {
+                if ($postTag->getTag()->getId() == $oldTagId) $this->removePostTag($postTag);
+            });
+        });
+    }
+
+    /**
+     * Checks that a tag exists for a post
+     *
+     * @param Tag $tag
+     * @return bool
+     */
+    private function postTagExists(Tag $tag)
+    {
+        foreach ($this->getPostTag() as $postTag) {
+            if ($postTag->getTag() == $tag) return true;
+        }
+        return false;
     }
 }

@@ -124,20 +124,23 @@ class Gallery
             if (!$postImage->getIsCover()) continue;
             return $postImage->getImage()->getFilename();
         }
+
         return 'missing';
     }
 
     /**
-     * @return void
+     * @return Gallery
      */
     public function regenerateSlug()
     {
         $this->slug = (string) S($this->title . ' ' . time())->slugify();
+
+        return $this;
     }
 
     /**
      * @param string $title
-     * @return void
+     * @return Gallery
      */
     public function setTitle($title)
     {
@@ -146,45 +149,55 @@ class Gallery
         if (!$this->slug) {
             $this->slug = (string) S($this->title)->slugify();
         }
+
+        return $this;
     }
 
     /**
      * @param string $description
-     * @return void
+     * @return Gallery
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
      * @param boolean $isFront
-     * @return void
+     * @return Gallery
      */
     public function setIsFront($isFront)
     {
         $this->is_front = $isFront;
+
+        return $this;
     }
 
     /**
      * @param GalleryImage $galleryImage
-     * @return void
+     * @return Gallery
      */
     public function addImage(GalleryImage $galleryImage)
     {
         if (!$this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->add($galleryImage);
         }
+
+        return $this;
     }
 
     /**
      * @param GalleryImage $galleryImage
-     * @return void
+     * @return Gallery
      */
     public function removeImage(GalleryImage $galleryImage)
     {
         if ($this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->removeElement($galleryImage);
         }
+
+        return $this;
     }
 }
