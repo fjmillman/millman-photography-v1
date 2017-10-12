@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -35,7 +35,7 @@ class ArchiveController
      * @param Response $response
      * @return Response
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :Response
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
@@ -52,7 +52,7 @@ class ArchiveController
      * @param Response $response
      * @return Response
      */
-    public function archive(Request $request, Response $response)
+    public function archive(Request $request, Response $response) :Response
     {
         $post = $request->getAttribute('post');
 
@@ -66,7 +66,7 @@ class ArchiveController
      * @param Response $response
      * @return Response
      */
-    public function restore(Request $request, Response $response)
+    public function restore(Request $request, Response $response) :Response
     {
         $post = $request->getAttribute('post');
 

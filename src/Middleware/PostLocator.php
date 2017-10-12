@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Middleware;
 
-use MillmanPhotography\Resource\PostResource;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+
+use MillmanPhotography\Resource\PostResource;
 
 class PostLocator
 {
@@ -27,14 +28,14 @@ class PostLocator
      * @param callable $next
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next) :Response
     {
         $route = $request->getAttribute('route');
         $slug = $route->getArgument('slug');
         $post = $this->resource->getBySlug($slug);
 
         if (!$post) {
-            return $response->withStatus(404)->withHeader('Location', '/blog/');
+            return $response->withStatus(404)->withHeader('Location', '/blog');
         }
 
         return $next($request->withAttribute('post', $post), $response);

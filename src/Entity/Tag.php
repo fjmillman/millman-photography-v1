@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -24,7 +24,7 @@ class Tag
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -55,9 +55,9 @@ class Tag
     }
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -65,7 +65,7 @@ class Tag
     /**
      * @return string $name
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -73,15 +73,15 @@ class Tag
     /**
      * @return string $slug
      */
-    public function getSlug()
+    public function getSlug() : string
     {
         return $this->slug;
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getPostTag()
+    public function getPostTag() : array
     {
         return $this->post_tag->toArray();
     }
@@ -90,7 +90,7 @@ class Tag
      * @param string $name
      * @return Tag
      */
-    public function setName($name)
+    public function setName(string $name) : Tag
     {
         $this->name = $name;
 
@@ -104,7 +104,7 @@ class Tag
     /**
      * @return Tag
      */
-    public function regenerateSlug()
+    public function regenerateSlug() : Tag
     {
         $this->slug = (string) S($this->name . ' ' . time())->slugify();
 
@@ -115,7 +115,7 @@ class Tag
      * @param PostTag $postTag
      * @return Tag
      */
-    public function addPostTag(PostTag $postTag)
+    public function addPostTag(PostTag $postTag) : Tag
     {
         if (!$this->post_tag->contains($postTag)) {
             $this->post_tag->add($postTag);
@@ -128,7 +128,7 @@ class Tag
      * @param PostTag $postTag
      * @return Tag
      */
-    public function removePostTag(PostTag $postTag)
+    public function removePostTag(PostTag $postTag) : Tag
     {
         if ($this->post_tag->contains($postTag)) {
             $this->post_tag->removeElement($postTag);
@@ -142,7 +142,7 @@ class Tag
      *
      * @return Tag
      */
-    public function filterArchivedPostsFromTag()
+    public function filterArchivedPostsFromTag() : ?Tag
     {
         A::create($this->getPostTag())->filter(function (PostTag $postTag) {
             return $postTag->getPost()->getInArchive();

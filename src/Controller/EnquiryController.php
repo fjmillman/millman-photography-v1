@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -7,7 +7,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Projek\Slim\Monolog;
 use Swift_Message as SwiftMessage;
-use Psr\Http\Message\ResponseInterface;
 
 use MillmanPhotography\Mailer;
 use MillmanPhotography\Entity\Enquiry;
@@ -50,9 +49,9 @@ class EnquiryController
     /**
      * @param Request $request
      * @param Response $response
-     * @return ResponseInterface
+     * @return Response
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :Response
     {
         $data = $request->getParsedBody();
 
@@ -95,7 +94,7 @@ class EnquiryController
      * @param Enquiry $enquiry
      * @return string
      */
-    private function getEnquiryEmail(Enquiry $enquiry)
+    private function getEnquiryEmail(Enquiry $enquiry) :string
     {
         return <<<EOT
 You have received an Enquiry.
@@ -112,7 +111,7 @@ EOT;
      * @param Enquiry $enquiry
      * @return string
      */
-    private function getReplyEmail(Enquiry $enquiry)
+    private function getReplyEmail(Enquiry $enquiry) :string
     {
         return <<<EOT
 Thank you for your Enquiry.

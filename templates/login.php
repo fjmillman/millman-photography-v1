@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1>Login.</h1>
-                <p>Do you remember who you were?</p>
+                <p>Do you remember who you are?</p>
                 <form id="login-form" method="post" action="/login" role="form">
                     <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                     <div class="row">

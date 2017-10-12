@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MillmanPhotography\Migrations;
 
@@ -24,11 +24,19 @@ class Version20170606150000 extends AbstractMigration
 
         $image = $schema->createTable('image');
         $image->addColumn('id', 'integer', ['autoincrement' => true]);
-        $image->addColumn('filename', 'string', ['length' => 64]);
+        $image->addColumn('title', 'string', ['length' => 64]);
         $image->addColumn('caption', 'string', ['length' => 64]);
+        $image->addColumn('filename', 'string', ['length' => 64]);
         $image->addColumn('date_created', 'datetime');
         $image->addColumn('date_modified', 'datetime');
         $image->setPrimaryKey(['id']);
+
+        $showcaseImage = $schema->createTable('showcase_image');
+        $showcaseImage->addColumn('id', 'integer', ['autoincrement' => true]);
+        $showcaseImage->addColumn('image_id', 'integer');
+        $showcaseImage->addColumn('date_created', 'datetime');
+        $showcaseImage->addColumn('date_modified', 'datetime');
+        $showcaseImage->setPrimaryKey(['id']);
 
         $gallery = $schema->createTable('gallery');
         $gallery->addColumn('id', 'integer', ['autoincrement' => true]);
@@ -99,6 +107,7 @@ class Version20170606150000 extends AbstractMigration
         $enquiry->setPrimaryKey(['id']);
 
         $post->addForeignKeyConstraint($user, ['user_id'], ['id']);
+        $showcaseImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
         $galleryImage->addForeignKeyConstraint($gallery, ['gallery_id'], ['id']);
         $galleryImage->addForeignKeyConstraint($image, ['image_id'], ['id']);
         $postImage->addForeignKeyConstraint($post, ['post_id'], ['id']);
@@ -114,6 +123,7 @@ class Version20170606150000 extends AbstractMigration
     {
         $schema->dropTable('user');
         $schema->dropTable('image');
+        $schema->dropTable('showcase_image');
         $schema->dropTable('gallery');
         $schema->dropTable('gallery_image');
         $schema->dropTable('post');

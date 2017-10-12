@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -32,7 +32,7 @@ class TagController
      * @param Response $response
      * @return Response
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :Response
     {
         $tag = $request->getAttribute('tag');
         $previousTag = $this->resource->getPrevious($tag);

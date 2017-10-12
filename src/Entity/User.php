@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -22,7 +22,7 @@ class User
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -50,7 +50,7 @@ class User
     /**
      * @ORM\Column(type="boolean")
      *
-     * @var boolean $is_admin
+     * @var bool $is_admin
      */
     protected $is_admin = false;
 
@@ -70,9 +70,9 @@ class User
     }
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -80,7 +80,7 @@ class User
     /**
      * @return string $username
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->username;
     }
@@ -88,7 +88,7 @@ class User
     /**
      * @return string $password
      */
-    public function getPassword()
+    public function getPassword() : string
     {
         return $this->password;
     }
@@ -96,15 +96,15 @@ class User
     /**
      * @return string $token
      */
-    public function getToken()
+    public function getToken() : string
     {
         return $this->token;
     }
 
     /**
-     * @return string $is_admin
+     * @return bool $is_admin
      */
-    public function getIsAdmin()
+    public function getIsAdmin() : bool
     {
         return $this->is_admin;
     }
@@ -113,7 +113,7 @@ class User
      * @param string $username
      * @return User
      */
-    public function setUsername($username)
+    public function setUsername(string $username) : User
     {
         $this->username = $username;
 
@@ -124,7 +124,7 @@ class User
      * @param string $password
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword(string $password) : User
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -135,7 +135,7 @@ class User
      * @param string $token
      * @return User
      */
-    public function setToken($token)
+    public function setToken(string $token) :User
     {
         $this->token = $token;
 
@@ -143,10 +143,10 @@ class User
     }
 
     /**
-     * @param string $isAdmin
+     * @param bool $isAdmin
      * @return User
      */
-    public function setIsAdmin($isAdmin)
+    public function setIsAdmin(bool $isAdmin) : User
     {
         $this->is_admin = $isAdmin;
 

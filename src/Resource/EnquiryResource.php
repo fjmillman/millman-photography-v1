@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Resource;
 
@@ -12,7 +12,7 @@ class EnquiryResource extends Resource
      * @param array $parameters
      * @return array
      */
-    public function get(array $parameters = null)
+    public function get(array $parameters = null) :array
     {
         if (!isset($parameters)) {
             return $this->entityManager->getRepository(Enquiry::class)->findAll();
@@ -27,7 +27,7 @@ class EnquiryResource extends Resource
      * @param int $id
      * @return object
      */
-    public function getById($id)
+    public function getById(int $id) :object
     {
         return $this->entityManager->getRepository(Enquiry::class)->find($id);
     }
@@ -38,7 +38,7 @@ class EnquiryResource extends Resource
      * @param array $data
      * @return Enquiry $enquiry
      */
-    public function create(array $data)
+    public function create(array $data) :Enquiry
     {
         $enquiry = new Enquiry();
 
@@ -58,7 +58,7 @@ class EnquiryResource extends Resource
      * @param integer $id
      * @param array $data
      */
-    public function update($id, array $data)
+    public function update(int $id, array $data) :void
     {
         $enquiry = $this->entityManager->getRepository(Enquiry::class)->find($id);
 
@@ -75,7 +75,7 @@ class EnquiryResource extends Resource
      *
      * @param int $id
      */
-    public function delete($id)
+    public function delete(int $id) :void
     {
         $post = $this->entityManager->getRepository(Enquiry::class)->find($id);
 

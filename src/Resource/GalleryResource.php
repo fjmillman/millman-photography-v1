@@ -1,24 +1,31 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Resource;
+
+use Arrayzy\ArrayImitator as A;
 
 use MillmanPhotography\Entity\Gallery;
 
 class GalleryResource extends Resource
 {
+    /** @var array RESERVED_SLUGS */
+    const RESERVED_SLUGS = [
+        'new',
+        'edit',
+        'delete',
+        'archive',
+        'restore',
+    ];
+
     /**
      * Get a collection of galleries by given parameters
      *
      * @param array $parameters
      * @return array
      */
-    public function get(array $parameters = null)
+    public function get(array $parameters = null) :array
     {
-        if (!isset($parameters)) {
-            return $this->entityManager->getRepository(Gallery::class)->findAll();
-        }
-
-        return $this->entityManager->getRepository(Gallery::class)->findBy($parameters);
+        return $this->entityManager->getRepository(Gallery::class)->findBy([], ['title' => 'ASC']);
     }
 
     /**
@@ -27,9 +34,20 @@ class GalleryResource extends Resource
      * @param int $id
      * @return object
      */
-    public function getById($id)
+    public function getById(int $id) :object
     {
         return $this->entityManager->getRepository(Gallery::class)->find($id);
+    }
+
+    /**
+     * Get a gallery by slug
+     *
+     * @param string $slug
+     * @return Gallery
+     */
+    public function getBySlug(string $slug) :Gallery
+    {
+        return $this->entityManager->getRepository(Gallery::class)->findOneBy(['slug' => $slug]);
     }
 
     /**
@@ -37,7 +55,7 @@ class GalleryResource extends Resource
      *
      * @return array
      */
-    public function getFrontThree()
+    public function getFrontThree() :array
     {
         return $this->entityManager->createQueryBuilder()
             ->select('g')
@@ -49,50 +67,117 @@ class GalleryResource extends Resource
             ->getResult();
     }
 
+    /**
+     * Get the previous gallery
+     *
+     * @param Gallery $gallery
+     * @return Gallery
+     */
+    public function getPrevious(Gallery $gallery) :?Gallery
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('g')
+            ->from('MillmanPhotography\Entity\Gallery', 'g')
+            ->where('g.title > :title')
+            ->setParameter(':title', $gallery->getTitle())
+            ->orderBy('g.title', 'ASC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * Get the next gallery
+     *
+     * @param Gallery $gallery
+     * @return Gallery
+     */
+    public function getNext(Gallery $gallery) :?Gallery
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('g')
+            ->from('MillmanPhotography\Entity\Gallery', 'g')
+            ->where('g.title < :title')
+            ->setParameter(':title', $gallery->getTitle())
+            ->orderBy('g.title', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     /**
      * Create a new gallery
      *
      * @param array $data
+     * @param array $images
+     * @return string
      */
-    public function create(array $data)
+    public function create(array $data, array $images) :string
     {
         $gallery = new Gallery();
 
         $gallery->setTitle($data['title']);
         $gallery->setDescription($data['description']);
+        $gallery->setIsFront(isset($data['is_front']));
+        $gallery->processImages($images);
+
+        if (!$this->isSlugValid($gallery->getSlug())) {
+            $gallery->regenerateSlug();
+        }
 
         $this->entityManager->persist($gallery);
         $this->entityManager->flush();
+
+        return $gallery->getSlug();
     }
 
     /**
      * Update an existing gallery
      *
-     * @param integer $id
+     * @param Gallery $gallery
      * @param array $data
+     * @param array $images
+     * @return string
      */
-    public function update($id, array $data)
+    public function update(Gallery $gallery, array $data, array $images) :string
     {
-        $gallery = $this->entityManager->getRepository(Gallery::class)->find($id);
-
         $gallery->setTitle($data['title']);
         $gallery->setDescription($data['description']);
+        $gallery->setIsFront(isset($data['is_front']));
+        $gallery->processImages($images);
+
+        if (!$this->isSlugValid($gallery->getSlug())) {
+            $gallery->regenerateSlug();
+        }
 
         $this->entityManager->persist($gallery);
         $this->entityManager->flush();
+
+        return $gallery->getSlug();
     }
 
     /**
      * Delete an existing gallery
      *
-     * @param int $id
+     * @param Gallery $gallery
      */
-    public function delete($id)
+    public function delete(Gallery $gallery) :void
     {
-        $gallery = $this->entityManager->getRepository(Gallery::class)->find($id);
-
         $this->entityManager->remove($gallery);
         $this->entityManager->flush();
+    }
+
+
+    /**
+     * Check if a given slug is valid
+     *
+     * @param string $slug
+     * @return bool
+     */
+    private function isSlugValid(string $slug) :bool
+    {
+        return !A::create(self::RESERVED_SLUGS)->contains($slug);
     }
 }

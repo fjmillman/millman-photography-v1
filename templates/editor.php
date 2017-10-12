@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1><?= isset($post) ? 'Edit post' : 'Create a new post' ?></h1>
-                <form id="post-form"
+                <form class="post-form"
                       method="post"
                       action="<?= isset($post)
                           ? $this->baseUrl('/blog/post/edit/' . $post->getSlug())
@@ -41,6 +41,10 @@
                                    placeholder="Tags"
                                    class="tokenfield-input"
                                    data-tag-data=<?= isset($tagData) ? $tagData : '' ?>>
+                            <input id="images"
+                                   type="hidden"
+                                   name="images"
+                                   value="">
                         </div>
                         <div class="col-md-6">
                             <div class="form-group center-block">
@@ -51,6 +55,11 @@
                                           class="form-control"
                                 ><?= isset($post) ? $post->getBody() : '' ?></textarea>
                             </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div id="selectable-gallery"
+                                 class="gallery-set"
+                                 data-image-data='<?= isset($imageData) ? $imageData : '' ?>'></div>
                         </div>
                         <div class="col-md-12">
                             <button id="submit"

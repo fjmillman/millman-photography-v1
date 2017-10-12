@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -20,7 +20,7 @@ class Enquiry
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -46,9 +46,9 @@ class Enquiry
     protected $message;
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() :int
     {
         return $this->id;
     }
@@ -56,7 +56,7 @@ class Enquiry
     /**
      * @return string $name
      */
-    public function getName()
+    public function getName() :string
     {
         return $this->name;
     }
@@ -64,7 +64,7 @@ class Enquiry
     /**
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail() :string
     {
         return $this->email;
     }
@@ -72,7 +72,7 @@ class Enquiry
     /**
      * @return string $message
      */
-    public function getMessage()
+    public function getMessage() :string
     {
         return $this->message;
     }
@@ -81,7 +81,7 @@ class Enquiry
      * @param string $name
      * @return Enquiry
      */
-    public function setName($name)
+    public function setName(string $name) :Enquiry
     {
         $this->name = $name;
 
@@ -92,7 +92,7 @@ class Enquiry
      * @param string $email
      * @return Enquiry
      */
-    public function setEmail($email)
+    public function setEmail(string $email) :Enquiry
     {
         $this->email = $email;
 
@@ -103,7 +103,7 @@ class Enquiry
      * @param string $message
      * @return Enquiry
      */
-    public function setMessage($message)
+    public function setMessage(string $message) :Enquiry
     {
         $this->message = $message;
 

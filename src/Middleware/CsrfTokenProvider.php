@@ -4,6 +4,7 @@ namespace MillmanPhotography\Middleware;
 
 use Projek\Slim\Plates;
 use Slim\Csrf\Guard as Csrf;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -31,7 +32,7 @@ class CsrfTokenProvider
      * @param callable $next
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next) :Response
     {
         $nameKey = $this->csrf->getTokenNameKey();
         $valueKey = $this->csrf->getTokenValueKey();

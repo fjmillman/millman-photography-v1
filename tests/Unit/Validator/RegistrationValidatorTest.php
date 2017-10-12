@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Tests\Unit\Validator;
 
@@ -14,11 +14,13 @@ class RegistrationValidatorTest extends TestCase
     public function testItPassesWhenNameUsernameAndPasswordAreValid()
     {
         $validator = new RegistrationValidator();
+
         $data = [
             'username' => 'username',
             'password' => 'password',
             'password_confirmation' => 'password',
         ];
+
         $this->assertTrue($validator->isValid($data));
         $this->assertEmpty($validator->getErrors());
     }
@@ -29,13 +31,19 @@ class RegistrationValidatorTest extends TestCase
     public function testItFailsWhenPasswordIsNotIdentical()
     {
         $validator = new RegistrationValidator();
+
         $data = [
             'username' => 'username',
             'password' => 'password',
             'password_confirmation' => 'passwrd',
         ];
+
+        $expected = [
+            'Passwords did not match!'
+        ];
+
         $this->assertFalse($validator->isValid($data));
-        $this->assertSame(['Password_confirmation must be equals "password"'], $validator->getErrors());
+        $this->assertSame($expected, $validator->getErrors());
     }
 
     /**
@@ -44,18 +52,19 @@ class RegistrationValidatorTest extends TestCase
     public function testItFailsWhenPasswordIsTooShort()
     {
         $validator = new RegistrationValidator();
+
         $data = [
             'username' => 'username',
             'password' => 'pass',
             'password_confirmation' => 'pass',
         ];
+
+        $expected = [
+            'Password: not at least 7 characters',
+            'Password confirmation: not at least 7 characters',
+        ];
+
         $this->assertFalse($validator->isValid($data));
-        $this->assertSame(
-            [
-                'Password must have a length greater than 7',
-                'Password_confirmation must have a length greater than 7'
-            ],
-            $validator->getErrors()
-        );
+        $this->assertSame($expected, $validator->getErrors());
     }
 }

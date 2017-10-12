@@ -19,6 +19,6 @@ form {
   }
 }
 
-#enquiry-form textarea.form-control {
+.enquiry-form textarea.form-control {
   height: 150px;
 }

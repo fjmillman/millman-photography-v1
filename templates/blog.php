@@ -11,19 +11,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <?php if (isset($user)): ?>
-                    <ol class="project-button-group">
-                        <li class="add-post-button">
-                            <a href="<?= $this->baseUrl('/blog/post/new') ?>">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                        </li>
-                    </ol>
-                <?php endif ?>
-            </div>
-        </div>
-        <div class="row">
             <?php if (count($posts) === 0) : ?>
                 <div class="col-lg-12">
                     <h3>Watch this space!</h3>
@@ -33,6 +20,15 @@
                     <?php $this->insert('partials/post', ['post' => $post]) ?>
                 <?php endforeach; ?>
             <?php endif; ?>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php if (isset($user)): ?>
+                    <a class="btn btn-xl button" href="<?= $this->baseUrl('/blog/post/new') ?>">
+                        Create a new blog post
+                    </a>
+                <?php endif ?>
+            </div>
         </div>
     </div>
 </section>

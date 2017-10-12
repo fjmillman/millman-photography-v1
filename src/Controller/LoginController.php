@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -40,7 +40,7 @@ class LoginController
      * @param Response $response
      * @return Response
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :Response
     {
         $this->view->setResponse($response->withStatus(200));
 
@@ -52,7 +52,7 @@ class LoginController
      * @param Response $response
      * @return Response
      */
-    public function login(Request $request, Response $response)
+    public function login(Request $request, Response $response) :Response
     {
         $data = $request->getParsedBody();
 
@@ -76,7 +76,7 @@ class LoginController
      * @param Response $response
      * @return Response
      */
-    public function logout(Request $request, Response $response)
+    public function logout(Request $request, Response $response) :Response
     {
         Session::destroy();
 

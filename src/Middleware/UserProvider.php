@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Middleware;
 
@@ -38,10 +38,10 @@ class UserProvider
      * @param callable $next
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next) :Response
     {
         if ($token = $this->session->get('token')) {
-            if ($user = $this->resource->getByToken($token)) {
+            if ($user = $this->resource->getByToken(isset($token) ? $token : '')) {
                 Session::regenerate();
                 $this->plates->addData(['user' => $user]);
             }

@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Resource;
 
 use Arrayzy\ArrayImitator as A;
+
 use MillmanPhotography\Entity\Post;
-use MillmanPhotography\Entity\PostTag;
-use MillmanPhotography\Entity\Tag;
 use MillmanPhotography\Entity\User;
 
 class PostResource extends Resource
@@ -24,7 +23,7 @@ class PostResource extends Resource
      *
      * @return array
      */
-    public function get()
+    public function get() :array
     {
         return $this->entityManager->getRepository(Post::class)->findBy(
             ['in_archive' => false],
@@ -38,7 +37,7 @@ class PostResource extends Resource
      * @param int $id
      * @return object
      */
-    public function getById($id)
+    public function getById(int $id) :object
     {
         return $this->entityManager->getRepository(Post::class)->find($id);
     }
@@ -47,9 +46,9 @@ class PostResource extends Resource
      * Get a post by slug
      *
      * @param string $slug
-     * @return object
+     * @return Post
      */
-    public function getBySlug($slug)
+    public function getBySlug(string $slug) :Post
     {
         return $this->entityManager->getRepository(Post::class)->findOneBy(['slug' => $slug]);
     }
@@ -59,7 +58,7 @@ class PostResource extends Resource
      *
      * @return array
      */
-    public function getLatestThree()
+    public function getLatestThree() :array
     {
         return $this->entityManager->createQueryBuilder()
             ->select('p')
@@ -78,7 +77,7 @@ class PostResource extends Resource
      * @param Post $post
      * @return Post
      */
-    public function getPrevious($post)
+    public function getPrevious(Post $post) :?Post
     {
         return $this->entityManager->createQueryBuilder()
             ->select('p')
@@ -100,7 +99,7 @@ class PostResource extends Resource
      * @param Post $post
      * @return Post
      */
-    public function getNext($post)
+    public function getNext(Post $post) :?Post
     {
         return $this->entityManager->createQueryBuilder()
             ->select('p')
@@ -121,7 +120,7 @@ class PostResource extends Resource
      *
      * @return array
      */
-    public function getArchive()
+    public function getArchive() :array
     {
         return $this->entityManager->getRepository(Post::class)->findBy(
             ['in_archive' => true],
@@ -134,10 +133,11 @@ class PostResource extends Resource
      *
      * @param array $data
      * @param array $tags
+     * @param array $images
      * @param User $user
      * @return string $slug
      */
-    public function create(array $data, array $tags, User $user)
+    public function create(array $data, array $tags, array $images, User $user) :string
     {
         $post = new Post();
 
@@ -147,6 +147,7 @@ class PostResource extends Resource
         $post->setInArchive(false);
         $post->setUser($user);
         $post->processTags($tags);
+        $post->processImages($images);
 
         if (!$this->isSlugValid($post->getSlug())) {
             $post->regenerateSlug();
@@ -164,14 +165,16 @@ class PostResource extends Resource
      * @param Post $post
      * @param array $data
      * @param array $tags
+     * @param array $images
      * @return string $slug
      */
-    public function update(Post $post, array $data, array $tags)
+    public function update(Post $post, array $data, array $tags, array $images) :string
     {
         $post->setTitle($data['title']);
         $post->setDescription($data['description']);
         $post->setBody($data['body']);
         $post->processTags($tags);
+        $post->processImages($images);
 
         if (!$this->isSlugValid($post->getSlug())) {
             $post->regenerateSlug();
@@ -188,7 +191,7 @@ class PostResource extends Resource
      *
      * @param Post $post
      */
-    public function archive(Post $post)
+    public function archive(Post $post) :void
     {
         $post->setInArchive(true);
 
@@ -201,7 +204,7 @@ class PostResource extends Resource
      *
      * @param Post $post
      */
-    public function restore(Post $post)
+    public function restore(Post $post) :void
     {
         $post->setInArchive(false);
 
@@ -214,7 +217,7 @@ class PostResource extends Resource
      *
      * @param Post $post
      */
-    public function delete(Post $post)
+    public function delete(Post $post) :void
     {
         $this->entityManager->remove($post);
         $this->entityManager->flush();
@@ -226,7 +229,7 @@ class PostResource extends Resource
      * @param $slug
      * @return bool
      */
-    private function isSlugValid($slug)
+    private function isSlugValid($slug) :bool
     {
         return !A::create(self::RESERVED_SLUGS)->contains($slug);
     }

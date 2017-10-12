@@ -1,6 +1,6 @@
 <div class="col-md-4 col-sm-6 project-item">
     <a href="<?= $this->baseUrl('blog/post/' . $post->getSlug()) ?>" class="project-link">
-        <img src="<?= $this->baseUrl($this->asset('img/' . $this->e($post->getCoverImage()) . '.jpg')) ?>"
+        <img src="<?= $this->baseUrl($this->getUrl($post->getCoverImage(), ['w' => '350'])) ?>"
              class="img-fluid"
              alt="<?= $post->getTitle() ?>">
     </a>

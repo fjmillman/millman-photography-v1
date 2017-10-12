@@ -1,5 +1,5 @@
 <!-- Social Buttons -->
-<ol class="button-group navbar-toggler-right">
+<ol class="button-group fix-right">
     <li class="facebook-button">
         <a href="https://facebook.com/millmanphotography" target="_blank">
             <i class="fa fa-facebook" aria-hidden="true"></i>

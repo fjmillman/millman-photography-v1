@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -43,7 +43,7 @@ class BlogController
      * @param Response $response
      * @return Response
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :Response
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
@@ -60,7 +60,7 @@ class BlogController
      * @param Response $response
      * @return Response
      */
-    public function archive(Request $request, Response $response)
+    public function archive(Request $request, Response $response) :Response
     {
         $this->view->setResponse($response->withStatus(200));
         return $this->view->render(
@@ -77,7 +77,7 @@ class BlogController
      * @param Response $response
      * @return Response
      */
-    public function tags(Request $request, Response $response)
+    public function tags(Request $request, Response $response) :Response
     {
         $tags = A::create($this->tagResource->get())->map(function (Tag $tag) {
             return $tag->filterArchivedPostsFromTag();

@@ -1,48 +1,58 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Validator;
 
-use Arrayzy\ArrayImitator as A;
-use function Stringy\Create as S;
-use Respect\Validation\Validator as V;
-use Respect\Validation\Exceptions\NestedValidationException;
+use Schemer\Validator as V;
+use Schemer\Formatter as F;
+use Schemer\Validator\ValidatorInterface;
+use Schemer\Formatter\FormatterInterface;
 
-class PostValidator
+class PostValidator implements Validator
 {
-    /** @var Validator $validator */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /** @var array $errors */
+    /** @var FormatterInterface */
+    private $formatter;
+
+    /** @var array */
     private $errors = [];
 
     public function __construct()
     {
-        $this->validator =
-            V::key('title', V::stringType()->length(3, 25))
-             ->key('description', V::stringType()->length(3, 50))
-             ->key('body', V::stringType()->length(10));
+        $this->validator = V::assoc([
+            'Title' => V::text()->min(3)->max(50),
+            'Description' => V::text()->min(3)->max(100),
+            'Body' => V::text()->min(10),
+        ]);
+
+        $this->formatter = F::assoc([
+            'title' => F::text(),
+            'description' => F::text(),
+            'body' => F::text(),
+        ])->renameMany([
+            'title' => 'Title',
+            'description' => 'Description',
+            'body' => 'Body',
+        ]);
     }
 
     /**
-     * @param array $data
+     * @param array $postDetails
      * @return bool
      */
-    public function isValid(array $data)
+    public function isValid(array $postDetails) : bool
     {
-        try {
-            return $this->validator->assert($data);
-        } catch (NestedValidationException $exception) {
-            $this->errors = A::create($exception->getMessages())->map(function ($message) {
-                return (string) S($message)->upperCaseFirst();
-            })->toArray();
-            return false;
-        }
+        $detailsToValidate = $this->formatter->format($postDetails);
+        $result = $this->validator->validate($detailsToValidate);
+        $this->errors = $result->errors();
+        return !$result->isError();
     }
 
     /**
      * @return array
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         return $this->errors;
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Resource;
 
@@ -12,7 +12,7 @@ class UserResource extends Resource
      * @param array $parameters
      * @return array
      */
-    public function get(array $parameters = null)
+    public function get(array $parameters = null) :array
     {
         if (!isset($parameters)) {
             return $this->entityManager->getRepository(User::class)->findAll();
@@ -27,7 +27,7 @@ class UserResource extends Resource
      * @param int $id
      * @return object
      */
-    public function getById($id)
+    public function getById(int $id) :object
     {
         return $this->entityManager->getRepository(User::class)->find($id);
     }
@@ -36,9 +36,9 @@ class UserResource extends Resource
      * Get a user by username
      *
      * @param string $username
-     * @return object
+     * @return User
      */
-    public function getByUsername($username)
+    public function getByUsername(string $username) :User
     {
         return $this->entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
     }
@@ -47,9 +47,9 @@ class UserResource extends Resource
      * Get a user by token
      *
      * @param string $token
-     * @return object
+     * @return User
      */
-    public function getByToken($token)
+    public function getByToken(string $token) : ?User
     {
         return $this->entityManager->getRepository(User::class)->findOneBy(['token' => $token]);
     }
@@ -59,7 +59,7 @@ class UserResource extends Resource
      *
      * @param array $data
      */
-    public function create(array $data)
+    public function create(array $data) :void
     {
         $user = new User();
 
@@ -78,7 +78,7 @@ class UserResource extends Resource
      * @param int $id
      * @param string $password
      */
-    public function updatePassword($id, $password)
+    public function updatePassword(int $id, string $password) :void
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 
@@ -94,7 +94,7 @@ class UserResource extends Resource
      * @param int $id
      * @return string $token
      */
-    public function updateToken($id)
+    public function updateToken(int $id) :string
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 
@@ -112,7 +112,7 @@ class UserResource extends Resource
      * @param int $id
      * @param array $data
      */
-    public function update($id, array $data)
+    public function update(int $id, array $data) :void
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 
@@ -130,7 +130,7 @@ class UserResource extends Resource
      *
      * @param int $id
      */
-    public function delete($id)
+    public function delete(int $id) :void
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity\Traits;
 
@@ -30,7 +30,7 @@ trait Timestamps
      *
      * @return void
      */
-    public function onPrePersist()
+    public function onPrePersist() :void
     {
         $date = new DateTime();
         $this->date_created = $date;
@@ -44,7 +44,7 @@ trait Timestamps
      *
      * @return void
      */
-    public function onPreUpdate()
+    public function onPreUpdate() :void
     {
         $this->date_modified = new DateTime();
     }
@@ -54,7 +54,7 @@ trait Timestamps
      *
      * @return bool
      */
-    public function hasBeenModified()
+    public function hasBeenModified() :bool
     {
         return $this->date_created != $this->date_modified;
     }
@@ -64,7 +64,7 @@ trait Timestamps
      *
      * @return DateTimeImmutable
      */
-    public function getDateCreated()
+    public function getDateCreated() :DateTimeImmutable
     {
         return DateTimeImmutable::createFromMutable($this->date_created);
     }
@@ -74,7 +74,7 @@ trait Timestamps
      *
      * @return DateTimeImmutable
      */
-    public function getDateModified()
+    public function getDateModified() :DateTimeImmutable
     {
         return DateTimeImmutable::createFromMutable($this->date_modified);
     }

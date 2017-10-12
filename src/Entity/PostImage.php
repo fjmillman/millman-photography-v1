@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -20,12 +20,12 @@ class PostImage
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="post_image")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="post_image", cascade={"persist"})
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id", nullable=false)
      *
      * @var Post $post
@@ -33,7 +33,7 @@ class PostImage
     protected $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Image", inversedBy="post_image")
+     * @ORM\ManyToOne(targetEntity="Image", inversedBy="post_image", cascade={"persist"})
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=false)
      *
      * @var Image $image
@@ -43,14 +43,14 @@ class PostImage
     /**
      * @ORM\Column(type="boolean")
      *
-     * @var boolean $is_cover
+     * @var bool $is_cover
      */
     protected $is_cover;
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -58,7 +58,7 @@ class PostImage
     /**
      * @return Post $post
      */
-    public function getPost()
+    public function getPost() : Post
     {
         return $this->post;
     }
@@ -66,15 +66,15 @@ class PostImage
     /**
      * @return Image $image
      */
-    public function getImage()
+    public function getImage() : Image
     {
         return $this->image;
     }
 
     /**
-     * @return boolean $is_cover
+     * @return bool $is_cover
      */
-    public function getIsCover()
+    public function getIsCover() : bool
     {
         return $this->is_cover;
     }
@@ -83,7 +83,7 @@ class PostImage
      * @param Post $post
      * @return PostImage
      */
-    public function setPost($post)
+    public function setPost(Post $post) : PostImage
     {
         $this->post = $post;
 
@@ -94,7 +94,7 @@ class PostImage
      * @param Image $image
      * @return PostImage
      */
-    public function setImage($image)
+    public function setImage(Image $image) : PostImage
     {
         $this->image = $image;
 
@@ -102,10 +102,10 @@ class PostImage
     }
 
     /**
-     * @param $isCover
+     * @param bool $isCover
      * @return PostImage
      */
-    public function setIsCover($isCover)
+    public function setIsCover(bool $isCover) : PostImage
     {
         $this->is_cover = $isCover;
 

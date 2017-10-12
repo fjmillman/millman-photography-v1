@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 return [
     'settings' => [
@@ -19,6 +19,15 @@ return [
             'use_underscore' => true,
             'html_input' => 'escape',
             'allow_unsafe_links' => false,
+        ],
+        'glide' => [
+            'source' => 'img',
+            'source_path_prefix' => 'source',
+            'cache' => 'img',
+            'cache_path_prefix' => 'cache',
+            'driver' => 'imagick',
+            'max_image_size' => 2000*2000,
+            'sign_key' => getenv('SIGN_KEY')
         ],
         'doctrine' => [
             'meta' => [

@@ -26,13 +26,13 @@
     </head>
     <body>
         <!-- Navigation -->
-        <nav role="navigation" class="navbar fixed-top navbar-toggleable-md">
-            <div class="container">
+        <nav class="navbar fixed-top navbar-toggleable-md">
+            <div class="container nav-container">
                 <?php $this->insert('partials/social-media-buttons') ?>
 
                 <?php if (isset($sections)): ?>
                     <!-- Navigation Toggle -->
-                    <button class="navbar-toggler collapsed"
+                    <button class="nav-button navbar-toggler collapsed"
                             type="button"
                             data-toggle="collapse"
                             data-target="#navbar"
@@ -53,30 +53,32 @@
                     <div class="collapse navbar-collapse" id="navbar">
                         <ul class="navbar-nav navigation">
                             <?php foreach ($sections as $key => $section): ?>
+                                <?php if ($key == 'Images' && !isset($user)) continue; ?>
                                 <?php if (is_array($section)): ?>
                                     <li class="nav-item navigation-button underline page-scroll dropdown">
                                         <a class="nav-link navigation-link"
-                                           href="<?= isset($title) ? $this->baseUrl($key) : '#' . $this->e(strtolower($key)) ?>">
+                                           href="<?= isset($title) ? $this->baseUrl(strtolower($key)) : '#' . $this->e(strtolower($key)) ?>">
                                             <?= $this->e($key) ?>
                                         </a>
                                         <a class="dropdown-arrow dropdown-toggle"
                                            href=""
                                            id="blog-dropdown"
                                            data-toggle="dropdown"
-                                           aria-haspopup="true"
                                            aria-expanded="false"></a>
                                         <div class="dropdown-menu" aria-labelledby="blog-dropdown">
                                             <?php foreach ($section as $label => $dropdown): ?>
-                                                <a class="dropdown-item" href="<?= $this->baseUrl($dropdown) ?>">
-                                                    <?= $this->e($label) ?>
-                                                </a>
+                                                <?php if ($label != 'Images' && isset($user)) : ?>
+                                                    <a class="dropdown-item" href="<?= $this->baseUrl($dropdown) ?>">
+                                                        <?= $this->e($label) ?>
+                                                    </a>
+                                                <?php endif; ?>
                                             <?php endforeach ?>
                                         </div>
                                     </li>
                                 <?php else: ?>
                                     <li class="nav-item navigation-button underline page-scroll">
                                         <a class="nav-link navigation-link"
-                                           href="<?= isset($title) ? $this->baseUrl($section) : '#' . $this->e($section) ?>">
+                                           href="<?= isset($title) || (!isset($title) && $key == 'Images') ? $this->baseUrl($section) : '#' . $this->e($section) ?>">
                                             <?= $this->e($key) ?>
                                         </a>
                                     </li>
@@ -98,11 +100,11 @@
                         <span class="tag-line">Photography by Freddie John Millman</span>
                         <?php if (isset($user)): ?>
                             <a class="admin-button" href="<?= $this->baseUrl('logout') ?>" target="_self">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                <i class="fa fa-sign-out"></i>
                             </a>
                         <?php else: ?>
                             <a class="admin-button" href="<?= $this->baseUrl('login') ?>" target="_self">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                <i class="fa fa-sign-in"></i>
                             </a>
                         <?php endif; ?>
                     </div>

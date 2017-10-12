@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Tests\Unit\Validator;
 
@@ -14,11 +14,13 @@ class EnquiryValidatorTest extends TestCase
     public function testItPassesWhenNameEmailAndMessageAreValid()
     {
         $validator = new EnquiryValidator();
+
         $data = [
             'name' => 'This Is-A Name',
             'email' => 'this.is@an.email',
             'message' => 'This is a message.',
         ];
+
         $this->assertTrue($validator->isValid($data));
         $this->assertEmpty($validator->getErrors());
     }
@@ -29,12 +31,18 @@ class EnquiryValidatorTest extends TestCase
     public function testItFailsWhenEmailIsInvalid()
     {
         $validator = new EnquiryValidator();
+
         $data = [
             'name' => 'This Is-A Name',
             'email' => 'this.is.an.email',
             'message' => 'This is a message.',
         ];
+
+        $expected = [
+            'Email: not an email'
+        ];
+
         $this->assertFalse($validator->isValid($data));
-        $this->assertSame(['Email must be valid email'], $validator->getErrors());
+        $this->assertSame($expected, $validator->getErrors());
     }
 }

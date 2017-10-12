@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use MillmanPhotography\Entity\Traits\Timestamps;
+use function Stringy\create;
+use Stringy\Stringy;
 
 /**
  * @ORM\Entity
@@ -24,7 +26,7 @@ class Post
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -72,7 +74,7 @@ class Post
     protected $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="post", orphanRemoval=true, cascade={"persist"})
      *
      * @var Collection
      */
@@ -92,9 +94,9 @@ class Post
     }
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() :int
     {
         return $this->id;
     }
@@ -102,7 +104,7 @@ class Post
     /**
      * @return string $slug
      */
-    public function getSlug()
+    public function getSlug() :string
     {
         return $this->slug;
     }
@@ -110,7 +112,7 @@ class Post
     /**
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle() :string
     {
         return $this->title;
     }
@@ -118,7 +120,7 @@ class Post
     /**
      * @return string $description
      */
-    public function getDescription()
+    public function getDescription() :string
     {
         return $this->description;
     }
@@ -126,7 +128,7 @@ class Post
     /**
      * @return string $body
      */
-    public function getBody()
+    public function getBody() :string
     {
         return $this->body;
     }
@@ -134,7 +136,7 @@ class Post
     /**
      * @return bool $in_archive
      */
-    public function getInArchive()
+    public function getInArchive() :bool
     {
         return $this->in_archive;
     }
@@ -142,7 +144,7 @@ class Post
     /**
      * @return User
      */
-    public function getUser()
+    public function getUser() :User
     {
         return $this->user;
     }
@@ -150,7 +152,7 @@ class Post
     /**
      * @return array $post_image
      */
-    public function getImages()
+    public function getImages() :array
     {
         return $this->post_image->toArray();
     }
@@ -158,19 +160,20 @@ class Post
     /**
      * @return string $filename
      */
-    public function getCoverImage()
+    public function getCoverImage() :string
     {
         foreach ($this->getImages() as $postImage) {
             if (!$postImage->getIsCover()) continue;
             return $postImage->getImage()->getFilename();
         }
+
         return 'missing';
     }
 
     /**
      * @return array
      */
-    public function getPostTag()
+    public function getPostTag() :array
     {
         return $this->post_tag->toArray();
     }
@@ -179,7 +182,7 @@ class Post
      * @param string $title
      * @return Post
      */
-    public function setTitle($title)
+    public function setTitle($title) :Post
     {
         $this->title = $title;
 
@@ -193,7 +196,7 @@ class Post
     /**
      * @return Post
      */
-    public function regenerateSlug()
+    public function regenerateSlug() :Post
     {
         $this->slug = (string) S($this->title . ' ' . time())->slugify();
 
@@ -204,7 +207,7 @@ class Post
      * @param string $description
      * @return Post
      */
-    public function setDescription($description)
+    public function setDescription(string $description) :Post
     {
         $this->description = $description;
 
@@ -215,7 +218,7 @@ class Post
      * @param string $body
      * @return Post
      */
-    public function setBody($body)
+    public function setBody(string $body) :Post
     {
         $this->body = $body;
 
@@ -226,7 +229,7 @@ class Post
      * @param bool $inArchive
      * @return Post
      */
-    public function setInArchive($inArchive)
+    public function setInArchive(bool $inArchive) :Post
     {
         $this->in_archive = $inArchive;
 
@@ -237,7 +240,7 @@ class Post
      * @param User $user
      * @return Post
      */
-    public function setUser(User $user)
+    public function setUser(User $user) :Post
     {
         $this->user = $user;
 
@@ -248,7 +251,7 @@ class Post
      * @param PostImage $postImage
      * @return Post
      */
-    public function addImage(PostImage $postImage)
+    public function addImage(PostImage $postImage) :Post
     {
         if (!$this->post_image->contains($postImage)) {
             $this->post_image->add($postImage);
@@ -261,7 +264,7 @@ class Post
      * @param PostImage $postImage
      * @return Post
      */
-    public function removeImage(PostImage $postImage)
+    public function removeImage(PostImage $postImage) :Post
     {
         if ($this->post_image->contains($postImage)) {
             $this->post_image->removeElement($postImage);
@@ -274,7 +277,7 @@ class Post
      * @param PostTag $postTag
      * @return Post
      */
-    public function addPostTag(PostTag $postTag)
+    public function addPostTag(PostTag $postTag) :Post
     {
         if (!$this->post_tag->contains($postTag)) {
             $this->post_tag->add($postTag);
@@ -287,7 +290,7 @@ class Post
      * @param PostTag $postTag
      * @return Post
      */
-    public function removePostTag(PostTag $postTag)
+    public function removePostTag(PostTag $postTag) :Post
     {
         if ($this->post_tag->contains($postTag)) {
             $this->post_tag->removeElement($postTag);
@@ -301,7 +304,7 @@ class Post
      *
      * @param array $tags
      */
-    public function processTags(array $tags)
+    public function processTags(array $tags) :void
     {
         A::create($tags)->walk(function (Tag $tag) {
             if (!$this->postTagExists($tag)) {
@@ -330,10 +333,52 @@ class Post
      * @param Tag $tag
      * @return bool
      */
-    private function postTagExists(Tag $tag)
+    private function postTagExists(Tag $tag) :bool
     {
         foreach ($this->getPostTag() as $postTag) {
             if ($postTag->getTag() == $tag) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Process the images given for a post
+     *
+     * @param array $images
+     */
+    public function processImages(array $images) :void
+    {
+        A::create($images)->walk(function (Image $image) {
+            if (!$this->postImageExists($image)) {
+                $postImage = new PostImage();
+                $postImage->setPost($this)->setImage($image)->setIsCover(false);
+                $this->addImage($postImage);
+            }
+        });
+
+        $oldImageIds = A::create($this->getImages())->map(function (PostImage $postImage) {
+            return $postImage->getImage()->getId();
+        })->diff(A::create($images)->map(function (Image $image) {
+            return $image->getId();
+        })->toArray());
+
+        A::create($this->getImages())->walk(function (PostImage $postImage) use ($oldImageIds) {
+            $oldImageIds->walk(function ($oldImageId) use ($postImage) {
+                if ($postImage->getImage()->getId() == $oldImageId) $this->removeImage($postImage);
+            });
+        });
+    }
+
+    /**
+     * Checks that a image exists for a post
+     *
+     * @param Image $image
+     * @return bool
+     */
+    private function postImageExists(Image $image) :bool
+    {
+        foreach ($this->getImages() as $postImage) {
+            if ($postImage->getImage()->getId() == $image->getId()) return true;
         }
         return false;
     }

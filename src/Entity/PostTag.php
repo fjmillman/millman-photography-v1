@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -20,7 +20,7 @@ class PostTag
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -41,9 +41,9 @@ class PostTag
     protected $tag;
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -51,7 +51,7 @@ class PostTag
     /**
      * @return Post $post
      */
-    public function getPost()
+    public function getPost() : Post
     {
         return $this->post;
     }
@@ -59,7 +59,7 @@ class PostTag
     /**
      * @return Tag $tag
      */
-    public function getTag()
+    public function getTag() : Tag
     {
         return $this->tag;
     }
@@ -68,7 +68,7 @@ class PostTag
      * @param Post $post
      * @return PostTag
      */
-    public function setPost(Post $post)
+    public function setPost(Post $post) : PostTag
     {
         $this->post = $post;
 
@@ -79,7 +79,7 @@ class PostTag
      * @param Tag $tag
      * @return PostTag
      */
-    public function setTag(Tag $tag)
+    public function setTag(Tag $tag) : PostTag
     {
         $this->tag = $tag;
 

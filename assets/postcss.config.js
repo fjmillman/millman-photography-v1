@@ -4,7 +4,7 @@ module.exports = ctx => ({
         require('postcss-url')({ url: 'inline' }),
         require('postcss-cssnext')(),
         require('cssnano')({ autoprefixer: false }),
-        require("postcss-browser-reporter")(),
-        require("postcss-reporter")()
+        require('postcss-browser-reporter')(),
+        require('postcss-reporter')()
     ]
 });

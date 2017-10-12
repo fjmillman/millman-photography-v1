@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography;
 
@@ -56,9 +56,10 @@ class Mailer
      * @param string $template
      * @param array $data
      * @param $callback
+     * @return void
      * @throws MailerException
      */
-    public function send($template, array $data, $callback)
+    public function send(string $template, array $data, $callback) : void
     {
         $message = new SwiftMessage($this->mailer);
 

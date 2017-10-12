@@ -2,7 +2,11 @@
 
 <?php $this->start('page') ?>
     <!-- Background -->
-    <div id="background-image" class="background-image" style="background-image: url('<?= $this->baseUrl($this->asset('img/ashness-jetty.jpg')) ?>')"></div>
+    <div data-responsive-background-image>
+        <img id="background-image"
+             src="<?= $this->baseUrl($this->getUrl(isset($image) ? $image : '', ['w' => '1024'])) ?>"
+             data-image-data=<?= isset($imageData) ? $imageData : '' ?>>
+    </div>
 
     <!-- Header -->
     <span class="anchor" id="top"></span>
@@ -114,17 +118,17 @@
                 </div>
             </div>
             <div class="row service-group">
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-4 col-lg-4">
                     <i class="fa fa-camera fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Photography</h4>
                     <p class="text-white">Perhaps you would like to give me my next challenge and commission me to capture a scene</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-4 col-lg-4">
                     <i class="fa fa-battery fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Events</h4>
                     <p class="text-white">If you would like me to photography an event, please get in touch with me</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-4 col-lg-4">
                     <i class="fa fa-print fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Prints</h4>
                     <p class="text-white">My photography is available to you as prints and canvases, just let me know what you would like</p>
@@ -145,12 +149,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form id="enquiry-form" method="post" action="/enquiry" role="form">
+                    <form class="enquiry-form" method="post" action="/enquiry">
                         <?php $this->insert('partials/csrf', ['csrf' => $csrfToken]) ?>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="name" type="text" class="form-control" placeholder="Name *" id="name" required data-validation-required-message="Please enter your name.">
+                                    <input name="name" class="form-control" placeholder="Name *" id="name" required data-validation-required-message="Please enter your name.">
                                 </div>
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control" placeholder="Email *" id="email" required data-validation-required-message="Please enter your email address.">
@@ -162,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button id="submit" type="submit" name="submit" value="submit" class="btn btn-xl submit">Send Message</button>
+                                <button name="submit" value="submit" class="btn btn-xl submit">Send Message</button>
                             </div>
                         </div>
                     </form>

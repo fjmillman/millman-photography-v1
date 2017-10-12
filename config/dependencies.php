@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 use RKA\Session;
 use Slim\Container;
@@ -8,11 +8,14 @@ use Projek\Slim\Monolog;
 use Slim\Csrf\Guard as Csrf;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use League\Glide\ServerFactory;
 use Swift_Mailer as SwiftMailer;
 use Projek\Slim\PlatesExtension;
 use League\CommonMark\CommonMarkConverter;
 use Swift_SmtpTransport as SwiftSmtpTransport;
+use League\Glide\Responses\SlimResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;
+use League\Glide\Urls\UrlBuilderFactory as UrlBuilder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Mailer;
@@ -23,30 +26,42 @@ use MillmanPhotography\Middleware\TagLocator;
 use MillmanPhotography\Resource\ImageResource;
 use MillmanPhotography\Middleware\PostLocator;
 use MillmanPhotography\Validator\PostValidator;
+use MillmanPhotography\Middleware\ImageLocator;
 use MillmanPhotography\Middleware\UserProvider;
 use MillmanPhotography\Resource\GalleryResource;
 use MillmanPhotography\Resource\EnquiryResource;
+use MillmanPhotography\Validator\ImageValidator;
 use MillmanPhotography\Controller\TagController;
+use MillmanPhotography\Middleware\GalleryLocator;
 use MillmanPhotography\Controller\BlogController;
 use MillmanPhotography\Controller\PostController;
+use MillmanPhotography\Validator\GalleryValidator;
+use MillmanPhotography\Controller\ImageController;
 use MillmanPhotography\Controller\LoginController;
 use MillmanPhotography\Validator\EnquiryValidator;
-use MillmanPhotography\Controller\AdminController;
 use MillmanPhotography\Middleware\CsrfTokenHeader;
 use MillmanPhotography\Controller\IndexController;
 use MillmanPhotography\Controller\GalleryController;
 use MillmanPhotography\Controller\EnquiryController;
 use MillmanPhotography\Controller\ArchiveController;
 use MillmanPhotography\Middleware\CsrfTokenProvider;
+use MillmanPhotography\Extension\UrlBuilderExtension;
 use MillmanPhotography\Validator\RegistrationValidator;
 use MillmanPhotography\Controller\RegistrationController;
 use MillmanPhotography\Middleware\AuthorisationMiddleware;
 
 $container = $millmanphotography->getContainer();
 
+$container[UrlBuilderExtension::class] = function (Container $container) {
+    $urlBuilder = $container[UrlBuilder::class];
+    return new UrlBuilderExtension($urlBuilder);
+};
+
 $container[Plates::class] = function (Container $container) {
     $view = new Plates($container->get('settings')['plates']);
     $view->loadExtension(new PlatesExtension($container['router'], $container['request']->getUri()));
+    $urlBuilderExtension = $container->get(UrlBuilderExtension::class);
+    $view->loadExtension($urlBuilderExtension);
     return $view;
 };
 
@@ -88,7 +103,17 @@ $container[IndexController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryResource = $container->get(GalleryResource::class);
     $postResource = $container->get(PostResource::class);
-    return new IndexController($view, $galleryResource, $postResource);
+    $imageResource = $container->get(ImageResource::class);
+    $urlBuilder = $container->get(UrlBuilder::class);
+    return new IndexController($view, $galleryResource, $postResource, $imageResource, $urlBuilder);
+};
+
+$container[ImageController::class] = function (Container $container) {
+    $view = $container->get(Plates::class);
+    $resource = $container->get(ImageResource::class);
+    $urlBuilder = $container->get(UrlBuilder::class);
+    $validator = $container->get(ImageValidator::class);
+    return new ImageController($view, $resource, $urlBuilder, $validator);
 };
 
 $container[ImageResource::class] = function (Container $container) {
@@ -96,15 +121,59 @@ $container[ImageResource::class] = function (Container $container) {
     return new ImageResource($entityManager);
 };
 
+$container[ImageLocator::class] = function (Container $container) {
+    $resource = $container->get(ImageResource::class);
+    return new ImageLocator($resource);
+};
+
+$container[ImageValidator::class] = function (Container $container) {
+    return new ImageValidator();
+};
+
+$container[SlimResponseFactory::class] = function (Container $container) {
+    return new SlimResponseFactory();
+};
+
+$container[ServerFactory::class] = function (Container $container) {
+    $settings = $container->get('settings')['glide'];
+    return new ServerFactory([
+        'source' => $settings['source'],
+        'source_path_prefix' => $settings['source_path_prefix'],
+        'cache' => $settings['cache'],
+        'cache_path_prefix' => $settings['cache_path_prefix'],
+        'driver' => $settings['driver'],
+        'max_image_size' => $settings['max_image_size'],
+        'response' => $container->get(SlimResponseFactory::class),
+    ]);
+};
+
+$container[UrlBuilder::class] = function (Container $container) {
+    $settings = $container->get('settings')['glide'];
+    return UrlBuilder::create('/img/', $settings['sign_key']);
+};
+
 $container[GalleryController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $galleryResource = $container->get(GalleryResource::class);
-    return new GalleryController($view, $galleryResource);
+    $imageResource = $container->get(ImageResource::class);
+    $urlBuilder = $container->get(UrlBuilder::class);
+    $validator = $container->get(GalleryValidator::class);
+    $logger = $container->get(Monolog::class);
+    return new GalleryController($view, $galleryResource, $imageResource, $urlBuilder, $validator, $logger);
+};
+
+$container[GalleryLocator::class] = function (Container $container) {
+    $resource = $container->get(GalleryResource::class);
+    return new GalleryLocator($resource);
 };
 
 $container[GalleryResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new GalleryResource($entityManager);
+};
+
+$container[GalleryValidator::class] = function (Container $container) {
+    return new GalleryValidator();
 };
 
 $container[TagResource::class] = function (Container $container) {
@@ -123,7 +192,6 @@ $container[TagController::class] = function (Container $container) {
     return new TagController($view, $resource);
 };
 
-
 $container[BlogController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $postResource = $container->get(PostResource::class);
@@ -139,11 +207,22 @@ $container[PostLocator::class] = function (Container $container) {
 $container[PostController::class] = function (Container $container) {
     $view = $container->get(Plates::class);
     $postResource = $container->get(PostResource::class);
+    $imageResource = $container->get(ImageResource::class);
+    $urlBuilder = $container->get(UrlBuilder::class);
     $tagResource = $container->get(TagResource::class);
     $markdown = $container->get(CommonMarkConverter::class);
     $validator = $container->get(PostValidator::class);
     $logger = $container->get(Monolog::class);
-    return new PostController($view, $postResource, $tagResource, $markdown, $validator, $logger);
+    return new PostController(
+        $view,
+        $postResource,
+        $imageResource,
+        $urlBuilder,
+        $tagResource,
+        $markdown,
+        $validator,
+        $logger
+    );
 };
 
 $container[CommonMarkConverter::class] = function (Container $container) {
@@ -183,11 +262,6 @@ $container[EnquiryResource::class] = function (Container $container) {
     return new EnquiryResource($entityManager);
 };
 
-$container[AdminController::class] = function (Container $container) {
-    $view = $container->get(Plates::class);
-    return new AdminController($view);
-};
-
 $container[UserResource::class] = function (Container $container) {
     $entityManager = $container->get(EntityManager::class);
     return new UserResource($entityManager);
@@ -196,8 +270,7 @@ $container[UserResource::class] = function (Container $container) {
 $container[AuthorisationMiddleware::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $resource = $container->get(UserResource::class);
-    $logger = $container->get(Monolog::class);
-    return new AuthorisationMiddleware($session, $resource, $logger);
+    return new AuthorisationMiddleware($session, $resource);
 };
 
 $container[RegistrationController::class] = function (Container $container) {
@@ -275,6 +348,26 @@ $container[CsrfTokenHeader::class] = function (Container $container) {
 
 if (!$container->get('settings')['displayErrorDetails']) {
     $container['errorHandler'] = function (Container $container) {
+        return function (Request $request, Response $response, Exception $exception) use ($container) {
+            $logger = $container->get(Monolog::class);
+            $message = $exception->getMessage();
+            $file = $exception->getFile();
+            $line = $exception->getLine();
+            $logger->log(100, $message . ' in ' . $file . ' on line ' . $line);
+            $view = $container->get(Plates::class);
+            $view->setResponse($response->withStatus(400));
+            return $view->render(
+                'error',
+                [
+                    'code' => '400',
+                    'title' => 'Bad Request',
+                    'message' => 'Get in touch with me to find out why this is happening.',
+                ]
+            );
+        };
+    };
+
+    $container['phpErrorHandler'] = function (Container $container) {
         return function (Request $request, Response $response, Exception $exception) use ($container) {
             $logger = $container->get(Monolog::class);
             $message = $exception->getMessage();

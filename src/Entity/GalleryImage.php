@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
@@ -20,12 +20,12 @@ class GalleryImage
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="gallery_image")
+     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="gallery_image", cascade={"persist"})
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", nullable=false)
      *
      * @var Gallery $gallery
@@ -33,7 +33,7 @@ class GalleryImage
     protected $gallery;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Image", inversedBy="gallery_image")
+     * @ORM\ManyToOne(targetEntity="Image", inversedBy="gallery_image", cascade={"persist"})
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=false)
      *
      * @var Image $image
@@ -43,14 +43,14 @@ class GalleryImage
     /**
      * @ORM\Column(type="boolean")
      *
-     * @var boolean $is_cover
+     * @var bool $is_cover
      */
     protected $is_cover;
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() :int
     {
         return $this->id;
     }
@@ -58,7 +58,7 @@ class GalleryImage
     /**
      * @return Gallery $gallery
      */
-    public function getGallery()
+    public function getGallery() :Gallery
     {
         return $this->gallery;
     }
@@ -66,43 +66,49 @@ class GalleryImage
     /**
      * @return Image $image
      */
-    public function getImage()
+    public function getImage() :Image
     {
         return $this->image;
     }
 
     /**
-     * @return boolean $is_cover
+     * @return bool $is_cover
      */
-    public function getIsCover()
+    public function getIsCover() :bool
     {
         return $this->is_cover;
     }
 
     /**
      * @param Gallery $gallery
-     * @return void
+     * @return GalleryImage
      */
-    public function setGallery(Gallery $gallery)
+    public function setGallery(Gallery $gallery) :GalleryImage
     {
         $this->gallery = $gallery;
+
+        return $this;
     }
 
     /**
      * @param Image $image
-     * @return void
+     * @return GalleryImage
      */
-    public function setImage(Image $image)
+    public function setImage(Image $image) :GalleryImage
     {
         $this->image = $image;
+
+        return $this;
     }
 
     /**
-     * @param $isCover
-     * @return void
+     * @param bool $isCover
+     * @return GalleryImage
      */
-    public function setIsCover($isCover)
+    public function setIsCover(bool $isCover) :GalleryImage
     {
         $this->is_cover = $isCover;
+
+        return $this;
     }
 }

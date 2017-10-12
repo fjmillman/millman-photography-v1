@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Exception;
 
@@ -6,10 +6,12 @@ use Exception;
 
 class UploadException extends Exception
 {
+    const INCORRECT_FILE_FORMAT = 9;
+
     /**
-     * int $code
+     * @param int $code
      */
-    public function __construct($code) {
+    public function __construct(int $code) {
         $message = $this->codeToMessage($code);
         parent::__construct($message, $code);
     }
@@ -18,7 +20,7 @@ class UploadException extends Exception
      * @param $code
      * @return string $message
      */
-    private function codeToMessage($code)
+    private function codeToMessage($code) :string
     {
         switch ($code) {
             case UPLOAD_ERR_INI_SIZE:
@@ -35,6 +37,8 @@ class UploadException extends Exception
                 return "Failed to write file to disk";
             case UPLOAD_ERR_EXTENSION:
                 return "File upload stopped by extension";
+            case self::INCORRECT_FILE_FORMAT:
+                return 'The file uploaded is not in the correct format.';
             default:
                 return "Unknown upload error";
         }

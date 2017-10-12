@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Controller;
 
@@ -48,7 +48,7 @@ class RegistrationController
      * @param Response $response
      * @return ResponseInterface
      */
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response) :ResponseInterface
     {
         if (!empty($this->session->get('token'))) {
             return $response->withStatus(302)->withHeader('Location', '/admin');
@@ -62,9 +62,9 @@ class RegistrationController
     /**
      * @param Request $request
      * @param Response $response
-     * @return ResponseInterface
+     * @return Response
      */
-    public function register(Request $request, Response $response)
+    public function register(Request $request, Response $response) :Response
     {
         $data = $request->getParsedBody();
 

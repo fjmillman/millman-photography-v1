@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Middleware;
 
@@ -25,7 +25,7 @@ class CsrfTokenHeader
      * @param  callable $next
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next) :Response
     {
         $request = $this->csrf->generateNewToken($request);
 

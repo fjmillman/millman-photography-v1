@@ -1,48 +1,58 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Validator;
 
-use function Stringy\Create as S;
-use Arrayzy\ArrayImitator as A;
-use Respect\Validation\Validator as V;
-use Respect\Validation\Exceptions\NestedValidationException;
+use Schemer\Validator as V;
+use Schemer\Formatter as F;
+use Schemer\Validator\ValidatorInterface;
+use Schemer\Formatter\FormatterInterface;
 
-class EnquiryValidator
+class EnquiryValidator implements Validator
 {
-    /** @var Validator $validator */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /** @var array $errors */
+    /**  @var FormatterInterface */
+    private $formatter;
+
+    /** @var array */
     private $errors = [];
 
     public function __construct()
     {
-        $this->validator =
-            V::key('name', V::stringType())
-             ->key('email', V::stringType()->email())
-             ->key('message', V::stringType());
+        $this->validator = V::assoc([
+            'Name' => V::text()->max(50),
+            'Email' => V::text()->email(),
+            'Message' => V::text()->min(3)->max(250),
+        ]);
+
+        $this->formatter = F::assoc([
+            'name' => F::text(),
+            'email' => F::text(),
+            'message' => F::text(),
+        ])->renameMany([
+            'name' => 'Name',
+            'email' => 'Email',
+            'message' => 'Message',
+        ]);
     }
 
     /**
-     * @param array $data
+     * @param array $enquiryDetails
      * @return bool
      */
-    public function isValid(array $data)
+    public function isValid(array $enquiryDetails) : bool
     {
-        try {
-            return $this->validator->assert($data);
-        } catch (NestedValidationException $exception) {
-            $this->errors = A::create($exception->getMessages())->map(function ($message) {
-                return (string) S($message)->upperCaseFirst();
-            })->toArray();
-            return false;
-        }
+        $detailsToValidate = $this->formatter->format($enquiryDetails);
+        $result = $this->validator->validate($detailsToValidate);
+        $this->errors = $result->errors();
+        return !$result->isError();
     }
 
     /**
      * @return array
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         return $this->errors;
     }

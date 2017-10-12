@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use function Stringy\Create as S;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -22,9 +23,16 @@ class Image
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     *
+     * @var string $title
+     */
+    protected $title;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -41,14 +49,21 @@ class Image
     protected $caption;
 
     /**
-     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="image")
+     * @ORM\OneToOne(targetEntity="ShowcaseImage", mappedBy="image", orphanRemoval=true, cascade={"persist"})
+     *
+     * @var ShowcaseImage
+     */
+    protected $showcase_image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="image", orphanRemoval=true, cascade={"persist"})
      *
      * @var Collection
      */
     protected $gallery_image;
 
     /**
-     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="image")
+     * @ORM\OneToMany(targetEntity="PostImage", mappedBy="image", orphanRemoval=true, cascade={"persist"})
      *
      * @var Collection
      */
@@ -61,17 +76,25 @@ class Image
     }
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() :int
     {
         return $this->id;
     }
 
     /**
+     * @return string $title
+     */
+    public function getTitle() :string
+    {
+        return $this->title;
+    }
+
+    /**
      * @return string $filename
      */
-    public function getFilename()
+    public function getFilename() :string
     {
         return $this->filename;
     }
@@ -79,15 +102,23 @@ class Image
     /**
      * @return string $caption
      */
-    public function getCaption()
+    public function getCaption() :string
     {
         return $this->caption;
     }
 
     /**
+     * @return ShowcaseImage $showcase_image
+     */
+    public function getShowcaseImage() : ? ShowcaseImage
+    {
+        return $this->showcase_image;
+    }
+
+    /**
      * @return array $gallery_image
      */
-    public function getGalleries()
+    public function getGalleries() :array
     {
         return $this->gallery_image->toArray();
     }
@@ -95,18 +126,32 @@ class Image
     /**
      * @return array $post_image
      */
-    public function getPosts()
+    public function getPosts() :array
     {
         return $this->post_image->toArray();
     }
 
     /**
-     * @param string $filename
+     * @param string $title
      * @return Image
      */
-    public function setFilename($filename)
+    public function setTitle($title) :Image
     {
-        $this->filename = $filename;
+        $this->title = $title;
+
+        if (!$this->filename) {
+            $this->filename = (string) S($title)->slugify();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Image
+     */
+    public function regenerateFilename() :Image
+    {
+        $this->filename = (string) S($this->filename . ' ' . time())->slugify();
 
         return $this;
     }
@@ -115,7 +160,7 @@ class Image
      * @param string $caption
      * @return Image
      */
-    public function setCaption($caption)
+    public function setCaption(string $caption) :Image
     {
         $this->caption = $caption;
 
@@ -126,7 +171,7 @@ class Image
      * @param GalleryImage $galleryImage
      * @return Image
      */
-    public function addGallery(GalleryImage $galleryImage)
+    public function addGallery(GalleryImage $galleryImage) :Image
     {
         if (!$this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->add($galleryImage);
@@ -139,7 +184,7 @@ class Image
      * @param GalleryImage $galleryImage
      * @return Image
      */
-    public function removeGallery(GalleryImage $galleryImage)
+    public function removeGallery(GalleryImage $galleryImage) :Image
     {
         if ($this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->removeElement($galleryImage);
@@ -152,7 +197,7 @@ class Image
      * @param PostImage $postImage
      * @return Image
      */
-    public function addPost(PostImage $postImage)
+    public function addPost(PostImage $postImage) :Image
     {
         if (!$this->post_image->contains($postImage)) {
             $this->post_image->add($postImage);
@@ -165,7 +210,7 @@ class Image
      * @param PostImage $postImage
      * @return Image
      */
-    public function removePost(PostImage $postImage)
+    public function removePost(PostImage $postImage) :Image
     {
         if ($this->post_image->contains($postImage)) {
             $this->post_image->removeElement($postImage);

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Tests\Unit\Validator;
 
@@ -14,11 +14,13 @@ class PostValidatorTest extends TestCase
     public function testItPassesWhenTitleDescriptionAndBodyAreValid()
     {
         $validator = new PostValidator();
+
         $data = [
             'title' => 'This is a Title',
-            'description' => 'This is a description',
+            'description' => 'This is a description.',
             'body' => 'This is the body of the blog post.',
         ];
+
         $this->assertTrue($validator->isValid($data));
         $this->assertEmpty($validator->getErrors());
     }

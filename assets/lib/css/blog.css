@@ -1,3 +1,8 @@
 .blog-post {
-  padding: 15px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+}
+
+.post-image {
+  max-height: 450px;
 }

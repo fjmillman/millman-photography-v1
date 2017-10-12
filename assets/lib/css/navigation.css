@@ -1,6 +1,6 @@
-/**************************/
-/*   Navigation Styles    */
-/**************************/
+/***************************/
+/*    Navigation Styles    */
+/***************************/
 nav {
   position: fixed;
   top: 0;
@@ -16,6 +16,23 @@ nav {
 .logo {
   height: 50px;
   width: 130px;
+}
+
+@media (max-width: 575px) {
+  .nav-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.nav-button {
+  &:hover {
+    background: none;
+    color: gray;
+  }
+  &:focus {
+    color: lightgray;
+  }
 }
 
 .navigation {
@@ -81,4 +98,9 @@ nav {
 .underline:hover:after {
   height: 1px;
   background: #000000;
+}
+
+.fix-right {
+  position: absolute;
+  right: 0;
 }

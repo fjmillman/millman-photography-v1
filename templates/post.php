@@ -52,6 +52,14 @@
                 </div>
             </div>
         </div>
+        <?php if (isset($imageData)): ?>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="section-subheading text-muted">Check out the gallery for this post</h3>
+                    <div id="lightbox-gallery" class="gallery-set" data-image-data='<?= isset($imageData) ? $imageData : '' ?>'></div>
+                </div>
+            </div>
+        <?php endif ?>
         <?php if (isset($next) || isset($previous))
             $this->insert('partials/pagination', ['next' => $next, 'previous' => $previous])
         ?>

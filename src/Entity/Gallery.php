@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Entity;
 
+use Arrayzy\ArrayImitator as A;
 use Doctrine\ORM\Mapping as ORM;
+use Dotenv\Dotenv;
+use Projek\Slim\Monolog;
 use function Stringy\Create as S;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,7 +26,7 @@ class Gallery
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer $id
+     * @var int $id
      */
     protected $id;
 
@@ -51,12 +54,12 @@ class Gallery
     /**
      * @ORM\Column(type="boolean")
      *
-     * @var boolean $is_front
+     * @var bool $is_front
      */
     protected $is_front;
 
     /**
-     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="gallery")
+     * @ORM\OneToMany(targetEntity="GalleryImage", mappedBy="gallery", orphanRemoval=true, cascade={"persist"})
      *
      * @var Collection
      */
@@ -68,9 +71,9 @@ class Gallery
     }
 
     /**
-     * @return integer $id
+     * @return int $id
      */
-    public function getId()
+    public function getId() :int
     {
         return $this->id;
     }
@@ -78,7 +81,7 @@ class Gallery
     /**
      * @return string $slug
      */
-    public function getSlug()
+    public function getSlug() :string
     {
         return $this->slug;
     }
@@ -86,7 +89,7 @@ class Gallery
     /**
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle() :string
     {
         return $this->title;
     }
@@ -94,15 +97,15 @@ class Gallery
     /**
      * @return string $description
      */
-    public function getDescription()
+    public function getDescription() :string
     {
         return $this->description;
     }
 
     /**
-     * @return boolean $is_front
+     * @return bool $is_front
      */
-    public function getIsFront()
+    public function getIsFront() :bool
     {
         return $this->is_front;
     }
@@ -110,7 +113,7 @@ class Gallery
     /**
      * @return array $gallery_image
      */
-    public function getImages()
+    public function getImages() :array
     {
         return $this->gallery_image->toArray();
     }
@@ -118,20 +121,35 @@ class Gallery
     /**
      * @return string $filename
      */
-    public function getCoverImage()
+    public function getCoverImage() :string
     {
-        foreach ($this->getImages() as $postImage) {
-            if (!$postImage->getIsCover()) continue;
-            return $postImage->getImage()->getFilename();
+        foreach ($this->getImages() as $galleryImage) {
+            if (!$galleryImage->getIsCover()) continue;
+            return $galleryImage->getImage()->getFilename();
         }
 
         return 'missing';
     }
 
     /**
+     * @return array
+     */
+    public function getImageData() :array
+    {
+        return A::create($this->getImages())->map(function (GalleryImage $galleryImage) {
+            list($width, $height) = getimagesize('img/' . $galleryImage->getImage()->getFilename() . '.jpg');
+            return [
+                'src' => '/img/' . $galleryImage->getImage()->getFilename() . '.jpg',
+                'height' => $height,
+                'width' => $width,
+            ];
+        })->toArray();
+    }
+
+    /**
      * @return Gallery
      */
-    public function regenerateSlug()
+    public function regenerateSlug() :Gallery
     {
         $this->slug = (string) S($this->title . ' ' . time())->slugify();
 
@@ -142,7 +160,7 @@ class Gallery
      * @param string $title
      * @return Gallery
      */
-    public function setTitle($title)
+    public function setTitle(string $title) :Gallery
     {
         $this->title = $title;
 
@@ -157,7 +175,7 @@ class Gallery
      * @param string $description
      * @return Gallery
      */
-    public function setDescription($description)
+    public function setDescription(string $description) :Gallery
     {
         $this->description = $description;
 
@@ -168,7 +186,7 @@ class Gallery
      * @param boolean $isFront
      * @return Gallery
      */
-    public function setIsFront($isFront)
+    public function setIsFront(bool $isFront) :Gallery
     {
         $this->is_front = $isFront;
 
@@ -179,7 +197,7 @@ class Gallery
      * @param GalleryImage $galleryImage
      * @return Gallery
      */
-    public function addImage(GalleryImage $galleryImage)
+    public function addImage(GalleryImage $galleryImage) :Gallery
     {
         if (!$this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->add($galleryImage);
@@ -192,12 +210,54 @@ class Gallery
      * @param GalleryImage $galleryImage
      * @return Gallery
      */
-    public function removeImage(GalleryImage $galleryImage)
+    public function removeImage(GalleryImage $galleryImage) :Gallery
     {
         if ($this->gallery_image->contains($galleryImage)) {
             $this->gallery_image->removeElement($galleryImage);
         }
 
         return $this;
+    }
+
+    /**
+     * Process the images given for a gallery
+     *
+     * @param array $images
+     */
+    public function processImages(array $images) :void
+    {
+        A::create($images)->walk(function (Image $image) {
+            if (!$this->galleryImageExists($image)) {
+                $galleryImage = new GalleryImage();
+                $galleryImage->setGallery($this)->setImage($image)->setIsCover(false);
+                $this->addImage($galleryImage);
+            }
+        });
+
+        $oldImageIds = A::create($this->getImages())->map(function (GalleryImage $galleryImage) {
+            return $galleryImage->getImage()->getId();
+        })->diff(A::create($images)->map(function (Image $image) {
+            return $image->getId();
+        })->toArray());
+
+        A::create($this->getImages())->walk(function (GalleryImage $galleryImage) use ($oldImageIds) {
+            $oldImageIds->walk(function ($oldImageId) use ($galleryImage) {
+                if ($galleryImage->getImage()->getId() == $oldImageId) $this->removeImage($galleryImage);
+            });
+        });
+    }
+
+    /**
+     * Checks that a image exists for a post
+     *
+     * @param Image $image
+     * @return bool
+     */
+    private function galleryImageExists(Image $image) :bool
+    {
+        foreach ($this->getImages() as $galleryImage) {
+            if ($galleryImage->getImage()->getId() == $image->getId()) return true;
+        }
+        return false;
     }
 }

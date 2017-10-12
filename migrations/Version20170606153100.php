@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MillmanPhotography\Migrations;
 
@@ -31,6 +31,7 @@ class Version20170606153100 extends AbstractMigration
         $images = [
             [
                 'id' => 1,
+                'title' => 'Swaledale',
                 'caption' => 'The Beauty of the Yorkshire Dales',
                 'filename' => 'swaledale',
                 'date_created' => '2017-06-06 15:00:00',
@@ -38,6 +39,7 @@ class Version20170606153100 extends AbstractMigration
             ],
             [
                 'id' => 2,
+                'title' => 'Northumberland',
                 'caption' => 'The Light of the North',
                 'filename' => 'northumberland',
                 'date_created' => '2017-06-06 15:00:00',
@@ -45,6 +47,7 @@ class Version20170606153100 extends AbstractMigration
             ],
             [
                 'id' => 3,
+                'title' => 'Ashness Jetty',
                 'caption' => 'The Reflection in the Lakes',
                 'filename' => 'ashness-jetty',
                 'date_created' => '2017-06-06 15:00:00',
@@ -54,9 +57,38 @@ class Version20170606153100 extends AbstractMigration
 
         foreach ($images as $image) {
             $this->addSql(
-                'INSERT INTO `image` (`id`, `caption`, `filename`, `date_created`, `date_modified`)
-                 VALUES (:id, :caption, :filename, :date_created, :date_modified)',
+                'INSERT INTO `image` (`id`, `title`, `caption`, `filename`, `date_created`, `date_modified`)
+                 VALUES (:id, :title, :caption, :filename, :date_created, :date_modified)',
                 $image
+            );
+        }
+
+        $showcaseImages = [
+            [
+                'id' => 1,
+                'image_id' => 1,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 2,
+                'image_id' => 2,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+            [
+                'id' => 3,
+                'image_id' => 3,
+                'date_created' => '2017-06-06 15:00:00',
+                'date_modified' => '2017-06-06 15:00:00',
+            ],
+        ];
+
+        foreach ($showcaseImages as $showcaseImage) {
+            $this->addSql(
+                'INSERT INTO `showcase_image` (`id`, `image_id`, `date_created`, `date_modified`)
+                 VALUES (:id, :image_id, :date_created, :date_modified)',
+                $showcaseImage
             );
         }
 

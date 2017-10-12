@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Resource;
 
@@ -13,7 +13,7 @@ class TagResource extends Resource
      *
      * @return array
      */
-    public function get()
+    public function get() :array
     {
         return $this->entityManager->getRepository(Tag::class)->findAll();
     }
@@ -24,7 +24,7 @@ class TagResource extends Resource
      * @param int $id
      * @return object
      */
-    public function getById($id)
+    public function getById(int $id) :object
     {
         return $this->entityManager->getRepository(Tag::class)->find($id);
     }
@@ -33,9 +33,9 @@ class TagResource extends Resource
      * Get a tag by slug
      *
      * @param string $slug
-     * @return object
+     * @return Tag
      */
-    public function getBySlug($slug)
+    public function getBySlug(string $slug) :Tag
     {
         return $this->entityManager->getRepository(Tag::class)->findOneBy(['slug' => $slug]);
     }
@@ -46,7 +46,7 @@ class TagResource extends Resource
      * @param Tag $tag
      * @return Tag
      */
-    public function getPrevious(Tag $tag)
+    public function getPrevious(Tag $tag) :?Tag
     {
         return $this->entityManager->createQueryBuilder()
             ->select('t')
@@ -66,7 +66,7 @@ class TagResource extends Resource
      * @param Tag $tag
      * @return Tag
      */
-    public function getNext(Tag $tag)
+    public function getNext(Tag $tag) :?Tag
     {
         return $this->entityManager->createQueryBuilder()
             ->select('t')
@@ -87,7 +87,7 @@ class TagResource extends Resource
      * @param array $newTagNames
      * @return array
      */
-    public function process(array $newTagNames, array $existingTagIds = [])
+    public function process(array $newTagNames, array $existingTagIds) :array
     {
         $existingTags = $this->entityManager->getRepository(Tag::class)->findBy(['id' => $existingTagIds]);
 
@@ -109,7 +109,7 @@ class TagResource extends Resource
      * @param array $data
      * @return string $slug
      */
-    public function create(array $data)
+    public function create(array $data) :string
     {
         $tag = new Tag();
 
@@ -128,7 +128,7 @@ class TagResource extends Resource
      * @param array $data
      * @return string $slug
      */
-    public function update(Tag $tag, array $data)
+    public function update(Tag $tag, array $data) :string
     {
         $tag->setName($data['name']);
 
@@ -143,7 +143,7 @@ class TagResource extends Resource
      *
      * @param Tag $tag
      */
-    public function delete(Tag $tag)
+    public function delete(Tag $tag) :void
     {
         $this->entityManager->remove($tag);
         $this->entityManager->flush();

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MillmanPhotography\Middleware;
 
@@ -32,10 +32,10 @@ class AuthorisationMiddleware
      * @param callable $next
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next) :Response
     {
         if ($token = $this->session->get('token')) {
-            $user = $this->userResource->getByToken($token);
+            $user = $this->userResource->getByToken(isset($token) ? $token : '');
             if ($user && $user->getIsAdmin() === true) {
                 return $next($request->withAttribute('user', $user), $response);
             }
