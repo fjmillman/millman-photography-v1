@@ -1,0 +1,16 @@
+/**************************/
+/*    General Styles      */
+/**************************/
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+.small {
+  font-size: small;
+}
+
+.message {
+  background: #c3c3c3;
+  font-style: italic;
+}

@@ -1,0 +1,45 @@
+{
+  "require": {
+    "slim/slim": "^3.8",
+    "slim/csrf": "^0.8.1",
+    "doctrine/orm": "^2.5",
+    "monolog/monolog": "^1.22",
+    "vlucas/phpdotenv": "^2.4",
+    "doctrine/migrations": "^1.4",
+    "jdorn/sql-formatter": "^1.2",
+    "projek-xyz/slim-plates": "^0.2.2",
+    "projek-xyz/slim-monolog": "^0.1.6",
+    "akrabat/rka-slim-session-middleware": "^2.0",
+    "danielstjules/stringy": "^3.0",
+    "bocharsky-bw/arrayzy": "^0.6.1",
+    "swiftmailer/swiftmailer": "^5.0",
+    "pelago/emogrifier": "^1.2",
+    "league/commonmark": "^0.15.4",
+    "i-am-tom/schemer": "^2.1",
+    "league/glide-slim": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  },
+  "autoload": {
+    "config": {
+      "optimize-autoloader": true
+    },
+    "psr-4": {
+      "MillmanPhotography\\": "src/",
+      "MillmanPhotography\\Migrations\\": "migrations/"
+    }
+  },
+  "autoload-dev": {
+    "config": {
+      "optimize-autoloader": true
+    },
+    "psr-4": {
+      "MillmanPhotography\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit tests/Unit/",
+    "migrate": "doctrine-migrations migrations:migrate"
+  }
+}

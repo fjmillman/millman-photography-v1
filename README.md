@@ -1,2 +1,8 @@
 # Millman Photography
-The next big thing in photography.
+A playground of development.
+
+Resources:
+* Slim Framework
+* Bootstrap
+* Plates
+* JQuery

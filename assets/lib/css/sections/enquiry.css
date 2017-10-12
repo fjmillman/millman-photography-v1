@@ -1,0 +1,11 @@
+/**************************/
+/*     Enquiry Styles     */
+/**************************/
+.enquiry {
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.enquiry .section-heading {
+  color: rgb(0, 0, 0);
+}

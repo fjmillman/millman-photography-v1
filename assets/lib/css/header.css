@@ -1,0 +1,38 @@
+/**************************/
+/*     Header Styles      */
+/**************************/
+header {
+  height: 95vh;
+  padding: 50px;
+  z-index: 0;
+}
+
+@media (max-width: 540px) {
+  header {
+    padding: 50px 0 0 0;
+  }
+}
+
+.banner {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 20px;
+}
+
+.signature {
+  max-height: 100px;
+  max-width: 260px;
+  width: auto;
+  height: auto;
+}
+
+.header-heading {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: xx-large;
+  font-weight: 100;
+}
+
+.header-subheading {
+  color: rgb(80, 80, 80);
+  font-size: medium;
+  letter-spacing: 0.01em;
+}

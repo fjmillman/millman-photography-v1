@@ -1,0 +1,11 @@
+/**************************/
+/*     Gallery Styles     *
+/**************************/
+.gallery {
+  background-color: white;
+  z-index: 1;
+}
+
+.gallery .section-heading {
+  color: rgb(0, 0, 0);
+}

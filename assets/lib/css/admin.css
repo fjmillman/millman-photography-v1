@@ -1,0 +1,15 @@
+/**************************/
+/*  Admin Button Styles  */
+/**************************/
+a.admin-button {
+  font-size: 15px;
+  text-align: center;
+  color: #000000;
+  transition: all .3s;
+}
+
+a.admin-button:hover,
+a.admin-button:focus,
+a.admin-button:active {
+  color: #878787;
+}

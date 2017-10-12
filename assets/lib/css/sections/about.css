@@ -1,0 +1,18 @@
+/**************************/
+/*      About Styles      */
+/**************************/
+.about {
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.about .portrait {
+  padding-top: 25px;
+  width: 450px;
+}
+
+.about .text-block {
+  padding-top: 25px;
+  max-width: 475px;
+}

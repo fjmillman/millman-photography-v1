@@ -1,0 +1,51 @@
+@import 'sections/about.css';
+@import 'sections/blog.css';
+@import 'sections/enquiry.css';
+@import 'sections/gallery.css';
+@import 'sections/services.css';
+
+/**************************/
+/*     Section Styles     */
+/**************************/
+section {
+  padding: 50px;
+}
+
+.section-heading {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.section-subheading {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: large;
+  padding-bottom: 15px;
+}
+
+.anchor {
+  display: block;
+  height: 75px;
+  margin-top: -75px;
+  visibility: hidden;
+}
+
+[data-responsive-background-image] {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  overflow: hidden;
+  transition: background 1s linear;
+  z-index: -1;
+}
+
+[data-responsive-background-image] img {
+  display: none;
+}
