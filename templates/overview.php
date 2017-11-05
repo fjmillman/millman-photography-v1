@@ -69,7 +69,7 @@
                     <div class="text-block">
                         <p>I am a Yorkshire-born student of Computer Science based in the UNESCO world heritage city of Bath in the United Kingdom.</p>
                         <p>I began my path into photography by picking up a DSLR and joining up with the University of Bath's Photography Society in my first year.</p>
-                        <p>Over the course of the year I was able advantage of the opportunities that the Photography Society had to offer.</p>
+                        <p>Over the course of the year I was able to take advantage of the opportunities that the Photography Society had to offer.</p>
                         <p>My main interests in photography lie firmly in Landscapes, although I have dabbled in Portraits, and Architecture.</p>
                         <p>Check out my work in the Gallery.</p>
                     </div>
