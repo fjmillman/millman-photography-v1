@@ -67,7 +67,7 @@
                                            aria-expanded="false"></a>
                                         <div class="dropdown-menu" aria-labelledby="blog-dropdown">
                                             <?php foreach ($section as $label => $dropdown): ?>
-                                                <?php if ($label != 'Images' && isset($user)) : ?>
+                                                <?php if ($label != 'Images'): ?>
                                                     <a class="dropdown-item" href="<?= $this->baseUrl($dropdown) ?>">
                                                         <?= $this->e($label) ?>
                                                     </a>

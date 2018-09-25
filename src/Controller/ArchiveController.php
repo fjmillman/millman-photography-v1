@@ -8,7 +8,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use MillmanPhotography\Section;
 use MillmanPhotography\Resource\PostResource;
-use MillmanPhotography\Resource\UserResource;
 
 class ArchiveController
 {
