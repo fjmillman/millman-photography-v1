@@ -16,7 +16,7 @@
                 <div class="col-lg-12 banner">
                     <img class="signature img-fluid" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
                     <h2 class="header-heading">Millman Photography</h2>
-                    <h3 class="header-subheading text-muted">Photography by Freddie John Millman</h3>
+                    <h3 class="header-subheading">Photography by Freddie John Millman</h3>
                 </div>
             </div>
         </div>
