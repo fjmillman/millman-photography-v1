@@ -126,7 +126,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <i class="fa fa-battery fa-3x text-white" aria-hidden="true"></i>
                     <h4 class="service-heading text-white">Events</h4>
-                    <p class="text-white">If you would like me to photography an event, please get in touch with me</p>
+                    <p class="text-white">If you would like me to photograph an event, please get in touch with me</p>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <i class="fa fa-print fa-3x text-white" aria-hidden="true"></i>
