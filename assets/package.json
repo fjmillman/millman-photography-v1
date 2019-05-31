@@ -2,7 +2,7 @@
   "name": "millman-photography-styles",
   "version": "1.0.0",
   "devDependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.19.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-babili": "^0.1.4",
     "babel-preset-env": "^1.6.0",
@@ -81,7 +81,9 @@
           "plugins": [
             [
               "transform-object-rest-spread",
-              { "useBuiltIns": true }
+              {
+                "useBuiltIns": true
+              }
             ]
           ]
         }

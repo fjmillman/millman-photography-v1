@@ -29,6 +29,7 @@ trait Timestamps
      * @ORM\PrePersist
      *
      * @return void
+     * @throws \Exception
      */
     public function onPrePersist() :void
     {
@@ -43,6 +44,7 @@ trait Timestamps
      * @ORM\PreUpdate
      *
      * @return void
+     * @throws \Exception
      */
     public function onPreUpdate() :void
     {

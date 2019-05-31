@@ -130,6 +130,8 @@ class ImageController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function store(Request $request, Response $response) : Response
     {
@@ -207,6 +209,8 @@ class ImageController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(Request $request, Response $response) : Response
     {
@@ -229,6 +233,8 @@ class ImageController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function delete(Request $request, Response $response) : Response
     {

@@ -2,7 +2,10 @@
 
 namespace MillmanPhotography\Resource;
 
+use Doctrine\ORM\ORMException;
 use Arrayzy\ArrayImitator as A;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\NonUniqueResultException;
 
 use MillmanPhotography\Entity\Tag;
 
@@ -22,9 +25,9 @@ class TagResource extends Resource
      * Get a tag by id
      *
      * @param int $id
-     * @return object
+     * @return Tag
      */
-    public function getById(int $id) :object
+    public function getById(int $id) :Tag
     {
         return $this->entityManager->getRepository(Tag::class)->find($id);
     }
@@ -45,6 +48,7 @@ class TagResource extends Resource
      *
      * @param Tag $tag
      * @return Tag
+     * @throws NonUniqueResultException
      */
     public function getPrevious(Tag $tag) :?Tag
     {
@@ -65,6 +69,7 @@ class TagResource extends Resource
      *
      * @param Tag $tag
      * @return Tag
+     * @throws NonUniqueResultException
      */
     public function getNext(Tag $tag) :?Tag
     {
@@ -108,6 +113,8 @@ class TagResource extends Resource
      *
      * @param array $data
      * @return string $slug
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(array $data) :string
     {
@@ -127,6 +134,8 @@ class TagResource extends Resource
      * @param Tag $tag
      * @param array $data
      * @return string $slug
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function update(Tag $tag, array $data) :string
     {
@@ -142,6 +151,8 @@ class TagResource extends Resource
      * Delete an existing tag
      *
      * @param Tag $tag
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Tag $tag) :void
     {

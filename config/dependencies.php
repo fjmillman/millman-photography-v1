@@ -71,7 +71,7 @@ $container['Plates::body'] = function (Container $container) {
     return $view;
 };
 
-$container[Session::class] = function (Container $container) {
+$container[Session::class] = function () {
     return new Session();
 };
 
@@ -126,11 +126,11 @@ $container[ImageLocator::class] = function (Container $container) {
     return new ImageLocator($resource);
 };
 
-$container[ImageValidator::class] = function (Container $container) {
+$container[ImageValidator::class] = function () {
     return new ImageValidator();
 };
 
-$container[SlimResponseFactory::class] = function (Container $container) {
+$container[SlimResponseFactory::class] = function () {
     return new SlimResponseFactory();
 };
 
@@ -172,7 +172,7 @@ $container[GalleryResource::class] = function (Container $container) {
     return new GalleryResource($entityManager);
 };
 
-$container[GalleryValidator::class] = function (Container $container) {
+$container[GalleryValidator::class] = function () {
     return new GalleryValidator();
 };
 
@@ -212,7 +212,6 @@ $container[PostController::class] = function (Container $container) {
     $tagResource = $container->get(TagResource::class);
     $markdown = $container->get(CommonMarkConverter::class);
     $validator = $container->get(PostValidator::class);
-    $logger = $container->get(Monolog::class);
     return new PostController(
         $view,
         $postResource,
@@ -220,8 +219,7 @@ $container[PostController::class] = function (Container $container) {
         $urlBuilder,
         $tagResource,
         $markdown,
-        $validator,
-        $logger
+        $validator
     );
 };
 
@@ -235,7 +233,7 @@ $container[PostResource::class] = function (Container $container) {
     return new PostResource($entityManager);
 };
 
-$container[PostValidator::class] = function (Container $container) {
+$container[PostValidator::class] = function () {
     return new PostValidator();
 };
 
@@ -253,7 +251,7 @@ $container[EnquiryController::class] = function (Container $container) {
     return new EnquiryController($validator, $resource, $mailer, $logger);
 };
 
-$container[EnquiryValidator::class] = function (Container $container) {
+$container[EnquiryValidator::class] = function () {
     return new EnquiryValidator();
 };
 
@@ -281,7 +279,7 @@ $container[RegistrationController::class] = function (Container $container) {
     return new RegistrationController($view, $session, $validator, $resource);
 };
 
-$container[RegistrationValidator::class] = function (Container $container) {
+$container[RegistrationValidator::class] = function () {
     return new RegistrationValidator();
 };
 
@@ -306,7 +304,7 @@ $container[SwiftMailer::class] = function (Container $container) {
     return new SwiftMailer($transport);
 };
 
-$container[Emogrifier::class] = function (Container $container) {
+$container[Emogrifier::class] = function () {
     return new Emogrifier();
 };
 
@@ -320,7 +318,7 @@ $container[Mailer::class] = function (Container $container) {
 
 $container[Csrf::class] = function (Container $container) {
     $csrf = new Csrf();
-    $csrf->setFailureCallable(function (Request $request, Response $response, callable $next) use ($container, $csrf) {
+    $csrf->setFailureCallable(function (Request $request, Response $response) use ($container, $csrf) {
         $view = $container->get(Plates::class);
         $view->setResponse($response->withStatus(418));
         return $view->render(

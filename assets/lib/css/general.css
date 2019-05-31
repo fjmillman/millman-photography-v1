@@ -53,8 +53,7 @@ a.button {
 }
 
 button.submit {
-  margin: 20px;
-  margin-bottom: 0;
+  margin: 20px 20px 0;
 }
 
 button:hover {

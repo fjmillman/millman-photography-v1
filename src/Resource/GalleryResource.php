@@ -3,6 +3,8 @@
 namespace MillmanPhotography\Resource;
 
 use Arrayzy\ArrayImitator as A;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 
 use MillmanPhotography\Entity\Gallery;
 
@@ -20,10 +22,9 @@ class GalleryResource extends Resource
     /**
      * Get a collection of galleries by given parameters
      *
-     * @param array $parameters
      * @return array
      */
-    public function get(array $parameters = null) :array
+    public function get() :array
     {
         return $this->entityManager->getRepository(Gallery::class)->findBy([], ['title' => 'ASC']);
     }
@@ -32,9 +33,9 @@ class GalleryResource extends Resource
      * Get a gallery by id
      *
      * @param int $id
-     * @return object
+     * @return Gallery
      */
-    public function getById(int $id) :object
+    public function getById(int $id) :Gallery
     {
         return $this->entityManager->getRepository(Gallery::class)->find($id);
     }
@@ -72,6 +73,7 @@ class GalleryResource extends Resource
      *
      * @param Gallery $gallery
      * @return Gallery
+     * @throws NonUniqueResultException
      */
     public function getPrevious(Gallery $gallery) :?Gallery
     {
@@ -92,6 +94,7 @@ class GalleryResource extends Resource
      *
      * @param Gallery $gallery
      * @return Gallery
+     * @throws NonUniqueResultException
      */
     public function getNext(Gallery $gallery) :?Gallery
     {
@@ -113,6 +116,7 @@ class GalleryResource extends Resource
      * @param array $data
      * @param array $images
      * @return string
+     * @throws ORMException
      */
     public function create(array $data, array $images) :string
     {
@@ -140,6 +144,7 @@ class GalleryResource extends Resource
      * @param array $data
      * @param array $images
      * @return string
+     * @throws ORMException
      */
     public function update(Gallery $gallery, array $data, array $images) :string
     {
@@ -162,6 +167,7 @@ class GalleryResource extends Resource
      * Delete an existing gallery
      *
      * @param Gallery $gallery
+     * @throws ORMException
      */
     public function delete(Gallery $gallery) :void
     {

@@ -4,8 +4,6 @@ namespace MillmanPhotography\Entity;
 
 use Arrayzy\ArrayImitator as A;
 use Doctrine\ORM\Mapping as ORM;
-use Dotenv\Dotenv;
-use Projek\Slim\Monolog;
 use function Stringy\Create as S;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

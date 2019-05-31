@@ -150,7 +150,7 @@ class Tag
             $this->removePostTag($postTag);
         });
 
-        if (count($this->getPostTag()) !== 0) return $this;
+        if (is_countable($this->getPostTag()) && count($this->getPostTag()) !== 0) return $this;
 
         return null;
     }

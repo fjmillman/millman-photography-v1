@@ -9,8 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use MillmanPhotography\Entity\Traits\Timestamps;
-use function Stringy\create;
-use Stringy\Stringy;
 
 /**
  * @ORM\Entity

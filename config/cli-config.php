@@ -3,6 +3,7 @@
 use Dotenv\Dotenv;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -21,6 +22,10 @@ $config = Setup::createAnnotationMetadataConfiguration(
     false
 );
 
-$em = EntityManager::create($settings['connection'], $config);
+try {
+    $em = EntityManager::create($settings['connection'], $config);
+} catch (ORMException $exception) {
+
+}
 
 return ConsoleRunner::createHelperSet($em);

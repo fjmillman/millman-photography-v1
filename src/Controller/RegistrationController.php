@@ -63,6 +63,8 @@ class RegistrationController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function register(Request $request, Response $response) :Response
     {

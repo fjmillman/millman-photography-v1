@@ -4,8 +4,10 @@
     <!-- Background -->
     <div data-responsive-background-image>
         <img id="background-image"
+             alt="background image"
              src="<?= $this->baseUrl($this->getUrl(isset($image) ? $image : '', ['w' => '1024'])) ?>"
-             data-image-data=<?= isset($imageData) ? $imageData : '' ?>>
+             data-image-data=<?= isset($imageData) ? $imageData : '' ?>
+        >
     </div>
 
     <!-- Header -->
@@ -14,7 +16,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 banner">
-                    <img class="signature img-fluid" src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>">
+                    <img class="signature img-fluid"
+                         src="<?= $this->baseUrl($this->asset('img/signature.png')) ?>"
+                         alt="signature"
+                    >
                     <h2 class="header-heading">Millman Photography</h2>
                     <h3 class="header-subheading">Photography by Freddie John Millman</h3>
                 </div>
@@ -63,7 +68,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="<?= $this->asset('img/portrait.jpg') ?>" aria-label="Portrait" class="img-fluid portrait">
+                    <img src="<?= $this->asset('img/portrait.jpg') ?>"
+                         aria-label="Portrait"
+                         class="img-fluid portrait"
+                         alt="portrait"
+                    >
                 </div>
                 <div class="col-lg-6">
                     <div class="text-block">

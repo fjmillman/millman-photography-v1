@@ -31,6 +31,7 @@ class TagController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function __invoke(Request $request, Response $response) :Response
     {

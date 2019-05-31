@@ -50,6 +50,8 @@ class ArchiveController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function archive(Request $request, Response $response) :Response
     {
@@ -64,6 +66,8 @@ class ArchiveController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function restore(Request $request, Response $response) :Response
     {

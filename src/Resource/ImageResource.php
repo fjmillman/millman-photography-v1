@@ -3,6 +3,8 @@
 namespace MillmanPhotography\Resource;
 
 use Arrayzy\ArrayImitator as A;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 
 use MillmanPhotography\Entity\Image;
 use MillmanPhotography\Entity\ShowcaseImage;
@@ -35,9 +37,9 @@ class ImageResource extends Resource
      * Get an image by id
      *
      * @param int $id
-     * @return object
+     * @return Image
      */
-    public function getById(int $id) : object
+    public function getById(int $id) :Image
     {
         return $this->entityManager->getRepository(Image::class)->find($id);
     }
@@ -86,6 +88,8 @@ class ImageResource extends Resource
      *
      * @param array $data
      * @return string
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(array $data) :string
     {
@@ -117,6 +121,8 @@ class ImageResource extends Resource
      * @param Image $image
      * @param array $data
      * @return string
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function update(Image $image, array $data) :string
     {
@@ -152,6 +158,8 @@ class ImageResource extends Resource
      * Delete an existing image
      *
      * @param Image $image
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Image $image) :void
     {

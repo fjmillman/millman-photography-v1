@@ -5,6 +5,7 @@
     "doctrine/orm": "^2.5",
     "monolog/monolog": "^1.22",
     "vlucas/phpdotenv": "^2.4",
+    "ext-json": "*",
     "doctrine/migrations": "^1.4",
     "jdorn/sql-formatter": "^1.2",
     "projek-xyz/slim-plates": "^0.2.2",

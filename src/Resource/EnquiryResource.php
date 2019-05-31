@@ -2,6 +2,9 @@
 
 namespace MillmanPhotography\Resource;
 
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+
 use MillmanPhotography\Entity\Enquiry;
 
 class EnquiryResource extends Resource
@@ -25,9 +28,9 @@ class EnquiryResource extends Resource
      * Get an enquiry by id
      *
      * @param int $id
-     * @return object
+     * @return Enquiry
      */
-    public function getById(int $id) :object
+    public function getById(int $id) :Enquiry
     {
         return $this->entityManager->getRepository(Enquiry::class)->find($id);
     }
@@ -37,6 +40,8 @@ class EnquiryResource extends Resource
      *
      * @param array $data
      * @return Enquiry $enquiry
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(array $data) :Enquiry
     {
@@ -57,6 +62,7 @@ class EnquiryResource extends Resource
      *
      * @param integer $id
      * @param array $data
+     * @throws ORMException
      */
     public function update(int $id, array $data) :void
     {
@@ -74,6 +80,7 @@ class EnquiryResource extends Resource
      * Delete an existing enquiry
      *
      * @param int $id
+     * @throws ORMException
      */
     public function delete(int $id) :void
     {

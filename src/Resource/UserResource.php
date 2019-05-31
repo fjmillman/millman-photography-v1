@@ -2,6 +2,9 @@
 
 namespace MillmanPhotography\Resource;
 
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+
 use MillmanPhotography\Entity\User;
 
 class UserResource extends Resource
@@ -25,9 +28,9 @@ class UserResource extends Resource
      * Get a user by id
      *
      * @param int $id
-     * @return object
+     * @return User
      */
-    public function getById(int $id) :object
+    public function getById(int $id) :User
     {
         return $this->entityManager->getRepository(User::class)->find($id);
     }
@@ -49,7 +52,7 @@ class UserResource extends Resource
      * @param string $token
      * @return User
      */
-    public function getByToken(string $token) : ?User
+    public function getByToken(string $token) :?User
     {
         return $this->entityManager->getRepository(User::class)->findOneBy(['token' => $token]);
     }
@@ -58,6 +61,9 @@ class UserResource extends Resource
      * Create a new user
      *
      * @param array $data
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws \Exception
      */
     public function create(array $data) :void
     {
@@ -77,6 +83,8 @@ class UserResource extends Resource
      *
      * @param int $id
      * @param string $password
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function updatePassword(int $id, string $password) :void
     {
@@ -93,6 +101,9 @@ class UserResource extends Resource
      *
      * @param int $id
      * @return string $token
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws \Exception
      */
     public function updateToken(int $id) :string
     {
@@ -111,6 +122,9 @@ class UserResource extends Resource
      *
      * @param int $id
      * @param array $data
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws \Exception
      */
     public function update(int $id, array $data) :void
     {
@@ -129,6 +143,8 @@ class UserResource extends Resource
      * Delete an existing user
      *
      * @param int $id
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(int $id) :void
     {

@@ -3,7 +3,7 @@
 namespace MillmanPhotography\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20170606150000 extends AbstractMigration
 {

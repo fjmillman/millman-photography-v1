@@ -3,7 +3,6 @@
 namespace MillmanPhotography\Controller;
 
 use Projek\Slim\Plates;
-use Projek\Slim\Monolog;
 use Arrayzy\ArrayImitator as A;
 use League\Glide\Urls\UrlBuilder;
 use League\CommonMark\CommonMarkConverter;
@@ -77,6 +76,7 @@ class PostController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function __invoke(Request $request, Response $response) :Response
     {
@@ -127,6 +127,8 @@ class PostController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function store(Request $request, Response $response) :Response
     {
@@ -189,6 +191,8 @@ class PostController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(Request $request, Response $response) :Response
     {
@@ -219,6 +223,8 @@ class PostController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function delete(Request $request, Response $response) :Response
     {

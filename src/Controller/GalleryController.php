@@ -82,6 +82,7 @@ class GalleryController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function show(Request $request, Response $response) :Response
     {
@@ -156,6 +157,7 @@ class GalleryController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
      */
     public function store(Request $request, Response $response) :Response
     {
@@ -202,6 +204,7 @@ class GalleryController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
      */
     public function update(Request $request, Response $response) :Response
     {
@@ -227,6 +230,7 @@ class GalleryController
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
      */
     public function delete(Request $request, Response $response) :Response
     {

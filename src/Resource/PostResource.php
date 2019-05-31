@@ -2,7 +2,10 @@
 
 namespace MillmanPhotography\Resource;
 
+use Doctrine\ORM\ORMException;
 use Arrayzy\ArrayImitator as A;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\NonUniqueResultException;
 
 use MillmanPhotography\Entity\Post;
 use MillmanPhotography\Entity\User;
@@ -35,9 +38,9 @@ class PostResource extends Resource
      * Get a post by id
      *
      * @param int $id
-     * @return object
+     * @return Post
      */
-    public function getById(int $id) :object
+    public function getById(int $id) :Post
     {
         return $this->entityManager->getRepository(Post::class)->find($id);
     }
@@ -76,6 +79,7 @@ class PostResource extends Resource
      *
      * @param Post $post
      * @return Post
+     * @throws NonUniqueResultException
      */
     public function getPrevious(Post $post) :?Post
     {
@@ -98,6 +102,7 @@ class PostResource extends Resource
      *
      * @param Post $post
      * @return Post
+     * @throws NonUniqueResultException
      */
     public function getNext(Post $post) :?Post
     {
@@ -136,6 +141,8 @@ class PostResource extends Resource
      * @param array $images
      * @param User $user
      * @return string $slug
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(array $data, array $tags, array $images, User $user) :string
     {
@@ -167,6 +174,8 @@ class PostResource extends Resource
      * @param array $tags
      * @param array $images
      * @return string $slug
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function update(Post $post, array $data, array $tags, array $images) :string
     {
@@ -190,6 +199,8 @@ class PostResource extends Resource
      * Archive an existing post
      *
      * @param Post $post
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function archive(Post $post) :void
     {
@@ -203,6 +214,8 @@ class PostResource extends Resource
      * Restore an archived post
      *
      * @param Post $post
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function restore(Post $post) :void
     {
@@ -216,6 +229,8 @@ class PostResource extends Resource
      * Delete an existing post
      *
      * @param Post $post
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Post $post) :void
     {

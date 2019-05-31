@@ -38,8 +38,7 @@
 .edit-button,
 .delete-button,
 .archive-button,
-.restore-button,
-.add-post-button {
+.restore-button {
   & a {
     &:hover,
     &:focus,
